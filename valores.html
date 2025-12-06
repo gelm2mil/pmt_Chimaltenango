@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión, Visión y Valores - PMT Chimaltenango</title>
+<style>
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+}
+
+/* Tarjetas */
+.card {
+    width: 320px;
+    background-color: #111;
+    border: 3px solid #27F52A;
+    border-radius: 14px;
+    box-shadow: 0 0 25px #27F52A;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    animation: fadeUp 1s ease-in-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Posiciones */
+.card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+.card:nth-child(2) {
+    animation-delay: 0.5s;
+    margin-top: 25px; /* el del centro más abajo */
+}
+.card:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+/* Efecto al pasar el mouse */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px #39ff14, 0 0 80px #00ff00;
+    cursor: pointer;
+}
+
+/* Título */
+.card h2 {
+    color: #00FF00;
+    text-shadow: 0 0 10px #27F52A, 0 0 20px #27F52A;
+    margin-bottom: 12px;
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+/* Texto */
+.card p {
+    color: #bfffbf;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Animaciones */
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
+@media (max-width: 950px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+    }
+    .card {
+        width: 90%;
+        max-width: 380px;
+        margin-bottom: 20px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Misión -->
+    <div class="card">
+        <h2>MISIÓN</h2>
+        <p>
+            Velar por el cumplimiento eficaz de la administración del tránsito a través
+            de la ejecución eficiente de estrategias, planes y acciones, utilizando tecnología
+            adecuada dentro del marco legal aplicable dentro de la materia de tránsito.
+        </p>
+    </div>
+
+    <!-- Valores (Centro) -->
+    <div class="card">
+        <h2>VALORES</h2>
+        <p>
+            <strong>Disciplina:</strong> Coordinación de actitudes con las cuales se instruye para desarrollar habilidades
+            y mantener un código de conducta.<br><br>
+            <strong>Compromiso:</strong> Transformar una promesa en realidad, actuar con valentía ante las circunstancias,
+            cumplir con lo prometido incluso cuando sea difícil.<br><br>
+            <strong>Honestidad:</strong> Orientar la conducta hacia la rectitud, la honradez y la integridad en todo momento.
+        </p>
+    </div>
+
+    <!-- Visión -->
+    <div class="card">
+        <h2>VISIÓN</h2>
+        <p>
+            Ser la Policía Municipal de Tránsito, especializada en educación, prevención y seguridad vial,
+            que garantice la adecuada administración del tránsito con el fin de proteger la vida del usuario
+            de la vía pública.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
