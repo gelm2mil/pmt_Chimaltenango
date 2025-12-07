@@ -3,17 +3,42 @@
     <h2>Bienvenido</h2>
     <p class="muted">Policía Municipal de Tránsito • Chimaltenango</p>
 
+    <!-- LOGOS -->
     <div class="logos-area">
         <img src="icons/pmt.png" class="logo-pmt" alt="Escudo PMT">
         <img src="icons/pmtchimaltenango.jpg" class="banner-pmt" alt="PMT Chimaltenango">
     </div>
 
-    <p class="intro-text">
-        La PMT trabaja diariamente para el orden vial, seguridad y educación 
-        en nuestra ciudad.  
-        <br>Estamos al servicio del pueblo chimalteco.
-    </p>
+    <!-- SECCIÓN PRESENTACIÓN -->
+    <div class="card">
+        <h3>Misión Institucional</h3>
+        <p>
+            “Promover la seguridad vial, el ordenamiento del tránsito y la educación vial,
+            contribuyendo al bienestar y movilidad segura de nuestra población”.
+        </p>
+        <p class="placeholder">*Texto oficial pendiente de actualización.*</p>
+    </div>
 
+    <div class="card">
+        <h3>Visión Institucional</h3>
+        <p>
+            “Ser una entidad moderna, eficiente y reconocida por su servicio, responsabilidad
+            y compromiso con la ciudadanía”.
+        </p>
+        <p class="placeholder">*Contenido final será actualizado próximamente.*</p>
+    </div>
+
+    <!-- SECCIÓN DE AVISOS -->
+    <div class="card">
+        <h3>Avisos Importantes</h3>
+        <ul class="avisos">
+            <li>Página oficial PMT en construcción.</li>
+            <li>Se están integrando módulos de información y transparencia.</li>
+            <li>Próximamente: reportes, operativos, y educación vial interactiva.</li>
+        </ul>
+    </div>
+
+    <!-- SECCIÓN MARCA DE AGUA -->
 </div>
 
 <style>
@@ -29,7 +54,7 @@
     position: absolute;
     inset: 0;
     background: url("icons/pmtchimaltenango.jpg") center/55% no-repeat;
-    opacity: 0.08;
+    opacity: 0.07;
     z-index: 0;
     pointer-events: none;
 }
@@ -43,21 +68,52 @@
 }
 
 .logo-pmt {
-    width: 200px;
-    filter: drop-shadow(0 0 12px #00ff66a8);
+    width: 180px;
+    filter: drop-shadow(0 0 10px #00ff66aa);
 }
 
 .banner-pmt {
-    width: 420px;
+    width: 380px;
     border-radius: 12px;
     box-shadow: 0 0 15px #00ff6695;
 }
 
-.intro-text {
-    margin-top: 25px;
-    font-size: 17px;
-    color: #baffba;
-    font-weight: 300;
-    max-width: 820px;
+/* TARJETAS */
+.card {
+    background: rgba(0, 10, 5, 0.65);
+    border: 1px solid #00ff6680;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 14px rgba(0,255,120,.25);
+}
+
+.card h3 {
+    color: #00ff99;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0,255,100,.6);
+}
+
+.card p {
+    color: #e8ffe8;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.placeholder {
+    color: #77ff77;
+    font-size: 12px;
+    opacity: .7;
+}
+
+/* AVISOS */
+.avisos {
+    color: #cfffd5;
+    margin-left: 20px;
+}
+
+.avisos li {
+    margin-bottom: 6px;
 }
 </style>
