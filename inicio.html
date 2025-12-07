@@ -1,17 +1,11 @@
 <div class="inicio modulo fade-in">
 
-    <h2>Bienvenido</h2>
-    <p class="muted">Policía Municipal de Tránsito • Chimaltenango</p>
-
-    <!-- LOGOS -->
-    <div class="logos-area">
-        <img src="icons/pmt.png" class="logo-pmt" alt="Escudo PMT">
-        <img src="icons/pmtchimaltenango.jpg" class="banner-pmt" alt="PMT Chimaltenango">
-    </div>
+    <h2 class="titulo-brillante">Bienvenido</h2>
+    <p class="muted subtitulo">Policía Municipal de Tránsito • Chimaltenango</p>
 
     <!-- SECCIÓN PRESENTACIÓN -->
-    <div class="card">
-        <h3>Misión Institucional</h3>
+    <div class="card neon-card">
+        <h3 class="card-title">Misión Institucional</h3>
         <p>
             “Promover la seguridad vial, el ordenamiento del tránsito y la educación vial,
             contribuyendo al bienestar y movilidad segura de nuestra población”.
@@ -19,101 +13,108 @@
         <p class="placeholder">*Texto oficial pendiente de actualización.*</p>
     </div>
 
-    <div class="card">
-        <h3>Visión Institucional</h3>
+    <div class="card neon-card">
+        <h3 class="card-title">Visión Institucional</h3>
         <p>
-            “Ser una entidad moderna, eficiente y reconocida por su servicio, responsabilidad
-            y compromiso con la ciudadanía”.
+            “Ser una entidad moderna, eficiente y reconocida por su servicio, responsabilidad y
+            compromiso con la ciudadanía”.
         </p>
         <p class="placeholder">*Contenido final será actualizado próximamente.*</p>
     </div>
 
-    <!-- SECCIÓN DE AVISOS -->
-    <div class="card">
-        <h3>Avisos Importantes</h3>
+    <div class="card neon-card">
+        <h3 class="card-title">Avisos Importantes</h3>
         <ul class="avisos">
             <li>Página oficial PMT en construcción.</li>
             <li>Se están integrando módulos de información y transparencia.</li>
-            <li>Próximamente: reportes, operativos, y educación vial interactiva.</li>
+            <li>Próximamente: reportes, operativos y educación vial interactiva.</li>
         </ul>
     </div>
 
-    <!-- SECCIÓN MARCA DE AGUA -->
 </div>
 
 <style>
+/* ============================= */
+/*     MARCA DE AGUA ELEGANTE    */
+/* ============================= */
 .inicio {
     position: relative;
     z-index: 2;
     padding: 20px;
 }
 
-/* Marca de agua */
 .inicio::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: url("icons/pmtchimaltenango.jpg") center/55% no-repeat;
-    opacity: 0.07;
+    background: url("icons/pmtchimaltenango.jpg") center/45% no-repeat;
+    opacity: 0.06;
     z-index: 0;
     pointer-events: none;
 }
 
-/* LOGOS */
-.logos-area {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    margin: 25px 0;
+/* ============================= */
+/*        TITULOS RADIANTES      */
+/* ============================= */
+.titulo-brillante {
+    color: #00ff99;
+    text-shadow: 0 0 12px #00ff99aa, 0 0 25px #00ffaa55;
+    font-size: 28px;
 }
 
-.logo-pmt {
-    width: 180px;
-    filter: drop-shadow(0 0 10px #00ff66aa);
+.subtitulo {
+    font-size: 15px;
+    text-shadow: 0 0 8px #00ff8866;
 }
 
-.banner-pmt {
-    width: 380px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #00ff6695;
-}
-
-/* TARJETAS */
-.card {
-    background: rgba(0, 10, 5, 0.65);
+/* ============================= */
+/*          TARJETAS PMT         */
+/* ============================= */
+.neon-card {
+    background: rgba(0, 10, 5, 0.6);
     border: 1px solid #00ff6680;
     border-radius: 12px;
-    padding: 18px 20px;
+    padding: 20px;
     margin-bottom: 20px;
     backdrop-filter: blur(4px);
-    box-shadow: 0 0 14px rgba(0,255,120,.25);
+    box-shadow: 0 0 12px #00ff4480 inset;
+    animation: neonPulse 3.5s infinite alternate ease-in-out;
 }
 
-.card h3 {
+.card-title {
     color: #00ff99;
     margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(0,255,100,.6);
+    text-shadow: 0 0 10px #00ff99cc;
 }
 
-.card p {
-    color: #e8ffe8;
-    font-size: 15px;
-    line-height: 1.5;
-}
-
-.placeholder {
-    color: #77ff77;
-    font-size: 12px;
-    opacity: .7;
-}
-
-/* AVISOS */
+/* ============================= */
+/*     LISTA AVISOS              */
+/* ============================= */
 .avisos {
-    color: #cfffd5;
-    margin-left: 20px;
+    margin-left: 25px;
+    color: #d6ffda;
 }
 
 .avisos li {
     margin-bottom: 6px;
+}
+
+/* ============================= */
+/*     EFECTO DE PULSO NEÓN      */
+/* ============================= */
+@keyframes neonPulse {
+    from {
+        box-shadow: 0 0 10px #00ff4490 inset;
+    }
+    to {
+        box-shadow: 0 0 22px #00ff4490 inset, 0 0 18px #00ffaa40;
+    }
+}
+
+/* MARCADOR */
+.placeholder {
+    color: #77ff77;
+    font-size: 12px;
+    opacity: .7;
 }
 </style>
