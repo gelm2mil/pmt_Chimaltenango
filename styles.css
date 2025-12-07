@@ -296,3 +296,17 @@ header {
   margin-top: 10px;
   text-shadow: 0 0 8px var(--neon);
 }
+.panel {
+    position: relative;
+}
+
+/* MARCA DE AGUA */
+.panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("icons/pmtchimaltenango.jpg") center/60% no-repeat;
+    opacity: 0.09;  /* <<< Transparencia elegante */
+    z-index: 0;
+    pointer-events: none; /* Para que no bloquee los botones */
+}
