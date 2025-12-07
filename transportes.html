@@ -1,1 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transportes PMT Chimaltenango</title>
+
+<!-- AQUI SI VA EL CSS INTERNO -->
+<style>
+
+/* ============================= */
+/* TEXTO NEÓN TIPO GELM          */
+/* ============================= */
+.texto-neon {
+    color: #00ff95;
+    font-weight: bold;
+    text-shadow:
+        0 0 5px #00ff95,
+        0 0 10px #00ff95,
+        0 0 20px #00ff95,
+        0 0 40px #00ff95;
+}
+
+/* ============================= */
+/* MARCO NEÓN BASE (RESPIRA)     */
+/* ============================= */
+.marco-neon {
+    border: 3px solid #00ff95;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 35px;
+    background: rgba(0, 0, 0, 0.45);
+    box-shadow:
+        0 0 10px #00ff95,
+        0 0 25px #00ff95,
+        inset 0 0 10px #00ff95;
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow:
+            0 0 8px #00ff95,
+            0 0 18px #00ff95,
+            inset 0 0 5px #00ff95;
+    }
+    100% {
+        box-shadow:
+            0 0 25px #00ff95,
+            0 0 45px #00ff95,
+            inset 0 0 15px #00ff95;
+    }
+}
+
+/* ============================= */
+/* MARCO DOBLE NEÓN PREMIUM      */
+/* ============================= */
+.marco-neon-doble {
+    position: relative;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    background: rgba(0,0,0,0.45);
+    border: 3px solid #00ff95;
+    box-shadow:
+        0 0 15px #00ff95,
+        inset 0 0 10px #00ff95;
+    overflow: hidden;
+}
+
+.marco-neon-doble::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: 10px;
+    border: 2px solid #00ff95;
+    opacity: 0.7;
+    box-shadow: 0 0 20px #00ff95;
+}
+
+/* ============================= */
+/* MARCO SCANNER FUTURISTA       */
+/* ============================= */
+.marco-scanner {
+    position: relative;
+    border: 3px solid #00ff95;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 40px;
+    background: rgba(0,0,0,0.45);
+    overflow: hidden;
+    color: white;
+    box-shadow:
+        0 0 10px #00ff95,
+        0 0 40px #00ff95;
+}
+
+.marco-scanner::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(0,255,149,0.4), rgba(0,255,149,0));
+    animation: scanner 4s linear infinite;
+}
+
+@keyframes scanner {
+    0% { top: -100%; }
+    100% { top: 120%; }
+}
+
+</style>
+
+<!-- IMPORTANTE: TU styles.css DEBE QUEDAR ABAJO DEL STYLE -->
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="modulo fade-in">
+
+    <h2 class="titulo-modulo texto-neon">Transportes PMT CHIMALTENANGO</h2>
+
+    <p class="texto-neon" style="text-align:center; margin-bottom:25px;">
+        Unidad encargada de la regulación, supervisión y control del servicio público de transporte 
+        en el municipio de Chimaltenango.
+    </p>
+
+    <!-- MARCO BASE -->
+    <div class="marco-neon">
+        <h3 class="texto-neon">Identificación del Puesto</h3>
+        <p>
+            Regular el servicio público de transporte colectivo de pasajeros, garantizando eficiencia,
+            seguridad y calidad en el servicio que reciben los usuarios.
+        </p>
+    </div>
+
+    <!-- MARCO SCANNER -->
+    <div class="marco-scanner">
+        <h3 class="texto-neon">Responsabilidad</h3>
+        <p>
+            Garantizar el buen uso del transporte colectivo: urbano, extraurbano, mototaxis, fletes, 
+            recolectores de basura y escolar. Mantener registros administrativos: propietarios, unidades, 
+            conductores, consignaciones, traspasos, cambios de vehículo y derechos municipales.
+        </p>
+    </div>
+
+    <!-- MARCO DOBLE -->
+    <div class="marco-neon-doble">
+        <h3 class="texto-neon">Función General</h3>
+        <p>
+            Planificar, coordinar y supervisar las actividades relacionadas con el transporte colectivo...
+        </p>
+    </div>
+
+    <!-- ANUNCIO IMPORTANTE -->
+    <div class="marco-neon-doble" style="text-align:center;">
+        <h3 class="texto-neon">ANUNCIO IMPORTANTE</h3>
+
+        <img src="icons/pmt.png"
+             style="width:260px; border-radius:12px; margin:15px 0;
+                    box-shadow:0 0 25px #00ff95;">
+
+        <p class="texto-neon" style="font-size:18px;">
+            Revisión anual obligatoria inicia el 15 de Febrero 2026.
+        </p>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="marco-scanner">
+        <h3 class="texto-neon" style="text-align:center;">VIDEO INFORMATIVO</h3>
+
+        <video src="videos/informativo.mp4"
+               controls
+               style="width:100%; border-radius:12px; margin-top:15px;
+                      box-shadow:0 0 25px #00ff95;">
+        </video>
+    </div>
+
+</div>
+
+</body>
+</html>
 
