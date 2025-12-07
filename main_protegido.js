@@ -1,70 +1,46 @@
-/* ============================================================
-   main_protegido.js — Sistema de carga dinámica PMT Chimaltenango
-   Desarrollado para GELM • Edición NEÓN 2026
-   ============================================================ */
+// --- Sistema de carga dinámica de módulos PMT GELM ---
 
-// --- Protección básica (Evita abrir el JS directamente) ---
-if (location.pathname.endsWith("main_protegido.js")) {
-    document.body.innerHTML = "<h2 style='color:red;text-align:center;margin-top:40px;'>Acceso no permitido.</h2>";
-    throw new Error("Bloqueado acceso directo.");
-}
+const panel = document.getElementById("panel");
 
-// --- Mapeo de módulos a sus archivos HTML ---
 const rutas = {
     inicio: "inicio.html",
-    mision: "mision.html",
+    mision: "valores.html",
     transportes: "transportes.html",
     operativos: "operativos.html",
     publica: "publica.html",
     educacion: "educacion.html",
     contacto: "contacto.html",
-    redes: "redes.html",
-    valores: "valores.html"   // ← módulo solicitado
+    redes: "redes.html"
 };
 
-// --- Selección del panel central donde cargará el contenido ---
-const panel = document.getElementById("panel");
+// Cargar módulo por nombre
+async function cargarModulo(nombre) {
+    if (!rutas[nombre]) return;
 
-// --- Cargar módulo por defecto (Inicio) al abrir la página ---
-window.addEventListener("DOMContentLoaded", () => {
-    cargarModulo("inicio");
-
-    // marca inicio como activo
-    const btnInicio = document.querySelector('[data-module="inicio"]');
-    if (btnInicio) btnInicio.classList.add("active");
-});
-
-// --- Función principal: carga HTML dentro del panel ---
-function cargarModulo(mod) {
-    const ruta = rutas[mod];
-
-    if (!ruta) {
-        panel.innerHTML = `<p style="color:red;">Error: módulo '${mod}' no existe.</p>`;
-        return;
+    try {
+        const respuesta = await fetch(rutas[nombre]);
+        const html = await respuesta.text();
+        panel.innerHTML = html;
+        window.scrollTo(0, 0);
+    } catch (error) {
+        panel.innerHTML = "<p style='color:red;'>Error cargando el módulo.</p>";
+        console.error(error);
     }
-
-    fetch(ruta)
-        .then(resp => resp.text())
-        .then(html => {
-            panel.innerHTML = html;
-            panel.classList.add("fade-in");
-
-            setTimeout(() => panel.classList.remove("fade-in"), 400);
-        })
-        .catch(err => {
-            panel.innerHTML = `<p style="color:red;">No se pudo cargar ${ruta}</p>`;
-        });
 }
 
-// --- Activar módulos al hacer clic en el menú ---
+// Activar botones del menú
 document.querySelectorAll(".menu-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-        const modulo = btn.dataset.module;
+        document
+            .querySelectorAll(".menu-btn")
+            .forEach(b => b.classList.remove("active"));
 
-        // quitar clases activas
-        document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
+        const modulo = btn.dataset.module;
         cargarModulo(modulo);
     });
 });
+
+// Cargar INICIO por defecto
+cargarModulo("inicio");
