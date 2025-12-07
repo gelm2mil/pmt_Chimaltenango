@@ -7,7 +7,7 @@ const panel = document.getElementById("panel");
 // Lista de rutas de cada módulo
 const rutas = {
     inicio: "inicio.html",
-    mision: "valores.html",
+    valores: "valores.html",
     transportes: "transportes.html",
     operativos: "operativos.html",
     publica: "publica.html",
