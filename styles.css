@@ -213,3 +213,15 @@ header {
             "player player";
     }
 }
+/* --- Pulsación global de marcos NEÓN --- */
+@keyframes neonPulse {
+  0% { box-shadow:0 0 14px #00ff66; }
+  50% { box-shadow:0 0 28px #00ff66; }
+  100% { box-shadow:0 0 14px #00ff66; }
+}
+
+.panel,
+.menu,
+.player-box {
+  animation: neonPulse 2.6s infinite ease-in-out;
+}
