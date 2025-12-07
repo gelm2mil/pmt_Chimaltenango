@@ -1,83 +1,132 @@
-<div class="modulo fade-in">
+<style>
 
-    <!-- TITULO PRINCIPAL -->
-    <h2 class="titulo-modulo">Transportes PMT CHIMALTENANGO</h2>
-    <p class="muted" style="text-align:center; margin-bottom:25px;">
-        Unidad encargada de la regulación, supervisión y control del servicio público de transporte 
-        en el municipio de Chimaltenango.
-    </p>
+/* ======================================= */
+/*        TEXTO NEÓN TIPO GELM             */
+/* ======================================= */
+.texto-neon {
+    color: #00ff95;
+    font-weight: bold;
+    text-shadow:
+        0 0 5px #00ff95,
+        0 0 10px #00ff95,
+        0 0 20px #00ff95,
+        0 0 40px #00ff95;
+}
 
-    <!-- ============================ -->
-    <!-- MARCO 1 – IDENTIFICACIÓN     -->
-    <!-- ============================ -->
-    <div class="card-neon">
-        <h3 class="card-title">Identificación del Puesto</h3>
+/* ======================================= */
+/*        MARCO NEÓN BASE                  */
+/* ======================================= */
+.marco-neon {
+    border: 3px solid #00ff95;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 35px;
+    background: rgba(0, 0, 0, 0.45);
 
-            Regular el servicio público de transporte colectivo de pasajeros, garantizando eficiencia,
-            seguridad y calidad en el servicio que reciben los usuarios.
-        </p>
+    box-shadow:
+        0 0 10px #00ff95,
+        0 0 25px #00ff95,
+        inset 0 0 10px #00ff95;
 
-     
-        <h4 class="sub-title">Responsabilidad</h4>
-        <p>
-            Garantizar el buen uso del transporte colectivo de pasajeros, verificar estado de unidades, 
-            monitorear servicio urbano, extraurbano, mototaxis, fletes, recolectores de basura y servicio escolar.
-            Mantener registros administrativos: propietarios, unidades, conductores, consignaciones, traspasos, 
-            cambios de vehículo y derechos municipales.
-        </p>
-    </div>
+    animation: glow 3s ease-in-out infinite alternate;
+}
 
-    <!-- ============================ -->
-    <!-- MARCO 2 – FUNCIÓN GENERAL    -->
-    <!-- ============================ -->
-    <div class="card-neon">
-        <h3 class="card-title">Función General</h3>
-        <p>
-            Planificar, coordinar y supervisar las actividades relacionadas con el transporte colectivo de bienes
-            y/o personas, garantizando eficiencia operativa, cumplimiento legal, seguridad vial, gestión logística
-            adecuada y calidad del servicio, contribuyendo directamente a los objetivos estratégicos de la Policía
-            Municipal de Tránsito.
-        </p>
-    </div>
+/* Respiración */
+@keyframes glow {
+    0% {
+        box-shadow:
+            0 0 8px #00ff95,
+            0 0 18px #00ff95,
+            inset 0 0 5px #00ff95;
+    }
+    100% {
+        box-shadow:
+            0 0 25px #00ff95,
+            0 0 45px #00ff95,
+            inset 0 0 15px #00ff95;
+    }
+}
 
-    <!-- ======================================= -->
-    <!-- MARCO 3 – FUNCIONES Y ATRIBUCIONES      -->
-    <!-- ======================================= -->
-    <div class="card-neon">
-        <h3 class="card-title">Funciones y Atribuciones Específicas</h3>
+/* ======================================= */
+/*   MARCO NEÓN DOBLE BORDE (PREMIUM)      */
+/* ======================================= */
+.marco-neon-doble {
+    position: relative;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    background: rgba(0,0,0,0.45);
+    border: 3px solid #00ff95;
+    box-shadow:
+        0 0 15px #00ff95,
+        inset 0 0 10px #00ff95;
+    overflow: hidden;
+}
 
-        <ul class="lista">
-            <li>Cumplimiento a leyes y reglamento de tránsito: decretos 132-96, 84-2005, 15-2014, 253-46, 45-2016, 11-2017 y acuerdo gubernativo 273-98.</li>
-            <li>Aplicación de sanciones según artículos 180 al 185 del reglamento de tránsito.</li>
-            <li>Manejo administrativo y operativo de la unidad.</li>
-            <li>Atención al vecino mediante calidad y excelencia.</li>
-            <li>Recepción y trámite de quejas o denuncias vía teléfono, redes sociales o verbal.</li>
-            <li>Coordinación con Juzgado Municipal para digitación y seguimiento de consignas.</li>
-            <li>Supervisión constante a todo servicio colectivo, incluyendo líneas sin permiso.</li>
-            <li>Revisión anual obligatoria de todas las unidades del servicio colectivo.</li>
-            <li>Entrega de calcomanía según estado de revisión.</li>
-            <li>Cambios de vehículo: temporales y permanentes.</li>
-            <li>Operativos para verificación de servicio colectivo y emisión de solvencias.</li>
-            <li>Operativos urbanos y en ruta interamericana por multas pendientes.</li>
-            <li>Seguimiento a denuncias de concesionarios.</li>
-            <li>Apoyo a PNC, Provial y Dirección General de Transportes.</li>
-        </ul>
-    </div>
+.marco-neon-doble::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: 10px;
+    border: 2px solid #00ff95;
+    opacity: 0.7;
+    box-shadow: 0 0 20px #00ff95;
+}
 
-    <!-- ======================================= -->
-    <!-- MARCO 4 – TRABAJOS DE LA UNIDAD         -->
-    <!-- ======================================= -->
-    <div class="card-neon">
-        <h3 class="card-title">Trabajos y Procedimientos de la Unidad</h3>
+/* ======================================= */
+/*   MARCO EFECTO SCANNER FUTURISTA        */
+/* ======================================= */
+.marco-scanner {
+    position: relative;
+    border: 3px solid #00ff95;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 40px;
+    background: rgba(0,0,0,0.45);
+    overflow: hidden;
+    color: white;
+    box-shadow:
+        0 0 10px #00ff95,
+        0 0 40px #00ff95;
+}
 
-        <ul class="lista">
-            <li>Verificación de documentación y estado del vehículo.</li>
-            <li>Detección y consignación de vehículos no registrados (piratas).</li>
-            <li>Registro y control de pagos municipales del servicio colectivo.</li>
-            <li>Revisión anual obligatoria del servicio registrado.</li>
-            <li>Entrega de calcomanías oficiales.</li>
-            <li>Seguimiento a problemáticas y denuncias de los vecinos chimaltecos.</li>
-        </ul>
-    </div>
+.marco-scanner::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(0,255,149,0.4), rgba(0,255,149,0));
+    animation: scanner 4s linear infinite;
+}
 
-</div>
+@keyframes scanner {
+    0% { top: -100%; }
+    100% { top: 120%; }
+}
+
+/* ======================================= */
+/* TITULOS NEÓN                            */
+/* ======================================= */
+.marco-neon h3, 
+.marco-neon h4,
+.marco-neon-doble h3,
+.marco-neon-doble h4,
+.marco-scanner h3,
+.marco-scanner h4 {
+    color: #00ff95;
+    text-shadow:
+        0 0 5px #00ff95,
+        0 0 15px #00ff95;
+}
+
+/* Listas */
+.marco-neon ul li,
+.marco-neon-doble ul li,
+.marco-scanner ul li {
+    margin-bottom: 8px;
+    text-shadow: 0 0 4px rgba(0,255,149,0.5);
+}
+
+</style>
