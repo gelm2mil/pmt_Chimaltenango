@@ -92,3 +92,57 @@ body {
     font-size: 14px;
     opacity: 0.8;
 }
+/* ========================================== */
+/*  TARJETAS NEON PARA MÓDULOS INTERNOS       */
+/* ========================================== */
+
+.card-neon {
+    background: rgba(0, 0, 0, 0.35);
+    padding: 22px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: 2px solid #00ff80;
+    box-shadow: 0 0 15px #00ff80aa, 0 0 35px #00ff80;
+    transition: 0.3s ease-in-out;
+}
+
+.card-neon:hover {
+    box-shadow: 0 0 25px #00ffaa, 0 0 45px #00ff80;
+    transform: translateY(-3px);
+}
+
+/* Títulos de cada tarjeta */
+.card-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00ff88;
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px #00ff88;
+}
+
+/* Subtítulos internos */
+.sub-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00ffaa;
+    margin-top: 18px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 5px #00ffaa;
+}
+
+/* Listas con estilo */
+.lista li {
+    margin: 6px 0;
+    padding-left: 10px;
+    color: #e0e0e0;
+    line-height: 1.4;
+}
+
+/* Ajuste del título principal del módulo */
+.titulo-modulo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00ff66;
+    text-shadow: 0 0 12px #00ff66;
+    margin-bottom: 10px;
+}
