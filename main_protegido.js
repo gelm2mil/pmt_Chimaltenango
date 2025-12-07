@@ -1,7 +1,10 @@
-// --- Sistema de carga dinámica de módulos PMT GELM ---
+// =============================
+//  CARGA DE MÓDULOS PMT GELM
+// =============================
 
 const panel = document.getElementById("panel");
 
+// Lista de rutas de cada módulo
 const rutas = {
     inicio: "inicio.html",
     mision: "valores.html",
@@ -13,34 +16,40 @@ const rutas = {
     redes: "redes.html"
 };
 
-// Cargar módulo por nombre
+// Función que carga cada módulo dentro del panel central
 async function cargarModulo(nombre) {
-    if (!rutas[nombre]) return;
+    if (!rutas[nombre]) {
+        panel.innerHTML = "<p style='color:red;'>Módulo no encontrado.</p>";
+        return;
+    }
 
     try {
         const respuesta = await fetch(rutas[nombre]);
         const html = await respuesta.text();
         panel.innerHTML = html;
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 0); // sube siempre al inicio
     } catch (error) {
-        panel.innerHTML = "<p style='color:red;'>Error cargando el módulo.</p>";
-        console.error(error);
+        panel.innerHTML = "<p style='color:red;'>Error al cargar contenido.</p>";
+        console.error("Error cargando módulo:", error);
     }
 }
 
-// Activar botones del menú
-document.querySelectorAll(".menu-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        document
-            .querySelectorAll(".menu-btn")
-            .forEach(b => b.classList.remove("active"));
+// Activación de botones del menú
+document.querySelectorAll(".menu-btn").forEach(boton => {
+    boton.addEventListener("click", () => {
 
-        btn.classList.add("active");
+        // remover selección previa
+        document.querySelectorAll(".menu-btn")
+            .forEach(x => x.classList.remove("active"));
 
-        const modulo = btn.dataset.module;
+        // activar el botón clickeado
+        boton.classList.add("active");
+
+        // cargar el módulo asociado
+        const modulo = boton.dataset.module;
         cargarModulo(modulo);
     });
 });
 
-// Cargar INICIO por defecto
+// Cargar INICIO cuando la página abre
 cargarModulo("inicio");
