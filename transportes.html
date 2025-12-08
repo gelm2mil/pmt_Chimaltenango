@@ -1,186 +1,234 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transportes PMT Chimaltenango</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- AQUI SI VA EL CSS INTERNO -->
-<style>
+    <title>Transportes 2026 — PMT Chimaltenango</title>
 
-/* ============================= */
-/* TEXTO NEÓN TIPO GELM          */
-/* ============================= */
-.texto-neon {
-    color: #00ff95;
-    font-weight: bold;
-    text-shadow:
-        0 0 5px #00ff95,
-        0 0 10px #00ff95,
-        0 0 20px #00ff95,
-        0 0 40px #00ff95;
-}
+    <!-- ESTILO PRINCIPAL DEL TEMA DENUNCIAS -->
+    <style>
+        :root {
+            --c1:#ff2dff;
+            --c2:#a11cff;
+            --c3:#00fff2;
+            --c4:#ff66c4;
+            --dark:#0b0013;
+        }
 
-/* ============================= */
-/* MARCO NEÓN BASE (RESPIRA)     */
-/* ============================= */
-.marco-neon {
-    border: 3px solid #00ff95;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 35px;
-    background: rgba(0, 0, 0, 0.45);
-    box-shadow:
-        0 0 10px #00ff95,
-        0 0 25px #00ff95,
-        inset 0 0 10px #00ff95;
-    animation: glow 3s ease-in-out infinite alternate;
-}
+        body{
+            margin:0;
+            font-family:"Segoe UI",sans-serif;
+            background:radial-gradient(circle at 0 0,#28d7ff 0,#150027 45%,#050109 100%);
+            color:#e8f9ff;
+        }
 
-@keyframes glow {
-    0% {
-        box-shadow:
-            0 0 8px #00ff95,
-            0 0 18px #00ff95,
-            inset 0 0 5px #00ff95;
-    }
-    100% {
-        box-shadow:
-            0 0 25px #00ff95,
-            0 0 45px #00ff95,
-            inset 0 0 15px #00ff95;
-    }
-}
+        .app-shell{
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:20px 10px 40px;
+        }
 
-/* ============================= */
-/* MARCO DOBLE NEÓN PREMIUM      */
-/* ============================= */
-.marco-neon-doble {
-    position: relative;
-    padding: 25px;
-    border-radius: 15px;
-    margin-bottom: 40px;
-    background: rgba(0,0,0,0.45);
-    border: 3px solid #00ff95;
-    box-shadow:
-        0 0 15px #00ff95,
-        inset 0 0 10px #00ff95;
-    overflow: hidden;
-}
+        /* PANEL GENERAL */
+        .panel{
+            width:100%;
+            max-width:1300px;
+            background:radial-gradient(circle at 10% 0,#072833 0,#050812 45%,#05010f 100%);
+            border-radius:28px;
+            box-shadow:0 0 40px rgba(255,0,255,0.35);
+            border:2px solid rgba(255,0,255,0.25);
+            padding:22px;
+        }
 
-.marco-neon-doble::before {
-    content: "";
-    position: absolute;
-    inset: 5px;
-    border-radius: 10px;
-    border: 2px solid #00ff95;
-    opacity: 0.7;
-    box-shadow: 0 0 20px #00ff95;
-}
+        /* LOGOS SUPERIORES */
+        .panel-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:20px;
+            margin-bottom:18px;
+        }
 
-/* ============================= */
-/* MARCO SCANNER FUTURISTA       */
-/* ============================= */
-.marco-scanner {
-    position: relative;
-    border: 3px solid #00ff95;
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 40px;
-    background: rgba(0,0,0,0.45);
-    overflow: hidden;
-    color: white;
-    box-shadow:
-        0 0 10px #00ff95,
-        0 0 40px #00ff95;
-}
+        .logo-box{
+            width:110px;
+            height:110px;
+            border-radius:26px;
+            background:radial-gradient(circle at 30% 0,#ff54ff 0,#1b0016 45%,#000 100%);
+            box-shadow:0 0 25px rgba(255,0,255,.7);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
 
-.marco-scanner::after {
-    content: "";
-    position: absolute;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background: linear-gradient(to bottom, rgba(0,255,149,0.4), rgba(0,255,149,0));
-    animation: scanner 4s linear infinite;
-}
+        .logo-box img{
+            width:80%;
+            height:80%;
+            object-fit:contain;
+            filter:drop-shadow(0 0 10px #ff7bff);
+        }
 
-@keyframes scanner {
-    0% { top: -100%; }
-    100% { top: 120%; }
-}
+        /* TITULOS */
+        .title-block{
+            text-align:center;
+            flex:1;
+        }
 
-</style>
+        .title-block h1{
+            margin:0;
+            font-size:26px;
+            letter-spacing:.15em;
+            color:#ffb0ff;
+            text-shadow:0 0 12px #ff5cff;
+        }
 
-<!-- IMPORTANTE: TU styles.css DEBE QUEDAR ABAJO DEL STYLE -->
-<link rel="stylesheet" href="styles.css">
+        .sub1{ margin-top:8px;font-size:14px;color:#ffd6ff; }
+        .sub2{ margin-top:2px;font-size:12px;color:#ff9be2; }
+        .by{ margin-top:8px;font-size:11px;letter-spacing:.25em;color:#c0f9ff;text-transform:uppercase; }
+
+        /* FECHA Y HORA */
+        .timebox{
+            margin-top:6px;
+            font-size:13px;
+            color:#b8eaff;
+            text-shadow:0 0 10px #00fff2;
+        }
+
+        /* SECCIÓN PRINCIPAL */
+        .section-box{
+            margin-top:16px;
+            background:radial-gradient(circle at 0 0,#14091f 0,#02030a 70%);
+            border-radius:22px;
+            border:1px solid rgba(255,0,255,.2);
+            box-shadow:0 0 25px rgba(255,0,255,.15);
+            padding:18px 18px 22px;
+        }
+
+        .section-title{
+            font-size:18px;
+            color:#ffb3ff;
+            margin:0 0 12px;
+        }
+
+        /* BARRAS / MARCOS COMO TRANSPORTES ORIGINAL */
+        .marco{
+            padding:15px;
+            margin-bottom:20px;
+            border-radius:18px;
+            border:1px solid #ff7bff55;
+            background:rgba(255,255,255,0.03);
+            box-shadow:inset 0 0 15px rgba(255,0,255,0.20);
+        }
+
+        .marco h3{
+            margin-top:0;
+            color:#ff9cff;
+            text-shadow:0 0 8px #ff52ff;
+        }
+
+        footer{
+            margin-top:14px;
+            text-align:center;
+            font-size:11px;
+            color:#ffe6ff;
+        }
+
+        footer span.brand{
+            color:#ffb3ff;
+            font-weight:600;
+        }
+    </style>
+
 </head>
-
 <body>
 
-<div class="modulo fade-in">
+<div class="app-shell">
 
-    <h2 class="titulo-modulo texto-neon">Transportes PMT CHIMALTENANGO</h2>
+    <div class="panel">
 
-    <p class="texto-neon" style="text-align:center; margin-bottom:25px;">
-        Unidad encargada de la regulación, supervisión y control del servicio público de transporte 
-        en el municipio de Chimaltenango.
-    </p>
+        <!-- ======================= ENCABEZADO ======================= -->
+        <header class="panel-header">
 
-    <!-- MARCO BASE -->
-    <div class="marco-neon">
-        <h3 class="texto-neon">Identificación del Puesto</h3>
-        <p>
-            Regular el servicio público de transporte colectivo de pasajeros, garantizando eficiencia,
-            seguridad y calidad en el servicio que reciben los usuarios.
-        </p>
+            <!-- ICONO IZQUIERDO -->
+            <div class="logo-box">
+                <img src="icons/icon-192.png">
+            </div>
+
+            <!-- TEXTO CENTRAL -->
+            <div class="title-block">
+                <h1>TRANSPORTES — PMT CHIMALTENANGO</h1>
+                <div class="sub1">Unidad de Transportes</div>
+                <div class="sub2">Control • Regulación • Supervisión</div>
+                <div class="by">== BY GELM ==</div>
+
+                <!-- FECHA Y HORA -->
+                <div class="timebox" id="timebox">
+                    —
+                </div>
+            </div>
+
+            <!-- ICONO DERECHO -->
+            <div class="logo-box">
+                <img src="icons/pmt.png">
+            </div>
+
+        </header>
+
+        <!-- ======================= SECCIÓN PRINCIPAL ======================= -->
+        <section class="section-box">
+            <h2 class="section-title">Información de la Unidad</h2>
+
+            <!-- PRIMER MARCO -->
+            <div class="marco">
+                <h3>Identificación del Puesto</h3>
+                <p><strong>Puesto nominal:</strong> Subcomisario</p>
+                <p><strong>Título del puesto:</strong> Jefe de Transportes</p>
+                <p><strong>Ubicación administrativa:</strong> Policía Municipal de Tránsito</p>
+                <p><strong>Subalternos:</strong> Oficiales, pilotos, auxiliares</p>
+            </div>
+
+            <!-- SEGUNDO MARCO -->
+            <div class="marco">
+                <h3>Objetivo General</h3>
+                <p>
+                    Regular y supervisar el transporte colectivo, especial y de carga para garantizar la seguridad
+                    y calidad del servicio dentro del municipio de Chimaltenango.
+                </p>
+            </div>
+
+            <!-- TERCER MARCO -->
+            <div class="marco">
+                <h3>Funciones y Atribuciones</h3>
+                <ul>
+                    <li>Supervisión operativa del transporte colectivo.</li>
+                    <li>Control administrativo de unidades registradas.</li>
+                    <li>Verificación de documentación reglamentaria.</li>
+                    <li>Coordinación con Delegados de terminal y rutas.</li>
+                    <li>Atención a denuncias de vecinos.</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- ======================= PIE DE PÁGINA ======================= -->
+        <footer>
+            2026 | <span class="brand">BY GELM</span> | Unidad de Transportes PMT — Chimaltenango
+        </footer>
+
     </div>
-
-    <!-- MARCO SCANNER -->
-    <div class="marco-scanner">
-        <h3 class="texto-neon">Responsabilidad</h3>
-        <p>
-            Garantizar el buen uso del transporte colectivo: urbano, extraurbano, mototaxis, fletes, 
-            recolectores de basura y escolar. Mantener registros administrativos: propietarios, unidades, 
-            conductores, consignaciones, traspasos, cambios de vehículo y derechos municipales.
-        </p>
-    </div>
-
-    <!-- MARCO DOBLE -->
-    <div class="marco-neon-doble">
-        <h3 class="texto-neon">Función General</h3>
-        <p>
-            Planificar, coordinar y supervisar las actividades relacionadas con el transporte colectivo...
-        </p>
-    </div>
-
-    <!-- ANUNCIO IMPORTANTE -->
-    <div class="marco-neon-doble" style="text-align:center;">
-        <h3 class="texto-neon">ANUNCIO IMPORTANTE</h3>
-
-        <img src="icons/pmt.png"
-             style="width:260px; border-radius:12px; margin:15px 0;
-                    box-shadow:0 0 25px #00ff95;">
-
-        <p class="texto-neon" style="font-size:18px;">
-            Revisión anual obligatoria inicia el 15 de Febrero 2026.
-        </p>
-    </div>
-
-    <!-- VIDEO -->
-    <div class="marco-scanner">
-        <h3 class="texto-neon" style="text-align:center;">VIDEO INFORMATIVO</h3>
-
-        <video src="videos/informativo.mp4"
-               controls
-               style="width:100%; border-radius:12px; margin-top:15px;
-                      box-shadow:0 0 25px #00ff95;">
-        </video>
-    </div>
-
 </div>
+
+<script>
+function updateClock(){
+    const now = new Date();
+    const fecha = now.toLocaleDateString("es-GT");
+    const hora = now.toLocaleTimeString("es-GT");
+    document.getElementById("timebox").textContent = fecha + " — " + hora;
+}
+setInterval(updateClock,1000);
+updateClock();
+</script>
 
 </body>
 </html>
-
