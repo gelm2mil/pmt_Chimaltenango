@@ -1,111 +1,148 @@
 <div class="modulo fade-in">
 
-    <h2 style="color:#00ff66; text-shadow:0 0 12px #00ff66; margin-bottom:10px;">
-        Nueva denuncia
+    <h2 style="color:#00ff99;text-shadow:0 0 12px #00ff99;">
+        DENUNCIAS — PMT CHIMALTENANGO
     </h2>
+    <p class="muted">Registro profesional de denuncias con evidencia</p>
 
-    <!-- FORMULARIO ENVÍA CORREO -->
-    <form id="formCorreo"
-        action="https://formsubmit.co/nerox2mil@proton.me"
-        method="POST"
-        enctype="multipart/form-data">
+    <!-- ================= FORMULARIO ================ -->
+    <div style="margin-top:25px; background:rgba(0,0,0,0.55); padding:25px; border-radius:15px;
+                border:2px solid #00ff99; box-shadow:0 0 18px #00ff99;">
 
-        <input type="hidden" name="_subject" value="Nueva denuncia PMT Chimaltenango">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://gelm2mil.github.io/pmt_Chimaltenango/">
+        <!-- FORMULARIO CORREO -->
+        <form action="https://formsubmit.co/nerox2mil@proton.me"
+              method="POST"
+              enctype="multipart/form-data"
+              style="margin-bottom:25px;">
 
-        <div style="display:flex; gap:15px;">
-            <div style="flex:1;">
-                <label>Fecha</label>
-                <input type="text" name="fecha" placeholder="dd/mm/aaaa" required>
-            </div>
-            <div style="flex:1;">
-                <label>Hora</label>
-                <input type="text" name="hora" placeholder="--:--" required>
-            </div>
-        </div>
+            <input type="hidden" name="_subject" value="Nueva denuncia ciudadana - PMT Chimaltenango">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://gelm2mil.github.io/pmt_Chimaltenango/">
 
-        <label>Placa / DPI / Motor</label>
-        <input name="placa" required placeholder="Placa vehículo, DPI o motor">
+            <h3 style="color:#00ff99;">Nueva denuncia (ciudadana)</h3>
 
-        <div style="display:flex; gap:15px;">
-            <div style="flex:1;">
-                <label>Tipo de denuncia</label>
-                <select name="tipo">
-                    <option>Transporte ilegal</option>
-                    <option>Mal servicio</option>
-                    <option>Exceso pasajero</option>
-                    <option>Irrespeto PMT</option>
-                    <option>Otros</option>
-                </select>
-            </div>
+            <label>Fecha</label>
+            <input type="text" name="Fecha" placeholder="dd/mm/aaaa" required>
 
-            <div style="flex:1;">
-                <label>Estado</label>
-                <select name="estado">
-                    <option>Pendiente</option>
-                    <option>En investigación</option>
-                    <option>Finalizado</option>
-                </select>
-            </div>
-        </div>
+            <label>Hora</label>
+            <input type="text" name="Hora" placeholder="--:--" required>
 
-        <label>Lugar</label>
-        <input name="lugar" placeholder="Sector, ruta o referencia">
+            <label>Placa / DPI / Motor</label>
+            <input type="text" name="Placa_DPI_Motor" required>
 
-        <label>Descripción del hecho</label>
-        <textarea name="descripcion"></textarea>
+            <label>Tipo de denuncia</label>
+            <select name="Tipo_denuncia">
+                <option>Transporte ilegal</option>
+                <option>Mal servicio</option>
+                <option>Exceso de pasajeros</option>
+                <option>Irrespeto PMT</option>
+                <option>Otros</option>
+            </select>
 
-        <label>Observaciones internas (uso PMT)</label>
-        <textarea name="interno"></textarea>
+            <label>Estado</label>
+            <select name="Estado">
+                <option>Pendiente</option>
+                <option>En investigación</option>
+                <option>Finalizado</option>
+            </select>
 
-        <label>Imagen / evidencia (opcional)</label>
-        <input type="file" name="imagen" accept="image/*">
+            <label>Lugar</label>
+            <input type="text" name="Lugar">
 
-        <button class="btn-send" type="submit"
-            style="margin-top:15px; background:#ff00ff; padding:10px 20px;
-            border-radius:10px; border:none; cursor:pointer; color:white;
-            font-weight:bold; box-shadow:0 0 12px #ff00ff;">
-            ENVIAR DENUNCIA
-        </button>
-    </form>
+            <label>Descripción del hecho</label>
+            <textarea name="Descripcion_hecho"></textarea>
 
-    <br>
+            <label>Imagen / evidencia (opcional)</label>
+            <input type="file" name="Imagen" accept="image/*">
 
-    <!-- BOTÓN QUE ENVÍA A BACKEND PHP -->
-    <button onclick="enviarPHP()" 
-        style="background:#00eaff; padding:10px 20px; border-radius:10px; 
-        border:none; cursor:pointer; color:black; font-weight:bold; 
-        box-shadow:0 0 12px #00eaff;">
-        AGREGAR DENUNCIA (PMT)
-    </button>
+            <button class="btn-neon" type="submit"
+                    style="margin-top:15px; background:#ff00ff; border:none;
+                           padding:12px 18px; border-radius:10px; cursor:pointer;">
+                ENVIAR DENUNCIA
+            </button>
+        </form>
 
+        <!-- FORMULARIO PMT (BASE DE DATOS) -->
+        <form id="formPMT" onsubmit="enviarPMT(); return false;"
+              enctype="multipart/form-data">
+
+            <h3 style="color:#00ff99; margin-top:35px;">Registro interno PMT</h3>
+
+            <label>Fecha</label>
+            <input type="text" id="p_fecha" placeholder="dd/mm/aaaa" required>
+
+            <label>Hora</label>
+            <input type="text" id="p_hora" placeholder="--:--" required>
+
+            <label>Placa / DPI / Motor</label>
+            <input type="text" id="p_placa" required>
+
+            <label>Tipo</label>
+            <input type="text" id="p_tipo" placeholder="Ej: Ilegal, Mal servicio..." required>
+
+            <label>Estado</label>
+            <input type="text" id="p_estado" placeholder="Pendiente, Investigando..." required>
+
+            <label>Lugar</label>
+            <input type="text" id="p_lugar">
+
+            <label>Descripción</label>
+            <textarea id="p_descripcion"></textarea>
+
+            <label>Notas internas (PMT)</label>
+            <textarea id="p_interno"></textarea>
+
+            <label>Foto (opcional)</label>
+            <input type="file" id="p_foto" accept="image/*">
+
+            <button type="submit"
+                    style="margin-top:15px; background:#00ffaa; border:none;
+                           padding:12px 18px; border-radius:10px; cursor:pointer;">
+                AGREGAR DENUNCIA (PMT)
+            </button>
+        </form>
+
+        <p id="respuestaPMT" style="margin-top:15px; color:#00ff99; font-weight:bold;"></p>
+
+    </div>
 </div>
 
+<!-- =============== SCRIPT PARA GUARDAR EN MIARROBA ================ -->
 <script>
-function enviarPHP() {
+function enviarPMT() {
 
-    const datos = new FormData();
-    datos.append("fecha", document.querySelector("[name='fecha']").value);
-    datos.append("hora", document.querySelector("[name='hora']").value);
-    datos.append("placa", document.querySelector("[name='placa']").value);
-    datos.append("tipo", document.querySelector("[name='tipo']").value);
-    datos.append("estado", document.querySelector("[name='estado']").value);
-    datos.append("lugar", document.querySelector("[name='lugar']").value);
-    datos.append("descripcion", document.querySelector("[name='descripcion']").value);
-    datos.append("interno", document.querySelector("[name='interno']").value);
+    let datos = new FormData();
+    datos.append("fecha", document.getElementById("p_fecha").value);
+    datos.append("hora", document.getElementById("p_hora").value);
+    datos.append("placa", document.getElementById("p_placa").value);
+    datos.append("tipo", document.getElementById("p_tipo").value);
+    datos.append("estado", document.getElementById("p_estado").value);
+    datos.append("lugar", document.getElementById("p_lugar").value);
+    datos.append("descripcion", document.getElementById("p_descripcion").value);
+    datos.append("interno", document.getElementById("p_interno").value);
 
-    let img = document.querySelector("[name='imagen']").files[0];
-    if (img) datos.append("foto", img);
+    let archivo = document.getElementById("p_foto").files[0];
+    if (archivo) { datos.append("foto", archivo); }
 
     fetch("https://gelmhistoria.webcindario.com/guardar.php", {
         method: "POST",
         body: datos
     })
-    .then(r => r.text())
-    .then(t => {
-        alert("Respuesta del servidor: " + t);
+    .then(r => r.json())
+    .then(respuesta => {
+        let msj = document.getElementById("respuestaPMT");
+        if (respuesta.status === "ok") {
+            msj.innerHTML = "✔ Denuncia registrada correctamente.";
+            msj.style.color = "#00ff99";
+        } else {
+            msj.innerHTML = "❌ Error al guardar: " + respuesta.msg;
+            msj.style.color = "red";
+        }
+    })
+    .catch(error => {
+        document.getElementById("respuestaPMT").innerHTML =
+            "❌ Error de conexión con el servidor.";
     });
 }
 </script>
