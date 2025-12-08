@@ -1,292 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POLICÍA MUNICIPAL DE TRÁNSITO | CHIMALTENANGO</title>
 
 <style>
-/* ---------- VARIABLES ---------- */
-:root{
-  --neon:#00ff66;
-  --bg:#030306;
-  --panel:#050608;
-  --accent:#ffd700;
-  --muted:#a8b0b8;
+
+/* ===================== VARIABLES NEÓN PMT ===================== */
+:root {
+    --neon:#00ff66;
+    --dark:#020202;
+    --panel:#001a0f;
+    --glow:0 0 10px var(--neon), 0 0 20px var(--neon), inset 0 0 10px var(--neon);
+    --softglow:0 0 5px var(--neon), 0 0 12px var(--neon);
 }
 
-/* ---------- RESET / BASE ---------- */
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:"Segoe UI",Roboto,Arial,sans-serif;
-  color:#e8ffe8;
-  background:#000;
-  overflow-x:hidden;
+/* ===================== RESETEO GENERAL ===================== */
+*{box-sizing:border-box;margin:0;padding:0;}
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#000;
+    color:white;
+    overflow-x:hidden;
 }
 
-/* ---------- FONDO DINÁMICO NEBULOSA ---------- */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 15% 20%,rgba(0,255,102,0.18),transparent 55%),
-    radial-gradient(circle at 80% 0%,rgba(0,180,255,0.16),transparent 55%),
-    radial-gradient(circle at 15% 100%,rgba(255,0,150,0.14),transparent 55%),
-    radial-gradient(circle at 80% 100%,rgba(0,255,200,0.1),transparent 55%);
-  opacity:0.75;
-  z-index:-2;
-  animation:bgMove 25s ease-in-out infinite alternate;
-}
-@keyframes bgMove{
-  0%{transform:translate3d(0,0,0);}
-  50%{transform:translate3d(-20px,10px,0);}
-  100%{transform:translate3d(20px,-10px,0);}
+/* ===================== FONDO NEBULOSA ===================== */
+body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0,255,102,0.18), transparent 55%),
+        radial-gradient(circle at 80% 0%, rgba(0,255,180,0.18), transparent 55%),
+        radial-gradient(circle at 15% 100%, rgba(255,0,150,0.14), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(0,255,200,0.1), transparent 55%);
+    opacity:0.8;
+    z-index:-2;
 }
 
-/* capa oscura encima del fondo */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at top,#000000 0%,rgba(0,0,0,0.8) 45%,#000 100%);
-  z-index:-1;
-}
-
-/* ---------- SCROLL NEÓN ---------- */
-::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-thumb{
-  background:var(--neon);
-  border-radius:8px;
-}
-::-webkit-scrollbar-track{
-  background:#020203;
-}
-
-/* ---------- HEADER ---------- */
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:12px 22px;
-  border-bottom:2px solid rgba(0,255,102,0.35);
-  background:rgba(0,0,0,0.9);
-  backdrop-filter:blur(4px);
-}
-
-/* logo GELM izquierda */
-.logo-mini{
-  width:72px;
-  height:72px;
-  border-radius:12px;
-  border:3px solid var(--neon);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--neon);
-  font-weight:bold;
-  font-size:18px;
-  background:radial-gradient(circle at 30% 0%,#001f10,#000);
-  box-shadow:0 0 14px var(--neon),0 0 32px rgba(0,255,102,0.5);
-  animation:logoGlow 3s ease-in-out infinite alternate;
-}
-@keyframes logoGlow{
-  0%{box-shadow:0 0 10px var(--neon),0 0 22px rgba(0,255,102,0.55);}
-  100%{box-shadow:0 0 20px var(--neon),0 0 40px rgba(0,255,102,0.9);}
-}
-
-/* texto central */
-.header-text h1{
-  color:var(--neon);
-  font-size:20px;
-  margin:0;
-  text-shadow:0 0 10px rgba(0,255,102,0.8);
-}
-.header-text p{
-  margin:0;
-  color:var(--muted);
-  font-size:13px;
-}
-
-/* logo PMT derecha */
-.logo-pmt{
-  width:82px;
-  height:82px;
-  border-radius:12px;
-  border:3px solid var(--neon);
-  box-shadow:0 0 16px var(--neon),0 0 36px rgba(0,255,102,0.8);
-  object-fit:cover;
-  background:#000;
-  animation:logoGlow 3.5s ease-in-out infinite alternate;
-}
-
-/* ---------- LAYOUT GENERAL ---------- */
-.contenedor{
-  display:grid;
-  grid-template-columns:270px minmax(0,1fr) 320px;
-  gap:16px;
-  padding:16px 18px 18px 18px;
-}
-
-/* ---------- MENÚ LATERAL ---------- */
-.menu{
-  background:rgba(3,6,5,0.96);
-  border-radius:14px;
-  border:2px solid var(--neon);
-  box-shadow:0 0 16px rgba(0,255,102,0.8);
-  padding:14px;
-  height:calc(100vh - 120px);
-  overflow-y:auto;
-}
-.menu h3{
-  text-align:center;
-  color:var(--accent);
-  font-size:15px;
-  margin-bottom:10px;
-}
-
-/* botones menú */
-.menu-btn{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:#020304;
-  color:var(--neon);
-  padding:9px 10px;
-  margin:7px 0;
-  border-radius:9px;
-  border:1px solid rgba(0,255,102,0.4);
-  text-decoration:none;
-  font-size:14px;
-  font-weight:600;
-  box-shadow:0 0 10px rgba(0,255,102,0.35);
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-  transition:background 0.18s,transform 0.18s,box-shadow 0.18s,border-color 0.18s;
-}
-.menu-btn span.icon{
-  width:20px;
-  text-align:center;
-}
-.menu-btn::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 0 0,rgba(255,255,255,0.32),transparent 55%);
-  opacity:0;
-  transform:translateX(-35%);
-  transition:opacity 0.25s ease-out,transform 0.25s ease-out;
-}
-.menu-btn:hover{
-  background:#041710;
-  transform:translateX(3px);
-  box-shadow:0 0 18px rgba(0,255,102,0.8);
-  border-color:var(--neon);
-}
-.menu-btn:hover::after{
-  opacity:1;
-  transform:translateX(0);
-}
-.menu-btn.active{
-  background:#02190d;
-  border-color:#ffffff;
-  box-shadow:0 0 22px rgba(0,255,180,0.9);
-}
-
-/* ---------- PANEL CENTRAL ---------- */
-.panel{
-  background:rgba(5,6,10,0.98);
-  border-radius:16px;
-  padding:22px 22px 26px 22px;
-  height:calc(100vh - 120px);
-  overflow-y:auto;
-  position:relative;
-  border:3px solid var(--neon);
-  box-shadow:0 0 20px rgba(0,255,102,0.9);
-  animation:borderPulse 5s ease-in-out infinite alternate;
-}
-@keyframes borderPulse{
-  0%{box-shadow:0 0 18px rgba(0,255,102,0.7);}
-  100%{box-shadow:0 0 32px rgba(0,255,210,1);}
-}
-
-.panel h2{
-  color:var(--accent);
-  margin-bottom:14px;
-}
-.panel .muted{
-  color:var(--muted);
-  font-size:14px;
-}
-
-/* efecto de entrada de contenido */
-.fade-in{
-  animation:fadeIn 0.35s ease-out;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(6px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* ---------- PANEL REPRODUCTOR DERECHO ---------- */
-.player-box{
-  background:rgba(3,4,6,0.97);
-  border-radius:16px;
-  padding:12px;
-  height:calc(100vh - 120px);
-  overflow-y:auto;
-  border:3px solid var(--neon);
-  box-shadow:0 0 22px rgba(0,255,102,0.9);
-}
-.player-box h3{
-  text-align:center;
-  color:var(--accent);
-  margin-bottom:10px;
-  text-shadow:0 0 10px rgba(0,255,102,0.8);
-}
-
-/* iframe reproductor */
-.player-box iframe{
-  width:100%;
-  height:calc(100% - 26px);
-  border:none;
-  border-radius:12px;
-  box-shadow:0 0 18px rgba(0,255,102,0.9);
-}
-
-/* ---------- RESPONSIVE ---------- */
-@media (max-width:1100px){
-  .contenedor{
-    grid-template-columns:250px minmax(0,1fr);
-    grid-template-rows:auto auto;
-    grid-template-areas:
-      "menu panel"
-      "player player";
-  }
-  .menu{grid-area:menu;height:auto;max-height:50vh;}
-  .panel{grid-area:panel;height:calc(100vh - 220px);}
-  .player-box{grid-area:player;height:360px;margin-top:8px;}
-}
-@media (max-width:780px){
-  header{
-    flex-direction:row;
+/* ===================== CONTENEDOR GENERAL ===================== */
+.layout {
+    display:flex;
+    height:100vh;
+    padding:10px;
     gap:10px;
-  }
-  .header-text h1{font-size:16px;}
-  .logo-mini{width:60px;height:60px;font-size:15px;}
-  .logo-pmt{width:64px;height:64px;}
-  .contenedor{
-    grid-template-columns:1fr;
-    grid-template-areas:
-      "menu"
-      "panel"
-      "player";
-  }
-  .menu,.panel,.player-box{
-    height:auto;
-    max-height:none;
-  }
+}
+
+/* ===================== PANEL IZQUIERDO — MENÚ ===================== */
+.menu {
+    width:260px;
+    background:rgba(0,0,0,0.4);
+    border:2px solid var(--neon);
+    border-radius:15px;
+    box-shadow:var(--glow);
+    padding:15px;
+}
+
+.menu h2 {
+    text-align:center;
+    margin-bottom:15px;
+    color:var(--neon);
+    text-shadow:var(--softglow);
+}
+
+.btn-menu {
+    width:100%;
+    display:block;
+    padding:10px;
+    margin-bottom:10px;
+    border:2px solid var(--neon);
+    background:#000;
+    border-radius:10px;
+    color:var(--neon);
+    text-align:left;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+    box-shadow:0 0 8px var(--neon) inset;
+}
+
+.btn-menu:hover {
+    background:var(--neon);
+    color:black;
+    box-shadow:var(--softglow);
+}
+
+/* ===================== PANEL CENTRAL ===================== */
+.centro {
+    flex:1;
+    background:rgba(0,0,0,0.4);
+    border:2px solid var(--neon);
+    border-radius:15px;
+    box-shadow:var(--glow);
+    padding:25px;
+    overflow-y:auto;
+}
+
+.centro h1 {
+    text-align:center;
+    color:#ffdf40;
+    text-shadow:0 0 12px #ffdf40;
+    margin-bottom:15px;
+}
+
+.bienvenida {
+    text-align:center;
+    color:var(--neon);
+    font-size:26px;
+    font-weight:bold;
+    margin:10px 0;
+    text-shadow:var(--softglow);
+}
+
+.logo-centro {
+    display:block;
+    margin:20px auto;
+    width:220px;
+    border-radius:15px;
+    box-shadow:var(--glow);
+}
+
+/* ===================== PANEL DERECHO — REPRODUCTOR ===================== */
+.reproductor {
+    width:340px;
+    background:rgba(0,0,0,0.4);
+    border:2px solid var(--neon);
+    border-radius:15px;
+    box-shadow:var(--glow);
+    padding:10px;
+    overflow-y:auto;
+}
+
+.reproductor h2 {
+    color:#ffdf40;
+    text-align:center;
+    text-shadow:0 0 10px #ffdf40;
+}
+
+/* === IFRAME REPRODUCTOR === */
+.reproductor iframe {
+    width:100%;
+    height:780px;
+    border:none;
+    border-radius:12px;
+    box-shadow:0 0 15px #00aaff;
 }
 
 </style>
@@ -294,202 +152,42 @@ header{
 
 <body>
 
-<!-- ======================================================
-                      ENCABEZADO
-====================================================== -->
-<header>
-  <!-- GELM IZQUIERDA -->
-  <div class="logo-mini">GELM</div>
+<div class="layout">
 
-  <!-- TEXTO CENTRAL -->
-  <div class="header-text">
-    <h1>POLICÍA MUNICIPAL DE TRÁNSITO</h1>
-    <p>CHIMALTENANGO LA EDUCACION VIAL ES RESPONSABILIDAD DE TODOS</p>
-  </div>
+    <!-- PANEL IZQUIERDO -->
+    <div class="menu">
+        <h2>Módulos</h2>
 
-  <!-- LOGO PMT DERECHA -->
-  <img src="https://gelmhistoria.webcindario.com/pmt.jpg" alt="Logo PMT" class="logo-pmt">
-</header>
+        <a class="btn-menu" href="inicio.html">🔰  ==anuncios==</a>
+        <a class="btn-menu" href="valores.html">❓  Misión, Visión y Valores</a>
+        <a class="btn-menu" href="transportes.html">❓  Transportes</a>
+        <a class="btn-menu" href="operativos.html">❓  Operativos</a>
+        <a class="btn-menu" href="publica.html">❓  Vía Pública</a>
+        <a class="btn-menu" href="educacion.html">❓  Educación Vial</a>
+        <a class="btn-menu" href="contacto.html">❓  Contacto</a>
+    </div>
 
+    <!-- PANEL CENTRAL -->
+    <div class="centro">
+        <h1>Inicio / Anuncios</h1>
 
+        <p class="bienvenida">Bienvenido al Portal de la POLICIA MUNICIPAL DE TRANSITO DE CHIMALTENANGO</p>
 
-<!-- ======================================================
-                        CUERPO
-====================================================== -->
-<div class="contenedor">
+        <p style="text-align:center;">Seleccione un módulo del menú izquierdo para comenzar.<br>
+        Este portal está en desarrollo y se ampliará con nuevos módulos.</p>
 
-  <!-- ---------- MENÚ IZQUIERDO ---------- -->
-  <aside class="menu">
-    <h3>Módulos</h3>
+        <img src="icons/pmt.png" class="logo-centro">
+    </div>
 
-    <button class="menu-btn" data-module="inicio">
-      <span class="icon">?</span> --==anuncios==-
-    </button>
+    <!-- PANEL DERECHO -->
+    <div class="reproductor">
+        <h2>Reproductor NEROX</h2>
 
-    <button class="menu-btn" data-module="mision">
-      <span class="icon">?</span> Misión, Visión y Valores
-    </button>
-
-    <button class="menu-btn" data-module="transportes">
-      <span class="icon">?</span> Transportes
-    </button>
-
-    <button class="menu-btn" data-module="operativos">
-      <span class="icon">?</span> Operativos
-    </button>
-
-    <button class="menu-btn" data-module="publica">
-      <span class="icon">??</span> Vía Pública
-    </button>
-
-    <button class="menu-btn" data-module="educacion">
-      <span class="icon">?</span> Educación Vial
-    </button>
-
-    <button class="menu-btn" data-module="contacto">
-      <span class="icon">??</span> Contacto
-    </button>
-
-  </aside>
-
-
-
-  <!-- ---------- PANEL CENTRAL (MÓDULOS) ---------- -->
-  <main class="panel" id="panel">
-    <!-- Se carga por JS -->
-  </main>
-
-
-
-  <!-- ---------- PANEL REPRODUCTOR DERECHO ---------- -->
-  <aside class="player-box">
-    <h3>Reproductor NEROX</h3>
-    <iframe src="https://gelmhistoria.webcindario.com/musica/electronica.html"
-            title="reproductor"></iframe>
-  </aside>
+        <!-- AQUI VA TU REPRODUCTOR REAL -->
+        <iframe src="https://gelm2mil.github.io/music/index.html"></iframe>
+    </div>
 
 </div>
-
-
-
-<!-- ======================================================
-                    SCRIPT SPA MÓDULOS
-====================================================== -->
-<script>
-// --------- PLANTILLAS DE MÓDULOS ---------
-const modulos = {
-
-  inicio: `
-    <div class="fade-in">
-      <h2>Inicio / Anuncios</h2>
-      <div style="text-align:center;padding:24px 10px;">
-        <h2 style="color:var(--neon);text-shadow:0 0 12px var(--neon);margin-bottom:10px;">
-          Bienvenido al Portal de la POLICIA MUNICIPAL DE TRANSITO DE CHIMALTENANGO
-        </h2>
-        <p class="muted">
-          Selecciona un módulo del menú izquierdo para comenzar.<br>
-          Este portal está en desarrollo y se ampliará con nuevos módulos y funciones.
-        </p>
-
-        <div style="margin-top:22px;">
-          <img src="https://gelmhistoria.webcindario.com/pmt.jpg"
-               alt="Escudo PMT"
-               style="width:260px;border-radius:16px;border:3px solid var(--neon);
-                      box-shadow:0 0 22px rgba(0,255,102,1);">
-        </div>
-      </div>
-    </div>
-  `,
-
-  // Misión / Visión / Valores ? se carga dentro del marco usando iframe
-  mision: `
-    <div class="fade-in">
-      <h2>Misión, Visión y Valores</h2>
-      <p class="muted" style="margin-bottom:10px;">
-        Contenido institucional cargado desde el módulo principal.
-      </p>
-      <div style="border-radius:12px;overflow:hidden;
-                  box-shadow:0 0 18px rgba(0,255,102,0.8);border:2px solid var(--neon);">
-        <iframe src="https://gelmhistoria.webcindario.com/somos.html"
-                style="width:100%;height:70vh;border:none;background:#000;"
-                title="Misión Visión Valores"></iframe>
-      </div>
-    </div>
-  `,
-
-  transportes: `
-    <div class="fade-in">
-      <h2>Transportes</h2>
-      <p class="muted">Módulo en construcción. Podrás registrar operativos, reportes y estadísticas</p>
-    </div>
-  `,
-
-  operativos: `
-    <div class="fade-in">
-      <h2>Operativos</h2>
-      <p class="muted">Módulo en construcción. Podrás registrar operativos, reportes y estadísticas.</p>
-    </div>
-  `,
-
-  publica: `
-    <div class="fade-in">
-      <h2>Vía Pública</h2>
-      <p class="muted">Módulo en construcción. Ideal para reportes de señalización, semáforos y vía pública.</p>
-    </div>
-  `,
-
-  educacion: `
-    <div class="fade-in">
-      <h2>Educación Vial</h2>
-      <p class="muted">Módulo en construcción. Podrás agregar material educativo, campañas y recursos escolares.</p>
-    </div>
-  `,
-
-  contacto: `
-    <div class="fade-in">
-      <h2>Contacto</h2>
-      <p class="muted">
-        Dirección, teléfonos y horarios oficiales de atención de la PMT de Chimaltenango.<br>
-        Cuando tengas los datos reales, solo reemplazas este texto.
-      </p>
-    </div>
-  `
-};
-
-
-// --------- FUNCIÓN PARA CARGAR MÓDULO ---------
-const panel = document.getElementById("panel");
-const botones = document.querySelectorAll(".menu-btn");
-
-function cargarModulo(nombre){
-  panel.innerHTML = modulos[nombre] || "<p>Módulo no encontrado.</p>";
-}
-
-// activar estado visual de botón
-function activarBoton(btn){
-  botones.forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-}
-
-// listeners de menú
-botones.forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    const mod = btn.dataset.module;
-    if(!mod) return;
-    activarBoton(btn);
-    cargarModulo(mod);
-  });
-});
-
-// cargar INICIO por defecto
-(function init(){
-  const btnInicio = document.querySelector('.menu-btn[data-module="inicio"]');
-  if(btnInicio){
-    activarBoton(btnInicio);
-    cargarModulo("inicio");
-  }
-})();
-</script>
 
 </body>
 </html>
