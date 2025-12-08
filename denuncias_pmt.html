@@ -16,97 +16,89 @@
     --border:#2d0054;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(120deg, #0b0013, #0a0030, #0b0013);
-    color: white;
-    padding-bottom: 50px;
+    font-family:"Segoe UI", sans-serif;
+    background:linear-gradient(120deg,#0b0013,#0a0030,#0b0013);
+    color:white;
+    padding-bottom:80px;
 }
 
 .encabezado {
-    text-align: center;
-    padding: 30px 15px 15px;
-    color: var(--c3);
-    text-shadow: 0 0 20px var(--c3);
-    font-size: 28px;
-    font-weight: bold;
+    text-align:center;
+    padding:30px 15px 15px;
+    color:var(--c3);
+    text-shadow:0 0 20px var(--c3);
+    font-size:28px;
+    font-weight:bold;
 }
 
-.sub {
-    text-align: center;
-    margin-top: -5px;
-    color: #ccc;
-}
+.sub { text-align:center; margin-top:-5px; color:#ccc; }
 
 .logo-top {
-    width: 110px;
-    display: block;
-    margin: 0 auto;
-    filter: drop-shadow(0 0 15px var(--c3));
+    width:110px;
+    display:block;
+    margin:0 auto;
+    filter:drop-shadow(0 0 15px var(--c3));
 }
 
 .panel {
-    width: 95%;
-    max-width: 1100px;
-    margin: 25px auto;
-    background: #0f001a;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 0 25px #290047;
-    border: 2px solid #3a006b;
+    width:95%;
+    max-width:1100px;
+    margin:25px auto;
+    background:#0f001a;
+    border-radius:16px;
+    padding:25px;
+    box-shadow:0 0 25px #290047;
+    border:2px solid #3a006b;
 }
 
 input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    background: #20002e;
-    border: 2px solid #3b006c;
-    color: white;
-    border-radius: 10px;
-    margin-top: 8px;
-    outline: none;
+    width:100%;
+    padding:10px;
+    background:#20002e;
+    border:2px solid #3b006c;
+    color:white;
+    border-radius:10px;
+    margin-top:8px;
+    outline:none;
 }
 
-textarea { height: 80px; }
+textarea { height:80px; }
 
 label {
-    margin-top: 12px;
-    display: block;
-    color: var(--c3);
+    margin-top:12px;
+    display:block;
+    color:var(--c3);
 }
 
 .boton {
-    margin-top: 18px;
-    display: inline-block;
-    padding: 12px 20px;
-    border-radius: 12px;
-    background: var(--c1);
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 0 15px var(--c1);
-    border: none;
-    transition: 0.2s;
+    margin-top:18px;
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:12px;
+    background:var(--c1);
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 0 15px var(--c1);
+    border:none;
+    transition:0.2s;
 }
 
 .boton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px var(--c1);
+    transform:scale(1.05);
+    box-shadow:0 0 20px var(--c1);
 }
 
 .fila-flex {
-    display: flex;
-    gap: 15px;
+    display:flex;
+    gap:15px;
 }
 
 .fila-flex .col {
-    flex: 1;
+    flex:1;
 }
 </style>
 
@@ -119,38 +111,29 @@ label {
 
 <div class="panel">
 
-    <!-- FORMULARIO QUE ENVÍA AL CORREO -->
-    <form action="https://formsubmit.co/nerox2mil@proton.me"
-          method="POST"
-          enctype="multipart/form-data">
-
-        <!-- opciones extra de FormSubmit -->
-        <input type="hidden" name="_subject" value="Nueva denuncia PMT Chimaltenango">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <!-- después de enviar, regresa al portal -->
-        <input type="hidden" name="_next" value="https://gelm2mil.github.io/pmt_Chimaltenango/">
+    <!-- FORMULARIO QUE ENVÍA AL PHP -->
+    <form id="formDenuncia" enctype="multipart/form-data">
 
         <h3 style="color: var(--c3); margin-bottom: 10px;">Nueva denuncia</h3>
 
         <div class="fila-flex">
             <div class="col">
                 <label>Fecha</label>
-                <input type="text" name="Fecha" placeholder="dd/mm/aaaa" required>
+                <input id="fecha" type="text" placeholder="dd/mm/aaaa" required>
             </div>
             <div class="col">
                 <label>Hora</label>
-                <input type="text" name="Hora" placeholder="--:--" required>
+                <input id="hora" type="text" placeholder="--:--" required>
             </div>
         </div>
 
         <label>Placa / DPI / Motor</label>
-        <input name="Placa_DPI_Motor" placeholder="Placa vehículo, DPI o número de motor" required>
+        <input id="placa" placeholder="Placa vehículo, DPI o número de motor" required>
 
         <div class="fila-flex">
             <div class="col">
                 <label>Tipo de denuncia</label>
-                <select name="Tipo_denuncia">
+                <select id="tipo">
                     <option>Transporte ilegal</option>
                     <option>Mal servicio</option>
                     <option>Exceso pasajero</option>
@@ -160,7 +143,7 @@ label {
             </div>
             <div class="col">
                 <label>Estado</label>
-                <select name="Estado">
+                <select id="estado">
                     <option>Pendiente</option>
                     <option>En investigación</option>
                     <option>Finalizado</option>
@@ -169,23 +152,57 @@ label {
         </div>
 
         <label>Lugar</label>
-        <input name="Lugar" placeholder="Sector, ruta, referencia, etc.">
+        <input id="lugar" placeholder="Sector, ruta, referencia, etc.">
 
         <label>Descripción del hecho</label>
-        <textarea name="Descripcion_hecho"></textarea>
+        <textarea id="descripcion"></textarea>
 
         <label>Observaciones internas (uso PMT)</label>
-        <textarea name="Observaciones_internas"></textarea>
+        <textarea id="interno"></textarea>
 
         <label>Imagen / evidencia (opcional)</label>
-        <input type="file" name="Imagen" accept="image/*">
+        <input type="file" id="foto" accept="image/*">
 
-        <!-- BOTÓN PRINCIPAL: ENVÍA AL CORREO -->
-        <button class="boton" type="submit">ENVIAR DENUNCIA</button>
+        <button class="boton" type="button" onclick="enviarDenuncia()">ENVIAR DENUNCIA</button>
 
     </form>
 
 </div>
+
+<script>
+function enviarDenuncia(){
+    const datos = new FormData();
+
+    datos.append("fecha", document.getElementById("fecha").value);
+    datos.append("hora", document.getElementById("hora").value);
+    datos.append("placa", document.getElementById("placa").value);
+    datos.append("tipo", document.getElementById("tipo").value);
+    datos.append("estado", document.getElementById("estado").value);
+    datos.append("lugar", document.getElementById("lugar").value);
+    datos.append("descripcion", document.getElementById("descripcion").value);
+    datos.append("interno", document.getElementById("interno").value);
+
+    let archivo = document.getElementById("foto").files[0];
+    if(archivo){
+        datos.append("foto", archivo.name);
+    } else {
+        datos.append("foto", "");
+    }
+
+    fetch("https://gelmhistoria.webcindario.com/guardar.php", {
+        method: "POST",
+        body: datos
+    })
+    .then(r => r.json())
+    .then(res => {
+        alert(res.msg);
+        if(res.status === "ok"){
+            document.getElementById("formDenuncia").reset();
+        }
+    })
+    .catch(() => alert("Error enviando denuncia"));
+}
+</script>
 
 </body>
 </html>
