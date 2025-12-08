@@ -24,7 +24,7 @@ body {
     overflow:hidden;
 }
 
-/* ===================== FONDO NEON DINÁMICO ===================== */
+/* ===================== FONDO NEÓN DINÁMICO ===================== */
 body::before {
     content:"";
     position:fixed;
@@ -37,12 +37,6 @@ body::before {
     opacity:0.8;
     filter:blur(3px);
     z-index:-1;
-    animation: bgMove 22s ease-in-out infinite alternate;
-}
-
-@keyframes bgMove {
-    0% { transform:translate3d(0,0,0); }
-    100% { transform:translate3d(25px,25px,0); }
 }
 
 /* ===================== LAYOUT ===================== */
@@ -103,16 +97,13 @@ body::before {
     box-shadow:var(--glow);
     padding:25px;
     overflow-y:auto;
-    position:relative;
 }
 
-.fade {
-    animation:fadeIn .6s ease;
-}
+.fade { animation: fadeIn .6s ease; }
 
 @keyframes fadeIn {
     from { opacity:0; transform:translateY(15px); }
-    to { opacity:1; transform:translateY(0); }
+    to   { opacity:1; transform:translateY(0); }
 }
 
 .logo-centro {
@@ -146,7 +137,6 @@ body::before {
     color:#ffdf40;
     text-align:center;
     text-shadow:0 0 12px #ffdf40;
-    margin-bottom:10px;
 }
 
 </style>
@@ -159,7 +149,7 @@ body::before {
     <div class="menu">
         <h2>Módulos</h2>
 
-        <div class="btn-menu" onclick="cargar('anuncios.html')">📢 ==anuncios==</div>
+        <div class="btn-menu" onclick="cargar('inicio.html')">📢 ==anuncios==</div>
         <div class="btn-menu" onclick="cargar('valores.html')">❓ Misión, Visión y Valores</div>
         <div class="btn-menu" onclick="cargar('transportes.html')">❓ Transportes</div>
         <div class="btn-menu" onclick="cargar('operativos.html')">❓ Operativos</div>
@@ -168,7 +158,7 @@ body::before {
         <div class="btn-menu" onclick="cargar('contacto.html')">❓ Contacto</div>
     </div>
 
-    <!-- ===================== CONTENIDO CENTRAL DINÁMICO ===================== -->
+    <!-- ===================== CONTENIDO CENTRAL ===================== -->
     <div id="centro" class="centro fade">
         <h1 style="text-align:center; color:#ffdf40; text-shadow:0 0 10px #ffdf40;">Inicio / Anuncios</h1>
 
@@ -194,16 +184,20 @@ body::before {
 
 <script>
 
-/* ===================== FUNCIÓN DE CARGA DINÁMICA ===================== */
+/* ===================== CARGA DINÁMICA AJUSTADA A TU GITHUB ===================== */
 function cargar(archivo){
-    fetch("modulos/" + archivo)
-        .then(r => r.text())
-        .then(html=>{
+    fetch(archivo)
+        .then(resp => resp.text())
+        .then(html => {
             const panel = document.getElementById("centro");
             panel.innerHTML = html;
             panel.classList.remove("fade");
-            void panel.offsetWidth; 
+            void panel.offsetWidth;
             panel.classList.add("fade");
+        })
+        .catch(err => {
+            document.getElementById("centro").innerHTML = 
+                "<h2 style='color:red;text-align:center;'>Error cargando: "+archivo+"</h2>";
         });
 }
 
