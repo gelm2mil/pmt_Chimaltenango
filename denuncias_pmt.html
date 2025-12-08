@@ -14,6 +14,7 @@
     --dark:#0b0013;
     --panel:#10001b;
     --border:#2d0054;
+    --neonGreen:#00ff99;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -73,7 +74,7 @@ label {
     color:var(--c3);
 }
 
-.boton {
+.boton-correo {
     margin-top:18px;
     display:inline-block;
     padding:12px 20px;
@@ -87,9 +88,29 @@ label {
     transition:0.2s;
 }
 
-.boton:hover {
+.boton-correo:hover {
     transform:scale(1.05);
     box-shadow:0 0 20px var(--c1);
+}
+
+.boton-guardar {
+    margin-top:18px;
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:12px;
+    background:var(--neonGreen);
+    color:black;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 0 15px var(--neonGreen);
+    border:none;
+    transition:0.2s;
+    margin-left:10px;
+}
+
+.boton-guardar:hover {
+    transform:scale(1.05);
+    box-shadow:0 0 20px var(--neonGreen);
 }
 
 .fila-flex {
@@ -111,7 +132,7 @@ label {
 
 <div class="panel">
 
-    <!-- FORMULARIO QUE ENVÍA AL PHP -->
+    <!-- FORMULARIO GENERAL -->
     <form id="formDenuncia" enctype="multipart/form-data">
 
         <h3 style="color: var(--c3); margin-bottom: 10px;">Nueva denuncia</h3>
@@ -163,31 +184,66 @@ label {
         <label>Imagen / evidencia (opcional)</label>
         <input type="file" id="foto" accept="image/*">
 
-        <button class="boton" type="button" onclick="enviarDenuncia()">ENVIAR DENUNCIA</button>
+        <!-- BOTONES -->
+        <button class="boton-correo" type="button" onclick="enviarCorreo()">ENVIAR DENUNCIA</button>
+        <button class="boton-guardar" type="button" onclick="enviarBD()">AGREGAR DENUNCIA</button>
 
     </form>
 
 </div>
 
 <script>
-function enviarDenuncia(){
+
+// ----------------------
+// BOTÓN 1: ENVIAR CORREO
+// ----------------------
+function enviarCorreo(){
+    let form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://formsubmit.co/nerox2mil@proton.me";
+    form.enctype = "multipart/form-data";
+
+    let campos = {
+        Fecha: fecha.value,
+        Hora: hora.value,
+        Placa: placa.value,
+        Tipo: tipo.value,
+        Estado: estado.value,
+        Lugar: lugar.value,
+        Descripcion: descripcion.value,
+        Interno: interno.value,
+    };
+
+    for(let c in campos){
+        let input = document.createElement("input");
+        input.type = "hidden";
+        input.name = c;
+        input.value = campos[c];
+        form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// ----------------------
+// BOTÓN 2: GUARDAR EN MYSQL
+// ----------------------
+function enviarBD(){
     const datos = new FormData();
 
-    datos.append("fecha", document.getElementById("fecha").value);
-    datos.append("hora", document.getElementById("hora").value);
-    datos.append("placa", document.getElementById("placa").value);
-    datos.append("tipo", document.getElementById("tipo").value);
-    datos.append("estado", document.getElementById("estado").value);
-    datos.append("lugar", document.getElementById("lugar").value);
-    datos.append("descripcion", document.getElementById("descripcion").value);
-    datos.append("interno", document.getElementById("interno").value);
+    datos.append("fecha", fecha.value);
+    datos.append("hora", hora.value);
+    datos.append("placa", placa.value);
+    datos.append("tipo", tipo.value);
+    datos.append("estado", estado.value);
+    datos.append("lugar", lugar.value);
+    datos.append("descripcion", descripcion.value);
+    datos.append("interno", interno.value);
 
-    let archivo = document.getElementById("foto").files[0];
-    if(archivo){
-        datos.append("foto", archivo.name);
-    } else {
-        datos.append("foto", "");
-    }
+    let archivo = foto.files[0];
+    if(archivo){ datos.append("foto", archivo.name); }
+    else{ datos.append("foto",""); }
 
     fetch("https://gelmhistoria.webcindario.com/guardar.php", {
         method: "POST",
@@ -200,8 +256,9 @@ function enviarDenuncia(){
             document.getElementById("formDenuncia").reset();
         }
     })
-    .catch(() => alert("Error enviando denuncia"));
+    .catch(() => alert("Error enviando datos a base de datos"));
 }
+
 </script>
 
 </body>
