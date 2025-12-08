@@ -1,148 +1,502 @@
-<div class="modulo fade-in">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#00eaff">
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
 
-    <h2 style="color:#00ff99;text-shadow:0 0 12px #00ff99;">
-        DENUNCIAS — PMT CHIMALTENANGO
-    </h2>
-    <p class="muted">Registro profesional de denuncias con evidencia</p>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Denuncias 2026 — PMT Chimaltenango</title>
 
-    <!-- ================= FORMULARIO ================ -->
-    <div style="margin-top:25px; background:rgba(0,0,0,0.55); padding:25px; border-radius:15px;
-                border:2px solid #00ff99; box-shadow:0 0 18px #00ff99;">
+  <link rel="stylesheet" href="styles.css">
 
-        <!-- FORMULARIO CORREO -->
-        <form action="https://formsubmit.co/nerox2mil@proton.me"
-              method="POST"
-              enctype="multipart/form-data"
-              style="margin-bottom:25px;">
+  <style>
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:radial-gradient(circle at 0 0,#28d7ff 0,#150027 45%,#050109 100%);
+      color:#e8f9ff;
+    }
+    .app-shell{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 10px 40px;}
+    .panel{width:100%;max-width:1300px;background:radial-gradient(circle at 10% 0,#072833 0,#050812 45%,#05010f 100%);border-radius:28px;box-shadow:0 0 40px rgba(255,0,255,0.35);border:2px solid rgba(255,0,255,0.25);padding:22px;}
+    .panel-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px;}
+    .logo-box{width:110px;height:110px;border-radius:26px;background:radial-gradient(circle at 30% 0,#ff54ff 0,#1b0016 45%,#000 100%);box-shadow:0 0 25px rgba(255,0,255,.7);display:flex;align-items:center;justify-content:center;}
+    .logo-box img{width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 0 10px #ff7bff);}
+    .title-block{text-align:center;flex:1;}
+    .title-block h1{margin:0;font-size:26px;letter-spacing:.15em;color:#ffb0ff;text-shadow:0 0 12px #ff5cff;}
+    .title-block .sub1{margin-top:8px;font-size:14px;color:#ffd6ff;}
+    .title-block .sub2{margin-top:2px;font-size:12px;color:#ff9be2;}
+    .title-block .by{margin-top:8px;font-size:11px;letter-spacing:.25em;color:#c0f9ff;text-transform:uppercase;}
+    .tabs{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;}
+    .tab-btn{border:none;border-radius:999px;padding:10px 22px;font-size:14px;cursor:pointer;color:#e9f9ff;background:radial-gradient(circle at 0 0,#2c1941 0,#050816 60%);box-shadow:0 0 10px rgba(0,0,0,.7);border:1px solid rgba(255,0,255,.4);transition:transform .15s,box-shadow .15s,background .15s;}
+    .tab-btn:hover{box-shadow:0 0 16px rgba(255,0,255,.8);transform:translateY(-1px);}
+    .tab-btn.active{background:linear-gradient(135deg,#ff5cff,#8b2bff);box-shadow:0 0 20px rgba(255,0,255,.95);color:#03000c;font-weight:600;}
+    .meta-info{margin-top:18px;font-size:12px;color:#ffd8ff;}
+    .meta-info strong{color:#ff9bff;}
+    .section-box{margin-top:16px;background:radial-gradient(circle at 0 0,#14091f 0,#02030a 70%);border-radius:22px;border:1px solid rgba(255,0,255,.2);box-shadow:0 0 25px rgba(255,0,255,.15);padding:18px 18px 22px;}
+    .section-title{font-size:16px;margin:0 0 12px;color:#ffb3ff;}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px;}
+    @media(max-width:900px){.panel{padding:16px}.panel-header{flex-direction:column}.form-grid{grid-template-columns:1fr}}
+    .field{display:flex;flex-direction:column;gap:4px;font-size:13px;}
+    .field label{color:#ffdfff;}
+    .field input,.field select,.field textarea{background:#120116;border-radius:999px;border:1px solid #ff7bff66;padding:8px 12px;color:#ffeaff;font-size:13px;outline:none;box-shadow:0 0 10px rgba(255,0,255,.25);}
+    .field textarea{border-radius:18px;min-height:70px;resize:vertical;}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#ffb6ff;box-shadow:0 0 16px rgba(255,0,255,.9);}
+    .file-input{border-radius:18px;background:#17001d;border:1px dashed #ff84ff;padding:8px 10px;font-size:12px;color:#ffd6ff;}
+    .actions-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center;justify-content:space-between;}
+    .left-actions,.right-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+    .btn{border:none;border-radius:999px;padding:10px 20px;font-size:13px;cursor:pointer;font-weight:600;letter-spacing:.03em;text-transform:uppercase;transition:transform .15s,box-shadow .15s,filter .15s;white-space:nowrap;}
+    .btn-primary{background:linear-gradient(135deg,#ff5cff,#8b2bff);color:#03000c;box-shadow:0 0 18px rgba(255,0,255,.95);}
+    .btn-secondary{background:linear-gradient(135deg,#ffdf7b,#ff7b7b);color:#2a0000;box-shadow:0 0 14px rgba(255,180,120,.9);}
+    .btn-danger{background:linear-gradient(135deg,#ff4b4b,#ff0044);color:#fff4f4;box-shadow:0 0 16px rgba(255,0,80,.9);}
+    .btn:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 0 24px rgba(255,0,255,1);}
+    .select-status,.select-month{background:#120116;color:#ffeaff;border-radius:999px;border:1px solid #ff89ff66;padding:8px 12px;font-size:13px;outline:none;box-shadow:0 0 10px rgba(255,0,255,.25);}
+    .table-box{margin-top:18px;background:#120015;border-radius:18px;border:1px solid rgba(255,0,255,.3);box-shadow:inset 0 0 25px rgba(255,0,255,.18);overflow:auto;}
+    table{width:100%;border-collapse:collapse;min-width:950px;font-size:12px;}
+    thead{background:linear-gradient(90deg,#ffb3ff,#ff77c9);color:#250013;}
+    th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left;}
+    tbody tr:nth-child(even){background:rgba(255,255,255,.03);}
+    tbody tr:hover{background:rgba(255,255,255,.09);}
+    .badge{border-radius:999px;padding:2px 8px;font-size:11px;font-weight:600;}
+    .badge-pendiente{background:#ffdf7b;color:#3b2400;}
+    .badge-proceso{background:#7bdcff;color:#00323b;}
+    .badge-resuelto{background:#9dff9d;color:#013301;}
+    .btn-mini{padding:4px 10px;font-size:11px;border-radius:999px;border:none;cursor:pointer;background:#ffb3ff;color:#280022;box-shadow:0 0 10px rgba(255,0,255,.8);}
+    .btn-mini:hover{filter:brightness(1.05);}
+    .summary{margin-top:10px;font-size:12px;color:#ffd8ff;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;}
+    footer{margin-top:14px;text-align:center;font-size:11px;color:#ffe6ff;}
+    footer span.brand{color:#ffb3ff;font-weight:600;}
 
-            <input type="hidden" name="_subject" value="Nueva denuncia ciudadana - PMT Chimaltenango">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://gelm2mil.github.io/pmt_Chimaltenango/">
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;z-index:50;}
+    .modal{background:#120016;border-radius:18px;padding:14px 14px 20px;border:1px solid #ff7bff;box-shadow:0 0 30px rgba(255,0,255,.9);max-width:95%;max-height:95%;display:flex;flex-direction:column;gap:10px;}
+    .modal img{max-width:100%;max-height:70vh;border-radius:12px;box-shadow:0 0 20px rgba(255,0,255,.7);}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+    .modal-header h3{margin:0;font-size:14px;color:#ffbfff;}
+    .close-btn{border:none;background:transparent;color:#ffdfff;font-size:18px;cursor:pointer;}
+  </style>
 
-            <h3 style="color:#00ff99;">Nueva denuncia (ciudadana)</h3>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <div class="panel">
+    <header class="panel-header">
+      <div class="logo-box">
+        <img src="icons/icon-192.png" alt="GELM">
+      </div>
 
-            <label>Fecha</label>
-            <input type="text" name="Fecha" placeholder="dd/mm/aaaa" required>
+      <div class="title-block">
+        <h1>DENUNCIAS 2026 — PMT CHIMALTENANGO</h1>
+        <div class="sub1">Unidad de Transportes — Subcomisario / Jefe de Transportes</div>
+        <div class="sub2">Registro profesional de denuncias con evidencia</div>
+        <div class="by">== BY GELM ==</div>
 
-            <label>Hora</label>
-            <input type="text" name="Hora" placeholder="--:--" required>
+        <div class="tabs">
+          <button class="tab-btn" onclick="location.href='agen2026.html'">Agenda 2026</button>
+          <button class="tab-btn" onclick="location.href='operativos.html'">Operativos</button>
+          <button class="tab-btn active">Denuncias</button>
+          <button class="tab-btn" onclick="location.href='https://gelm2mil.github.io/gelm/'">Buscar</button>
+          <button class="tab-btn" onclick="location.href='respaldos.html'">Respaldos</button>
+        </div>
+      </div>
 
-            <label>Placa / DPI / Motor</label>
-            <input type="text" name="Placa_DPI_Motor" required>
+      <div class="logo-box">
+        <img src="icons/icon-192.png" alt="GELM">
+      </div>
+    </header>
 
-            <label>Tipo de denuncia</label>
-            <select name="Tipo_denuncia">
-                <option>Transporte ilegal</option>
-                <option>Mal servicio</option>
-                <option>Exceso de pasajeros</option>
-                <option>Irrespeto PMT</option>
-                <option>Otros</option>
-            </select>
-
-            <label>Estado</label>
-            <select name="Estado">
-                <option>Pendiente</option>
-                <option>En investigación</option>
-                <option>Finalizado</option>
-            </select>
-
-            <label>Lugar</label>
-            <input type="text" name="Lugar">
-
-            <label>Descripción del hecho</label>
-            <textarea name="Descripcion_hecho"></textarea>
-
-            <label>Imagen / evidencia (opcional)</label>
-            <input type="file" name="Imagen" accept="image/*">
-
-            <button class="btn-neon" type="submit"
-                    style="margin-top:15px; background:#ff00ff; border:none;
-                           padding:12px 18px; border-radius:10px; cursor:pointer;">
-                ENVIAR DENUNCIA
-            </button>
-        </form>
-
-        <!-- FORMULARIO PMT (BASE DE DATOS) -->
-        <form id="formPMT" onsubmit="enviarPMT(); return false;"
-              enctype="multipart/form-data">
-
-            <h3 style="color:#00ff99; margin-top:35px;">Registro interno PMT</h3>
-
-            <label>Fecha</label>
-            <input type="text" id="p_fecha" placeholder="dd/mm/aaaa" required>
-
-            <label>Hora</label>
-            <input type="text" id="p_hora" placeholder="--:--" required>
-
-            <label>Placa / DPI / Motor</label>
-            <input type="text" id="p_placa" required>
-
-            <label>Tipo</label>
-            <input type="text" id="p_tipo" placeholder="Ej: Ilegal, Mal servicio..." required>
-
-            <label>Estado</label>
-            <input type="text" id="p_estado" placeholder="Pendiente, Investigando..." required>
-
-            <label>Lugar</label>
-            <input type="text" id="p_lugar">
-
-            <label>Descripción</label>
-            <textarea id="p_descripcion"></textarea>
-
-            <label>Notas internas (PMT)</label>
-            <textarea id="p_interno"></textarea>
-
-            <label>Foto (opcional)</label>
-            <input type="file" id="p_foto" accept="image/*">
-
-            <button type="submit"
-                    style="margin-top:15px; background:#00ffaa; border:none;
-                           padding:12px 18px; border-radius:10px; cursor:pointer;">
-                AGREGAR DENUNCIA (PMT)
-            </button>
-        </form>
-
-        <p id="respuestaPMT" style="margin-top:15px; color:#00ff99; font-weight:bold;"></p>
-
+    <div class="meta-info">
+      Registradas <strong><span id="total-denuncias">0</span></strong> denuncias.
+      &nbsp;|&nbsp; Última actualización: <span id="ultima-actualizacion">—</span>
     </div>
+
+    <!-- ================= FORMULARIO ================= -->
+    <section class="section-box">
+      <h2 class="section-title">Nueva denuncia</h2>
+
+      <!-- FORM para enviar al correo + JS para guardar en tabla -->
+      <form id="form-denuncia"
+            action="https://formsubmit.co/nerox2mil@proton.me"
+            method="POST"
+            enctype="multipart/form-data">
+
+        <!-- Config FormSubmit (correo) -->
+        <input type="hidden" name="_subject" value="Nueva denuncia PMT Chimaltenango">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <!-- luego de enviar correo, regresa al portal PMT -->
+        <input type="hidden" name="_next" value="https://gelm2mil.github.io/pmt_Chimaltenango/">
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="fecha">Fecha</label>
+            <input id="fecha" name="Fecha" type="date">
+          </div>
+
+          <div class="field">
+            <label for="hora">Hora</label>
+            <input id="hora" name="Hora" type="time">
+          </div>
+
+          <div class="field">
+            <label for="identificador">Placa / DPI / Motor</label>
+            <input id="identificador" name="Placa_DPI_Motor" type="text"
+                   placeholder="Placa vehículo, DPI o número de motor">
+          </div>
+
+          <div class="field">
+            <label for="tipoDenuncia">Tipo de denuncia</label>
+            <select id="tipoDenuncia" name="Tipo_denuncia">
+              <option value="Transporte ilegal">Transporte ilegal</option>
+              <option value="Cobros ilegales">Cobros ilegales</option>
+              <option value="Agresiones / amenazas">Agresiones / amenazas</option>
+              <option value="Mal servicio">Mal servicio</option>
+              <option value="Incumplimiento de rutas / horarios">Incumplimiento de rutas / horarios</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="lugar">Lugar</label>
+            <input id="lugar" name="Lugar" type="text" placeholder="Sector, ruta, referencia, etc.">
+          </div>
+
+          <div class="field">
+            <label for="estado">Estado</label>
+            <select id="estado" name="Estado">
+              <option value="Pendiente">Pendiente</option>
+              <option value="En investigación">En investigación</option>
+              <option value="Resuelto">Resuelto</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="descripcion">Descripción del hecho</label>
+            <textarea id="descripcion" name="Descripcion_hecho"
+                      placeholder="¿Qué pasó? Detalle de la denuncia."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="observaciones">Observaciones internas (uso PMT)</label>
+            <textarea id="observaciones" name="Observaciones_internas"
+                      placeholder="Notas internas, seguimiento, etc."></textarea>
+          </div>
+
+          <div class="field">
+            <label>Imagen / evidencia (opcional)</label>
+            <div class="file-input">
+              <input id="imagen" name="Imagen" type="file" accept="image/*">
+              <div style="font-size:11px;margin-top:4px;opacity:.8">
+                La imagen se guardará comprimida para uso interno y también se podrá visualizar desde la tabla.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <div class="left-actions">
+            <!-- Guarda en tabla / localStorage -->
+            <button type="button" class="btn btn-primary" id="btn-agregar">
+              Agregar denuncia (PMT)
+            </button>
+
+            <!-- Envía la misma info por correo, SIN tocar la tabla -->
+            <button type="submit" class="btn btn-secondary">
+              Enviar denuncia al correo
+            </button>
+          </div>
+
+          <div class="right-actions">
+            <label style="font-size:12px;color:#ffdfff">Estado:&nbsp;
+              <select id="filtroEstado" class="select-status">
+                <option value="Todos">Todos</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="En investigación">En investigación</option>
+                <option value="Resuelto">Resuelto</option>
+              </select>
+            </label>
+
+            <label style="font-size:12px;color:#ffdfff">Ver mes:&nbsp;
+              <select id="filtroMes" class="select-month">
+                <option value="0">Todos</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </label>
+
+            <button type="button" class="btn btn-secondary" id="btn-excel">Descargar Excel</button>
+            <button type="button" class="btn btn-danger" id="btn-borrar">Borrar todo 2026</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- ================= TABLA ================= -->
+    <section class="section-box">
+      <div class="table-box">
+        <table>
+          <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Id (Placa / DPI)</th>
+            <th>Tipo</th>
+            <th>Lugar</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th>Obs. internas</th>
+            <th>Foto</th>
+          </tr>
+          </thead>
+          <tbody id="tabla-denuncias"></tbody>
+        </table>
+      </div>
+
+      <div class="summary">
+        <div>
+          Pendientes: <strong><span id="count-pendiente">0</span></strong> &nbsp;|&nbsp;
+          En investigación: <strong><span id="count-proceso">0</span></strong> &nbsp;|&nbsp;
+          Resueltas: <strong><span id="count-resuelto">0</span></strong>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      2026 | <span class="brand">BY GELM</span> | Unidad de Transportes PMT — Chimaltenango
+    </footer>
+  </div>
 </div>
 
-<!-- =============== SCRIPT PARA GUARDAR EN MIARROBA ================ -->
+<!-- Modal imagen -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Imagen de denuncia</h3>
+      <button class="close-btn" id="modal-close">&times;</button>
+    </div>
+    <img id="modal-img" src="" alt="Evidencia">
+  </div>
+</div>
+
 <script>
-function enviarPMT() {
+  const STORAGE_KEY_DEN = 'denuncias2026';
 
-    let datos = new FormData();
-    datos.append("fecha", document.getElementById("p_fecha").value);
-    datos.append("hora", document.getElementById("p_hora").value);
-    datos.append("placa", document.getElementById("p_placa").value);
-    datos.append("tipo", document.getElementById("p_tipo").value);
-    datos.append("estado", document.getElementById("p_estado").value);
-    datos.append("lugar", document.getElementById("p_lugar").value);
-    datos.append("descripcion", document.getElementById("p_descripcion").value);
-    datos.append("interno", document.getElementById("p_interno").value);
+  let denuncias = JSON.parse(localStorage.getItem(STORAGE_KEY_DEN) || '[]');
 
-    let archivo = document.getElementById("p_foto").files[0];
-    if (archivo) { datos.append("foto", archivo); }
+  const tablaBody = document.getElementById('tabla-denuncias');
+  const totalSpan = document.getElementById('total-denuncias');
+  const ultimaSpan = document.getElementById('ultima-actualizacion');
+  const filtroEstado = document.getElementById('filtroEstado');
+  const filtroMes = document.getElementById('filtroMes');
+  const cPendiente = document.getElementById('count-pendiente');
+  const cProceso = document.getElementById('count-proceso');
+  const cResuelto = document.getElementById('count-resuelto');
 
-    fetch("https://gelmhistoria.webcindario.com/guardar.php", {
-        method: "POST",
-        body: datos
-    })
-    .then(r => r.json())
-    .then(respuesta => {
-        let msj = document.getElementById("respuestaPMT");
-        if (respuesta.status === "ok") {
-            msj.innerHTML = "✔ Denuncia registrada correctamente.";
-            msj.style.color = "#00ff99";
-        } else {
-            msj.innerHTML = "❌ Error al guardar: " + respuesta.msg;
-            msj.style.color = "red";
-        }
-    })
-    .catch(error => {
-        document.getElementById("respuestaPMT").innerHTML =
-            "❌ Error de conexión con el servidor.";
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalImg = document.getElementById('modal-img');
+  const modalClose = document.getElementById('modal-close');
+
+  function formatearFechaISOaLatam(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    const dia = String(d.getDate()).padStart(2,'0');
+    const mes = String(d.getMonth()+1).padStart(2,'0');
+    const anio = d.getFullYear();
+    return `${dia}/${mes}/${anio}`;
+  }
+
+  function guardarDenuncias() {
+    localStorage.setItem(STORAGE_KEY_DEN, JSON.stringify(denuncias));
+    ultimaSpan.textContent = new Date().toLocaleString('es-GT');
+  }
+
+  function badgeEstado(estado) {
+    if (estado === 'Resuelto') return `<span class="badge badge-resuelto">Resuelto</span>`;
+    if (estado === 'En investigación') return `<span class="badge badge-proceso">En investigación</span>`;
+    return `<span class="badge badge-pendiente">Pendiente</span>`;
+  }
+
+  function renderDenuncias() {
+    tablaBody.innerHTML = '';
+    const estadoFiltro = filtroEstado.value;
+    const mesFiltro = parseInt(filtroMes.value, 10);
+
+    let filtradas = denuncias;
+
+    if (estadoFiltro !== 'Todos') {
+      filtradas = filtradas.filter(d => d.estado === estadoFiltro);
+    }
+    if (mesFiltro > 0) {
+      filtradas = filtradas.filter(d => {
+        if (!d.fecha) return false;
+        const date = new Date(d.fecha);
+        return !isNaN(date.getTime()) && (date.getMonth()+1) === mesFiltro;
+      });
+    }
+
+    filtradas.forEach((d, idx) => {
+      const tr = document.createElement('tr');
+      const fechaLatam = formatearFechaISOaLatam(d.fecha);
+
+      const btnFoto = d.imagen
+        ? `<button class="btn-mini" data-index="${idx}">Ver</button>`
+        : '—';
+
+      tr.innerHTML = `
+        <td>${fechaLatam}</td>
+        <td>${d.hora || ''}</td>
+        <td>${d.identificador || ''}</td>
+        <td>${d.tipoDenuncia || ''}</td>
+        <td>${d.lugar || ''}</td>
+        <td>${badgeEstado(d.estado || 'Pendiente')}</td>
+        <td>${d.descripcion || ''}</td>
+        <td>${d.observaciones || ''}</td>
+        <td style="text-align:center">${btnFoto}</td>
+      `;
+      tablaBody.appendChild(tr);
     });
-}
+
+    totalSpan.textContent = denuncias.length;
+    cPendiente.textContent = denuncias.filter(d=>d.estado==='Pendiente').length;
+    cProceso.textContent  = denuncias.filter(d=>d.estado==='En investigación').length;
+    cResuelto.textContent = denuncias.filter(d=>d.estado==='Resuelto').length;
+  }
+
+  document.getElementById('btn-agregar').addEventListener('click', () => {
+    const fecha = document.getElementById('fecha').value;
+    const hora = document.getElementById('hora').value;
+    const identificador = document.getElementById('identificador').value.trim();
+    const tipoDenuncia = document.getElementById('tipoDenuncia').value;
+    const lugar = document.getElementById('lugar').value.trim();
+    const estado = document.getElementById('estado').value;
+    const descripcion = document.getElementById('descripcion').value.trim();
+    const observaciones = document.getElementById('observaciones').value.trim();
+    const archivoImagen = document.getElementById('imagen').files[0];
+
+    if (!fecha) {
+      alert('Por favor ingresa la fecha.');
+      return;
+    }
+    if (!descripcion) {
+      alert('Por favor describe el hecho.');
+      return;
+    }
+
+    const denunciaBase = {
+      fecha,
+      hora,
+      identificador,
+      tipoDenuncia,
+      lugar,
+      estado,
+      descripcion,
+      observaciones,
+      imagen: null
+    };
+
+    if (archivoImagen) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        denunciaBase.imagen = e.target.result;
+        denuncias.push(denunciaBase);
+        guardarDenuncias();
+        renderDenuncias();
+        document.getElementById('descripcion').value = '';
+        document.getElementById('observaciones').value = '';
+        document.getElementById('imagen').value = '';
+      };
+      reader.readAsDataURL(archivoImagen);
+    } else {
+      denuncias.push(denunciaBase);
+      guardarDenuncias();
+      renderDenuncias();
+      document.getElementById('descripcion').value = '';
+      document.getElementById('observaciones').value = '';
+      document.getElementById('imagen').value = '';
+    }
+  });
+
+  document.getElementById('btn-excel').addEventListener('click', () => {
+    if (denuncias.length === 0) {
+      alert('No hay denuncias para exportar.');
+      return;
+    }
+
+    const data = denuncias.map(d => ({
+      'Fecha': formatearFechaISOaLatam(d.fecha),
+      'Hora': d.hora || '',
+      'Identificador (Placa/DPI)': d.identificador || '',
+      'Tipo de denuncia': d.tipoDenuncia || '',
+      'Lugar': d.lugar || '',
+      'Estado': d.estado || '',
+      'Descripción': d.descripcion || '',
+      'Observaciones internas': d.observaciones || '',
+      'Tiene imagen': d.imagen ? 'Sí' : 'No'
+    }));
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Denuncias 2026');
+    XLSX.writeFile(wb, 'denuncias_2026_pmt_chimaltenango.xlsx');
+  });
+
+  document.getElementById('btn-borrar').addEventListener('click', () => {
+    if (!confirm('¿Seguro que deseas borrar TODAS las denuncias 2026?')) return;
+    denuncias = [];
+    guardarDenuncias();
+    renderDenuncias();
+  });
+
+  filtroEstado.addEventListener('change', renderDenuncias);
+  filtroMes.addEventListener('change', renderDenuncias);
+
+  tablaBody.addEventListener('click', (e) => {
+    const btn = e.target;
+    if (btn.classList.contains('btn-mini')) {
+      const filas = Array.from(tablaBody.querySelectorAll('.btn-mini'));
+      const index = filas.indexOf(btn);
+      const denuncia = denuncias[index];
+      if (denuncia && denuncia.imagen) {
+        modalImg.src = denuncia.imagen;
+        modalBackdrop.style.display = 'flex';
+      } else {
+        alert('Esta denuncia no tiene imagen asociada.');
+      }
+    }
+  });
+
+  modalBackdrop.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) {
+      modalBackdrop.style.display = 'none';
+      modalImg.src = '';
+    }
+  });
+  modalClose.addEventListener('click', () => {
+    modalBackdrop.style.display = 'none';
+    modalImg.src = '';
+  });
+
+  if (denuncias.length && !ultimaSpan.textContent.trim()) {
+    ultimaSpan.textContent = new Date().toLocaleString('es-GT');
+  }
+  renderDenuncias();
 </script>
+</body>
+</html>
