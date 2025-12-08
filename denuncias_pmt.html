@@ -4,7 +4,6 @@
   <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#00eaff">
-
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("service-worker.js");
@@ -28,23 +27,9 @@
     .panel{width:100%;max-width:1300px;background:radial-gradient(circle at 10% 0,#072833 0,#050812 45%,#05010f 100%);border-radius:28px;box-shadow:0 0 40px rgba(255,0,255,0.35);border:2px solid rgba(255,0,255,0.25);padding:22px;}
     .panel-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px;}
 
-    .logo-box{
-      width:110px;
-      height:110px;
-      border-radius:26px;
-      background:radial-gradient(circle at 30% 0,#ff54ff 0,#1b0016 45%,#000 100%);
-      box-shadow:0 0 25px rgba(255,0,255,.7);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .logo-box img{
-      width:80%;
-      height:80%;
-      object-fit:contain;
-      filter:drop-shadow(0 0 10px #ff7bff);
-    }
+    /* LOGOS */
+    .logo-box{width:110px;height:110px;border-radius:26px;background:radial-gradient(circle at 30% 0,#ff54ff 0,#1b0016 45%,#000 100%);box-shadow:0 0 25px rgba(255,0,255,.7);display:flex;align-items:center;justify-content:center;}
+    .logo-box img{width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 0 10px #ff7bff);}
 
     .title-block{text-align:center;flex:1;}
     .title-block h1{margin:0;font-size:26px;letter-spacing:.15em;color:#ffb0ff;text-shadow:0 0 12px #ff5cff;}
@@ -52,152 +37,57 @@
     .title-block .sub2{margin-top:2px;font-size:12px;color:#ff9be2;}
     .title-block .by{margin-top:8px;font-size:11px;letter-spacing:.25em;color:#c0f9ff;text-transform:uppercase;}
 
+    /* SE ELIMINA COMPLETAMENTE EL MENU SUPERIOR */
+
     .meta-info{margin-top:18px;font-size:12px;color:#ffd8ff;}
     .meta-info strong{color:#ff9bff;}
 
-    .section-box{
-      margin-top:16px;
-      background:radial-gradient(circle at 0 0,#14091f 0,#02030a 70%);
-      border-radius:22px;
-      border:1px solid rgba(255,0,255,.2);
-      box-shadow:0 0 25px rgba(255,0,255,.15);
-      padding:18px 18px 22px;
-    }
-
+    .section-box{margin-top:16px;background:radial-gradient(circle at 0 0,#14091f 0,#02030a 70%);border-radius:22px;border:1px solid rgba(255,0,255,.2);box-shadow:0 0 25px rgba(255,0,255,.15);padding:18px 18px 22px;}
     .section-title{font-size:16px;margin:0 0 12px;color:#ffb3ff;}
 
-    .form-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:12px 20px;
-    }
-
-    @media(max-width:900px){
-      .panel{padding:16px}
-      .panel-header{flex-direction:column}
-      .form-grid{grid-template-columns:1fr}
-    }
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px;}
+    @media(max-width:900px){.form-grid{grid-template-columns:1fr}}
 
     .field{display:flex;flex-direction:column;gap:4px;font-size:13px;}
     .field label{color:#ffdfff;}
+    .field input,.field select,.field textarea{background:#120116;border-radius:999px;border:1px solid #ff7bff66;padding:8px 12px;color:#ffeaff;font-size:13px;outline:none;box-shadow:0 0 10px rgba(255,0,255,.25);}
+    .field textarea{border-radius:18px;min-height:70px;resize:vertical;}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#ffb6ff;box-shadow:0 0 16px rgba(255,0,255,.9);}
 
-    .field input,.field select,.field textarea{
-      background:#120116;
-      border-radius:999px;
-      border:1px solid #ff7bff66;
-      padding:8px 12px;
-      color:#ffeaff;
-      font-size:13px;
-      outline:none;
-      box-shadow:0 0 10px rgba(255,0,255,.25);
-    }
+    .file-input{border-radius:18px;background:#17001d;border:1px dashed #ff84ff;padding:8px 10px;font-size:12px;color:#ffd6ff;}
 
-    .field textarea{
-      border-radius:18px;
-      min-height:70px;
-      resize:vertical;
-    }
+    .actions-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center;justify-content:space-between;}
+    .left-actions,.right-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
 
-    .actions-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:18px;
-      align-items:center;
-      justify-content:space-between;
-    }
+    .btn{border:none;border-radius:999px;padding:10px 20px;font-size:13px;cursor:pointer;font-weight:600;letter-spacing:.03em;text-transform:uppercase;transition:.2s;}
+    .btn-primary{background:linear-gradient(135deg,#ff5cff,#8b2bff);color:#03000c;box-shadow:0 0 18px rgba(255,0,255,.95);}
+    .btn-secondary{background:linear-gradient(135deg,#ffdf7b,#ff7b7b);color:#2a0000;box-shadow:0 0 14px rgba(255,180,120,.9);}
+    .btn:hover{filter:brightness(1.06);transform:translateY(-1px);}
 
-    .btn{
-      border:none;
-      border-radius:999px;
-      padding:10px 20px;
-      font-size:13px;
-      cursor:pointer;
-      font-weight:600;
-      text-transform:uppercase;
-      transition:.15s;
-    }
+    .select-status,.select-month{background:#120116;color:#ffeaff;border-radius:999px;border:1px solid #ff89ff66;padding:8px 12px;font-size:13px;}
 
-    .btn-primary{
-      background:linear-gradient(135deg,#ff5cff,#8b2bff);
-      box-shadow:0 0 18px rgba(255,0,255,.95);
-      color:#03000c;
-    }
+    .table-box{margin-top:18px;background:#120015;border-radius:18px;border:1px solid rgba(255,0,255,.3);box-shadow:inset 0 0 25px rgba(255,0,255,.18);overflow:auto;}
+    table{width:100%;border-collapse:collapse;min-width:950px;font-size:12px;}
+    thead{background:linear-gradient(90deg,#ffb3ff,#ff77c9);color:#250013;}
+    th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.07)}
 
-    .btn-secondary{
-      background:linear-gradient(135deg,#ffdf7b,#ff7b7b);
-      box-shadow:0 0 14px rgba(255,180,120,.9);
-      color:#2a0000;
-    }
-
-    .select-status,.select-month{
-      background:#120116;
-      border-radius:999px;
-      padding:8px 12px;
-      border:1px solid #ff89ff66;
-      color:#ffeaff;
-    }
-
-    .table-box{
-      margin-top:18px;
-      background:#120015;
-      border-radius:18px;
-      border:1px solid rgba(255,0,255,.3);
-      box-shadow:inset 0 0 25px rgba(255,0,255,.18);
-      overflow:auto;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:950px;
-      font-size:12px;
-    }
-
-    thead{
-      background:linear-gradient(90deg,#ffb3ff,#ff77c9);
-      color:#250013;
-    }
-
-    th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left;}
-    tbody tr:nth-child(even){background:rgba(255,255,255,.03);}
-    tbody tr:hover{background:rgba(255,255,255,.09);}
-
-    .badge{
-      border-radius:999px;
-      padding:2px 8px;
-      font-size:11px;
-      font-weight:600;
-    }
+    .badge-resuelto{background:#9dff9d;color:#013301;}
     .badge-pendiente{background:#ffdf7b;color:#3b2400;}
     .badge-proceso{background:#7bdcff;color:#00323b;}
-    .badge-resuelto{background:#9dff9d;color:#013301;}
 
-    .btn-mini{
-      padding:4px 10px;
-      font-size:11px;
-      background:#ffb3ff;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-    }
-
-    footer{text-align:center;margin-top:16px;font-size:11px;color:#ffdfff;}
-    footer .brand{color:#ffb3ff;font-weight:600;}
+    .btn-mini{padding:4px 10px;font-size:11px;border-radius:999px;background:#ffb3ff;color:#280022;cursor:pointer;}
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
-
 <body>
 
 <div class="app-shell">
   <div class="panel">
 
-    <!-- ENCABEZADO -->
     <header class="panel-header">
       <div class="logo-box">
-        <img src="icons/icon-192.png">
+        <img src="icons/icon-192.png" alt="GELM">
       </div>
 
       <div class="title-block">
@@ -208,18 +98,17 @@
       </div>
 
       <div class="logo-box">
-        <img src="icons/pmt.png">
+        <img src="icons/pmt.png" alt="PMT">
       </div>
     </header>
 
     <div class="meta-info">
-      Registradas: <strong><span id="total-denuncias">0</span></strong>
+      Registradas <strong><span id="total-denuncias">0</span></strong> denuncias.
       &nbsp;|&nbsp; Última actualización: <span id="ultima-actualizacion">—</span>
     </div>
 
     <!-- ================= FORMULARIO ================= -->
     <section class="section-box">
-
       <h2 class="section-title">Nueva denuncia</h2>
 
       <form id="form-denuncia"
@@ -227,7 +116,7 @@
             method="POST"
             enctype="multipart/form-data">
 
-        <input type="hidden" name="_subject" value="Nueva denuncia PMT">
+        <input type="hidden" name="_subject" value="Nueva denuncia PMT Chimaltenango">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://gelm2mil.github.io/pmt_Chimaltenango/">
@@ -250,14 +139,14 @@
           </div>
 
           <div class="field">
-            <label>Tipo</label>
+            <label>Tipo de denuncia</label>
             <select id="tipoDenuncia" name="Tipo_denuncia">
-              <option>Transporte ilegal</option>
-              <option>Cobros ilegales</option>
-              <option>Agresiones / amenazas</option>
-              <option>Mal servicio</option>
-              <option>Incumplimiento de rutas</option>
-              <option>Otros</option>
+              <option value="Transporte ilegal">Transporte ilegal</option>
+              <option value="Cobros ilegales">Cobros ilegales</option>
+              <option value="Agresiones / amenazas">Agresiones / amenazas</option>
+              <option value="Mal servicio">Mal servicio</option>
+              <option value="Incumplimiento de rutas / horarios">Incumplimiento de rutas / horarios</option>
+              <option value="Otros">Otros</option>
             </select>
           </div>
 
@@ -269,51 +158,51 @@
           <div class="field">
             <label>Estado</label>
             <select id="estado" name="Estado">
-              <option>Pendiente</option>
-              <option>En investigación</option>
-              <option>Resuelto</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="En investigación">En investigación</option>
+              <option value="Resuelto">Resuelto</option>
             </select>
           </div>
 
-          <div class="field" style="grid-column:1/3">
+          <div class="field">
             <label>Descripción</label>
             <textarea id="descripcion" name="Descripcion_hecho"></textarea>
           </div>
 
-          <div class="field" style="grid-column:1/3">
+          <div class="field">
             <label>Observaciones internas</label>
             <textarea id="observaciones" name="Observaciones_internas"></textarea>
           </div>
 
           <div class="field">
             <label>Imagen (opcional)</label>
-            <input id="imagen" name="Imagen" type="file" accept="image/*">
+            <div class="file-input">
+              <input id="imagen" name="Imagen" type="file" accept="image/*">
+            </div>
           </div>
 
         </div>
 
         <div class="actions-row">
+          <div class="left-actions">
+            <button type="button" class="btn btn-primary" id="btn-agregar">
+              Agregar denuncia (PMT)
+            </button>
+            <button type="submit" class="btn btn-secondary">
+              Enviar denuncia al correo
+            </button>
+          </div>
 
-          <button type="button" id="btn-agregar" class="btn btn-primary">
-            Agregar denuncia (PMT)
-          </button>
-
-          <button type="submit" class="btn btn-secondary">
-            Enviar al correo
-          </button>
-
-          <label>
+          <div class="right-actions">
             <select id="filtroEstado" class="select-status">
               <option value="Todos">Todos</option>
-              <option>Pendiente</option>
-              <option>En investigación</option>
-              <option>Resuelto</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="En investigación">En investigación</option>
+              <option value="Resuelto">Resuelto</option>
             </select>
-          </label>
 
-          <label>
             <select id="filtroMes" class="select-month">
-              <option value="0">Mes</option>
+              <option value="0">Todos</option>
               <option value="1">Enero</option>
               <option value="2">Febrero</option>
               <option value="3">Marzo</option>
@@ -327,16 +216,13 @@
               <option value="11">Noviembre</option>
               <option value="12">Diciembre</option>
             </select>
-          </label>
 
-          <button type="button" class="btn btn-secondary" id="btn-excel">
-            Descargar Excel
-          </button>
+            <button type="button" class="btn btn-secondary" id="btn-excel">Descargar Excel</button>
 
+          </div>
         </div>
 
       </form>
-
     </section>
 
     <!-- ================= TABLA ================= -->
@@ -344,149 +230,190 @@
       <div class="table-box">
         <table>
           <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>ID</th>
-              <th>Tipo</th>
-              <th>Lugar</th>
-              <th>Estado</th>
-              <th>Descripción</th>
-              <th>Obs.</th>
-              <th>Foto</th>
-            </tr>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Id (Placa / DPI)</th>
+            <th>Tipo</th>
+            <th>Lugar</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th>Obs. internas</th>
+            <th>Foto</th>
+          </tr>
           </thead>
           <tbody id="tabla-denuncias"></tbody>
         </table>
       </div>
+
+      <div class="summary">
+        Pendientes: <strong><span id="count-pendiente">0</span></strong>
+        &nbsp;|&nbsp; En investigación: <strong><span id="count-proceso">0</span></strong>
+        &nbsp;|&nbsp; Resueltas: <strong><span id="count-resuelto">0</span></strong>
+      </div>
+
     </section>
 
     <footer>
-      2026 | <span class="brand">BY GELM</span> | PMT Chimaltenango
+      2026 | <span class="brand">BY GELM</span> | Unidad de Transportes PMT — Chimaltenango
     </footer>
 
   </div>
 </div>
 
+<!-- Modal imagen -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Imagen de denuncia</h3>
+      <button class="close-btn" id="modal-close">&times;</button>
+    </div>
+    <img id="modal-img" src="" alt="Evidencia">
+  </div>
+</div>
+
+
+<!-- ================= LÓGICA JS ================= -->
 <script>
   const STORAGE_KEY_DEN = 'denuncias2026';
   let denuncias = JSON.parse(localStorage.getItem(STORAGE_KEY_DEN) || '[]');
 
-  const tablaBody   = document.getElementById('tabla-denuncias');
-  const totalSpan   = document.getElementById('total-denuncias');
-  const ultimaSpan  = document.getElementById('ultima-actualizacion');
+  const tablaBody = document.getElementById('tabla-denuncias');
+  const totalSpan = document.getElementById('total-denuncias');
+  const ultimaSpan = document.getElementById('ultima-actualizacion');
   const filtroEstado = document.getElementById('filtroEstado');
-  const filtroMes    = document.getElementById('filtroMes');
+  const filtroMes = document.getElementById('filtroMes');
 
-  function formatearFecha(f){
-    const d = new Date(f);
-    return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalImg = document.getElementById('modal-img');
+  const modalClose = document.getElementById('modal-close');
+
+  function formatearFechaISOaLatam(iso){
+    if(!iso) return '';
+    const d = new Date(iso);
+    if(isNaN(d)) return '';
+    return String(d.getDate()).padStart(2,'0')+"/"+String(d.getMonth()+1).padStart(2,'0')+"/"+d.getFullYear();
   }
 
-  function guardar(){
+  function guardarDenuncias(){
     localStorage.setItem(STORAGE_KEY_DEN, JSON.stringify(denuncias));
     ultimaSpan.textContent = new Date().toLocaleString('es-GT');
   }
 
-  function badge(est){
+  function estadoBadge(est){
     if(est==="Resuelto") return `<span class="badge badge-resuelto">Resuelto</span>`;
     if(est==="En investigación") return `<span class="badge badge-proceso">En investigación</span>`;
     return `<span class="badge badge-pendiente">Pendiente</span>`;
   }
 
-  function render(){
+  function renderDenuncias(){
     tablaBody.innerHTML='';
     let filtradas = denuncias;
 
-    if(filtroEstado.value!=="Todos"){
-      filtradas = filtradas.filter(d => d.estado===filtroEstado.value);
+    const estado = filtroEstado.value;
+    const mes = parseInt(filtroMes.value);
+
+    if(estado!=="Todos"){
+      filtradas = filtradas.filter(d=>d.estado===estado);
     }
 
-    if(parseInt(filtroMes.value)>0){
-      filtradas = filtradas.filter(d => new Date(d.fecha).getMonth()+1 === parseInt(filtroMes.value));
+    if(mes>0){
+      filtradas = filtradas.filter(d=>{
+        const fecha = new Date(d.fecha);
+        return !isNaN(fecha) && (fecha.getMonth()+1)===mes;
+      });
     }
 
     filtradas.forEach((d,i)=>{
-      const tr = document.createElement('tr');
+      const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${formatearFecha(d.fecha)}</td>
-        <td>${d.hora}</td>
-        <td>${d.identificador}</td>
-        <td>${d.tipoDenuncia}</td>
-        <td>${d.lugar}</td>
-        <td>${badge(d.estado)}</td>
-        <td>${d.descripcion}</td>
-        <td>${d.observaciones}</td>
-        <td>${d.imagen ? `<button class='btn-mini' data-i="${i}">Ver</button>` : '—'}</td>
+        <td>${formatearFechaISOaLatam(d.fecha)}</td>
+        <td>${d.hora||""}</td>
+        <td>${d.identificador||""}</td>
+        <td>${d.tipoDenuncia||""}</td>
+        <td>${d.lugar||""}</td>
+        <td>${estadoBadge(d.estado)}</td>
+        <td>${d.descripcion||""}</td>
+        <td>${d.observaciones||""}</td>
+        <td>${d.imagen ? `<button class="btn-mini" data-index="${i}">Ver</button>` : "—"}</td>
       `;
       tablaBody.appendChild(tr);
     });
 
+    document.getElementById("count-pendiente").textContent =
+      denuncias.filter(d=>d.estado==="Pendiente").length;
+    document.getElementById("count-proceso").textContent =
+      denuncias.filter(d=>d.estado==="En investigación").length;
+    document.getElementById("count-resuelto").textContent =
+      denuncias.filter(d=>d.estado==="Resuelto").length;
+
     totalSpan.textContent = denuncias.length;
   }
 
-  document.getElementById('btn-agregar').onclick = ()=>{
+  document.getElementById("btn-agregar").onclick = ()=>{
+    const fecha = fecha.value;
+    const hora = hora.value;
+    const identificador = identificador.value.trim();
+    const tipo = tipoDenuncia.value;
+    const lugarV = lugar.value.trim();
+    const estadoV = estado.value;
+    const descripcionV = descripcion.value.trim();
+    const observV = observaciones.value.trim();
+    const archivo = imagen.files[0];
 
-    const f  = document.getElementById('fecha').value;
-    const h  = document.getElementById('hora').value;
-    const id = document.getElementById('identificador').value.trim();
-    const t  = document.getElementById('tipoDenuncia').value;
-    const l  = document.getElementById('lugar').value.trim();
-    const e  = document.getElementById('estado').value;
-    const d  = document.getElementById('descripcion').value.trim();
-    const o  = document.getElementById('observaciones').value.trim();
-    const img= document.getElementById('imagen').files[0];
+    if(!fecha){alert("Ingrese fecha");return;}
+    if(!descripcionV){alert("Ingrese descripción");return;}
 
-    if(!f){ alert("Debe ingresar la fecha."); return; }
-    if(!d){ alert("Debe describir el hecho."); return; }
+    let nueva = {
+      fecha, hora, identificador,
+      tipoDenuncia:tipo,
+      lugar:lugarV,
+      estado:estadoV,
+      descripcion:descripcionV,
+      observaciones:observV,
+      imagen:null
+    };
 
-    const entry = {fecha:f, hora:h, identificador:id, tipoDenuncia:t, lugar:l, estado:e, descripcion:d, observaciones:o, imagen:null};
-
-    if(img){
+    if(archivo){
       const reader = new FileReader();
-      reader.onload = ev=>{
-        entry.imagen = ev.target.result;
-        denuncias.push(entry);
-        guardar();
-        render();
+      reader.onload = e=>{
+        nueva.imagen = e.target.result;
+        denuncias.push(nueva);
+        guardarDenuncias();
+        renderDenuncias();
       };
-      reader.readAsDataURL(img);
+      reader.readAsDataURL(archivo);
     } else {
-      denuncias.push(entry);
-      guardar();
-      render();
+      denuncias.push(nueva);
+      guardarDenuncias();
+      renderDenuncias();
     }
-
-    document.getElementById('descripcion').value='';
-    document.getElementById('observaciones').value='';
-    document.getElementById('imagen').value='';
   };
 
-  document.getElementById('btn-excel').onclick = ()=>{
-
-    if(!denuncias.length){ alert("No hay denuncias"); return; }
-
-    const data = denuncias.map(d=>({
-      Fecha: formatearFecha(d.fecha),
-      Hora: d.hora,
-      Identificador: d.identificador,
-      Tipo: d.tipoDenuncia,
-      Lugar: d.lugar,
-      Estado: d.estado,
-      Descripción: d.descripcion,
-      Observaciones: d.observaciones,
-      Imagen: d.imagen ? "Sí" : "No"
-    }));
-
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data), "Denuncias 2026");
-    XLSX.writeFile(wb,"denuncias_2026.xlsx");
+  tablaBody.onclick = e=>{
+    if(e.target.classList.contains("btn-mini")){
+      const idx = e.target.dataset.index;
+      modalImg.src = denuncias[idx].imagen;
+      modalBackdrop.style.display="flex";
+    }
   };
 
-  filtroEstado.onchange = render;
-  filtroMes.onchange = render;
+  modalBackdrop.onclick = e=>{
+    if(e.target===modalBackdrop){
+      modalBackdrop.style.display="none";
+      modalImg.src="";
+    }
+  };
 
-  render();
+  modalClose.onclick = ()=>{
+    modalBackdrop.style.display="none";
+    modalImg.src="";
+  };
+
+  filtroEstado.onchange = renderDenuncias;
+  filtroMes.onchange = renderDenuncias;
+
+  renderDenuncias();
 </script>
 
 </body>
