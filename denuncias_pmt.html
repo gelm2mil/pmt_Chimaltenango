@@ -2,264 +2,143 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <title>Denuncias Ciudadanas PMT</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Denuncias 2026 — PMT Chimaltenango</title>
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#00eaff">
-
-  <!-- Excel -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-
+  <!-- Estilos básicos (podés integrarlo a tu styles.css luego) -->
   <style>
-    :root {
-      --c1:#00eaff; --c2:#00ffc8; --c3:#b300ff;
-      --bg:#020616; --panel:#05091e;
-      --txt:#e9f9ff; --muted:#9cb3d8;
-      --danger:#ff0044;
-      --radius:20px;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 10px;
     }
 
-    body{
-      margin:0;
-      font-family:system-ui,sans-serif;
-      background:radial-gradient(circle at top,#00151c,#000);
-      color:var(--txt);
-      min-height:100vh;
+    h2 {
+      text-align: center;
+      color: #003366;
     }
 
-    .wrap{max-width:1200px;margin:auto;padding:24px}
-    .panel{
-      background:var(--panel);
-      border-radius:32px;
-      padding:22px;
-      box-shadow:0 0 40px rgba(0,234,255,.4);
-      border:1px solid rgba(0,234,255,.3);
+    .form-denuncia, .lista-denuncias {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
-    h1{
-      text-align:center;
-      color:var(--c2);
-      letter-spacing:.12em;
-      margin:0 0 6px;
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
     }
 
-    .sub{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:20px}
-
-    /* FORM */
-    .form{
-      background:rgba(0,0,0,.4);
-      border-radius:var(--radius);
-      padding:16px;
-      border:1px solid rgba(0,234,255,.3);
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
+    textarea {
+      resize: vertical;
     }
 
-    label{
-      font-size:.75rem;
-      text-transform:uppercase;
-      color:var(--muted);
+    button {
+      margin-top: 15px;
+      background: #003366;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
     }
 
-    input,select,textarea{
-      width:100%;
-      padding:8px 10px;
-      border-radius:14px;
-      background:var(--bg);
-      border:1px solid rgba(0,234,255,.4);
-      color:var(--txt);
+    button:hover {
+      background: #0055aa;
     }
 
-    textarea{grid-column:1/-1;min-height:90px}
-
-    .actions{
-      margin-top:12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content:space-between;
+    .denuncia {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
     }
 
-    button{
-      border-radius:999px;
-      padding:9px 20px;
-      border:none;
-      cursor:pointer;
-      font-weight:600;
+    .denuncia img {
+      max-width: 100%;
+      border-radius: 5px;
+      margin-top: 5px;
     }
 
-    .btn-main{
-      background:linear-gradient(135deg,var(--c1),var(--c2),var(--c3));
-      color:#020510;
+    .fecha {
+      font-size: 0.85em;
+      color: #555;
     }
 
-    .btn-soft{
-      background:#020616;
-      color:var(--txt);
-      border:1px solid rgba(0,234,255,.4);
+    footer {
+      text-align: center;
+      font-size: 0.8em;
+      color: #555;
+      margin-top: 30px;
     }
 
-    .btn-danger{
-      background:linear-gradient(135deg,#ff0044,#ff7a3c);
-      color:#fff;
+    .aviso {
+      background: #fff3cd;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 0.9em;
     }
-
-    /* TABLE */
-    .table-box{
-      margin-top:18px;
-      border-radius:var(--radius);
-      overflow:auto;
-      max-height:320px;
-      border:1px solid rgba(0,234,255,.3);
-    }
-
-    table{width:100%;border-collapse:collapse;font-size:.85rem}
-    thead{background:linear-gradient(90deg,var(--c2),var(--c1));color:#000;position:sticky;top:0}
-    th,td{padding:8px;border-bottom:1px solid rgba(0,234,255,.2)}
-    tbody tr:hover{background:rgba(0,234,255,.15)}
-
-    .empty{text-align:center;padding:14px;color:var(--c2)}
-
-    footer{text-align:center;margin-top:16px;font-size:.75rem;color:var(--muted)}
   </style>
 </head>
 
 <body>
-<div class="wrap">
-  <div class="panel">
 
-    <h1>DENUNCIAS 2026 — PMT</h1>
-    <div class="sub">Sistema offline de registro de quejas y denuncias ciudadanas</div>
+  <h2>🚦 Denuncias Ciudadanas PMT</h2>
 
-    <!-- FORMULARIO -->
-    <section class="form">
-      <div class="grid">
-        <div>
-          <label>Tipo de denuncia</label>
-          <select id="tipo">
-            <option>Robo</option>
-            <option>Abuso de autoridad</option>
-            <option>Corrupción</option>
-            <option>Maltrato</option>
-            <option>Otro</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Nombre (opcional)</label>
-          <input id="nombre">
-        </div>
-
-        <div>
-          <label>Lugar</label>
-          <input id="lugar">
-        </div>
-
-        <div>
-          <label>Estado</label>
-          <select id="estado">
-            <option>Pendiente</option>
-            <option>En revisión</option>
-            <option>Resuelto</option>
-          </select>
-        </div>
-
-        <textarea id="detalle" placeholder="Describe la denuncia o queja..."></textarea>
-      </div>
-
-      <div class="actions">
-        <button class="btn-main" onclick="agregar()">Registrar denuncia</button>
-        <button class="btn-soft" onclick="exportar()">Exportar Excel</button>
-        <button class="btn-danger" onclick="borrarTodo()">Borrar todo</button>
-      </div>
-    </section>
-
-    <!-- TABLA -->
-    <div class="table-box">
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Tipo</th>
-            <th>Nombre</th>
-            <th>Lugar</th>
-            <th>Estado</th>
-            <th>Detalle</th>
-          </tr>
-        </thead>
-        <tbody id="tabla"></tbody>
-      </table>
-      <div id="vacio" class="empty">No hay denuncias registradas.</div>
-    </div>
-
-    <footer>
-      2026 · PMT Chimaltenango · BY GELM
-    </footer>
-
+  <div class="aviso">
+    ⚠️ Este sistema es un <strong>proyecto demostrativo</strong>.  
+    No representa aún un canal oficial de la Municipalidad.
   </div>
-</div>
 
-<script>
-const KEY="denuncias_2026";
-let data=JSON.parse(localStorage.getItem(KEY)||"[]");
-const tabla=document.getElementById("tabla");
-const vacio=document.getElementById("vacio");
+  <!-- FORMULARIO -->
+  <div class="form-denuncia">
+    <label for="tipo">Tipo de denuncia</label>
+    <select id="tipo">
+      <option value="">Seleccione una opción</option>
+      <option>Transporte colectivo</option>
+      <option>Vehículo mal estacionado</option>
+      <option>Conducción peligrosa</option>
+      <option>Obstrucción de vía</option>
+      <option>Otro</option>
+    </select>
 
-function render(){
-  tabla.innerHTML="";
-  vacio.style.display=data.length?"none":"block";
-  data.forEach(d=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`
-      <td>${d.fecha}</td>
-      <td>${d.tipo}</td>
-      <td>${d.nombre||"-"}</td>
-      <td>${d.lugar}</td>
-      <td>${d.estado}</td>
-      <td>${d.detalle}</td>`;
-    tabla.appendChild(tr);
-  });
-}
+    <label for="lugar">Lugar del hecho</label>
+    <input type="text" id="lugar" placeholder="Ej. Zona, calle, avenida">
 
-function agregar(){
-  const det=document.getElementById("detalle").value.trim();
-  if(!det){alert("Describe la denuncia");return;}
-  data.push({
-    fecha:new Date().toLocaleDateString("es-GT"),
-    tipo:tipo.value,
-    nombre:nombre.value,
-    lugar:lugar.value,
-    estado:estado.value,
-    detalle:det
-  });
-  localStorage.setItem(KEY,JSON.stringify(data));
-  detalle.value="";
-  render();
-}
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" rows="4" placeholder="Describa el hecho..."></textarea>
 
-function borrarTodo(){
-  if(confirm("¿Borrar todas las denuncias?")){
-    data=[];
-    localStorage.removeItem(KEY);
-    render();
-  }
-}
+    <label for="imagen">Adjuntar imagen (opcional)</label>
+    <input type="file" id="imagen" accept="image/*">
 
-function exportar(){
-  if(!data.length){alert("No hay datos");return;}
-  const hoja=XLSX.utils.json_to_sheet(data);
-  const libro=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(libro,hoja,"Denuncias");
-  XLSX.writeFile(libro,"denuncias_2026.xlsx");
-}
+    <button onclick="agregarDenuncia()">Generar denuncia</button>
+  </div>
 
-render();
-</script>
+  <!-- LISTA -->
+  <div class="lista-denuncias">
+    <h3>📋 Denuncias registradas</h3>
+    <div id="contenedorDenuncias"></div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Policía Municipal de Tránsito – PMT Chimaltenango<br>
+    Sistema de denuncias ciudadanas.<br>
+    Uso exclusivo para fines institucionales y de seguridad vial.<br>
+    Prohibida su reproducción, modificación o uso no autorizado.<br>
+    Desarrollado por GELM.
+  </footer>
+
+  <!-- JS -->
+  <script src="denuncias_pmt.js"></script>
 </body>
 </html>
