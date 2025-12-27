@@ -1,179 +1,263 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#00eaff">
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
-    }
-  </script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denuncias 2026 — PMT Chimaltenango</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#00eaff">
+
+  <!-- Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
   <style>
+    :root {
+      --c1:#00eaff; --c2:#00ffc8; --c3:#b300ff;
+      --bg:#020616; --panel:#05091e;
+      --txt:#e9f9ff; --muted:#9cb3d8;
+      --danger:#ff0044;
+      --radius:20px;
+    }
+
     body{
       margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:radial-gradient(circle at 0 0,#28d7ff 0,#150027 45%,#050109 100%);
-      color:#e8f9ff;
+      font-family:system-ui,sans-serif;
+      background:radial-gradient(circle at top,#00151c,#000);
+      color:var(--txt);
+      min-height:100vh;
     }
-    .app-shell{min-height:100vh;display:flex;justify-content:center;padding:20px;}
-    .panel{width:100%;max-width:1300px;background:#14091f;border-radius:28px;
-      box-shadow:0 0 40px rgba(255,0,255,0.35);border:2px solid rgba(255,0,255,0.25);padding:22px;}
-    .section-box{margin-top:16px;background:#120116;border-radius:22px;padding:18px;}
-    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 20px;}
-    input,textarea{
-      background:#120116;border-radius:999px;border:1px solid #ff7bff66;
-      padding:8px 12px;color:#ffeaff;
-    }
-    textarea{border-radius:16px;resize:vertical;}
-    .btn{border:none;border-radius:999px;padding:10px 20px;font-weight:600;cursor:pointer;}
-    .btn-primary{background:linear-gradient(135deg,#ff5cff,#8b2bff);color:white;}
-    table{width:100%;border-collapse:collapse;margin-top:12px;}
-    th,td{padding:8px 10px;border-bottom:1px solid #ffffff22;}
-  </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    .wrap{max-width:1200px;margin:auto;padding:24px}
+    .panel{
+      background:var(--panel);
+      border-radius:32px;
+      padding:22px;
+      box-shadow:0 0 40px rgba(0,234,255,.4);
+      border:1px solid rgba(0,234,255,.3);
+    }
+
+    h1{
+      text-align:center;
+      color:var(--c2);
+      letter-spacing:.12em;
+      margin:0 0 6px;
+    }
+
+    .sub{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:20px}
+
+    /* FORM */
+    .form{
+      background:rgba(0,0,0,.4);
+      border-radius:var(--radius);
+      padding:16px;
+      border:1px solid rgba(0,234,255,.3);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    label{
+      font-size:.75rem;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    input,select,textarea{
+      width:100%;
+      padding:8px 10px;
+      border-radius:14px;
+      background:var(--bg);
+      border:1px solid rgba(0,234,255,.4);
+      color:var(--txt);
+    }
+
+    textarea{grid-column:1/-1;min-height:90px}
+
+    .actions{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:space-between;
+    }
+
+    button{
+      border-radius:999px;
+      padding:9px 20px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+    }
+
+    .btn-main{
+      background:linear-gradient(135deg,var(--c1),var(--c2),var(--c3));
+      color:#020510;
+    }
+
+    .btn-soft{
+      background:#020616;
+      color:var(--txt);
+      border:1px solid rgba(0,234,255,.4);
+    }
+
+    .btn-danger{
+      background:linear-gradient(135deg,#ff0044,#ff7a3c);
+      color:#fff;
+    }
+
+    /* TABLE */
+    .table-box{
+      margin-top:18px;
+      border-radius:var(--radius);
+      overflow:auto;
+      max-height:320px;
+      border:1px solid rgba(0,234,255,.3);
+    }
+
+    table{width:100%;border-collapse:collapse;font-size:.85rem}
+    thead{background:linear-gradient(90deg,var(--c2),var(--c1));color:#000;position:sticky;top:0}
+    th,td{padding:8px;border-bottom:1px solid rgba(0,234,255,.2)}
+    tbody tr:hover{background:rgba(0,234,255,.15)}
+
+    .empty{text-align:center;padding:14px;color:var(--c2)}
+
+    footer{text-align:center;margin-top:16px;font-size:.75rem;color:var(--muted)}
+  </style>
 </head>
 
 <body>
-<div class="app-shell">
+<div class="wrap">
   <div class="panel">
 
-    <h1>DENUNCIAS 2026 — PMT CHIMALTENANGO</h1>
+    <h1>DENUNCIAS 2026 — PMT</h1>
+    <div class="sub">Sistema offline de registro de quejas y denuncias ciudadanas</div>
 
-    <!-- NUEVA DENUNCIA -->
-    <section class="section-box">
-      <h2>Nueva denuncia</h2>
+    <!-- FORMULARIO -->
+    <section class="form">
+      <div class="grid">
+        <div>
+          <label>Tipo de denuncia</label>
+          <select id="tipo">
+            <option>Robo</option>
+            <option>Abuso de autoridad</option>
+            <option>Corrupción</option>
+            <option>Maltrato</option>
+            <option>Otro</option>
+          </select>
+        </div>
 
-      <div class="form-grid">
-        <input id="fecha" type="date">
-        <input id="hora" type="time">
+        <div>
+          <label>Nombre (opcional)</label>
+          <input id="nombre">
+        </div>
 
-        <input id="identificador" placeholder="Placa / DPI / Nombre">
-        <input id="tipoDenuncia" placeholder="Tipo de denuncia (vía pública, agresión, abuso, corrupción...)">
+        <div>
+          <label>Lugar</label>
+          <input id="lugar">
+        </div>
 
-        <input id="lugar" placeholder="Lugar del hecho">
-        <input id="estado" placeholder="Estado (pendiente, urgente, grave...)">
+        <div>
+          <label>Estado</label>
+          <select id="estado">
+            <option>Pendiente</option>
+            <option>En revisión</option>
+            <option>Resuelto</option>
+          </select>
+        </div>
 
-        <textarea id="descripcion" placeholder="Descripción de la denuncia"></textarea>
-        <textarea id="observaciones" placeholder="Observaciones adicionales"></textarea>
-
-        <input id="imagen" type="file" accept="image/*">
+        <textarea id="detalle" placeholder="Describe la denuncia o queja..."></textarea>
       </div>
 
-      <button class="btn btn-primary" id="btn-agregar">Agregar denuncia</button>
+      <div class="actions">
+        <button class="btn-main" onclick="agregar()">Registrar denuncia</button>
+        <button class="btn-soft" onclick="exportar()">Exportar Excel</button>
+        <button class="btn-danger" onclick="borrarTodo()">Borrar todo</button>
+      </div>
     </section>
 
     <!-- TABLA -->
-    <section class="section-box">
+    <div class="table-box">
       <table>
         <thead>
           <tr>
             <th>Fecha</th>
-            <th>Hora</th>
-            <th>ID</th>
             <th>Tipo</th>
+            <th>Nombre</th>
             <th>Lugar</th>
             <th>Estado</th>
-            <th>Descripción</th>
+            <th>Detalle</th>
           </tr>
         </thead>
-        <tbody id="tabla-denuncias"></tbody>
+        <tbody id="tabla"></tbody>
       </table>
-    </section>
+      <div id="vacio" class="empty">No hay denuncias registradas.</div>
+    </div>
+
+    <footer>
+      2026 · PMT Chimaltenango · BY GELM
+    </footer>
 
   </div>
 </div>
 
 <script>
-console.log("✔ Denuncias 2026 cargado");
+const KEY="denuncias_2026";
+let data=JSON.parse(localStorage.getItem(KEY)||"[]");
+const tabla=document.getElementById("tabla");
+const vacio=document.getElementById("vacio");
 
-/* ================== CONFIG ================== */
-const STORAGE_KEY_DEN = "denuncias2026";
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxEaxAeBVeS4Pk8VO-2HNaM4AA5YdhwTYK8KK5QQK4taFV35JCa8Cs-JHwwQbuRRMYHVw/exec";
-
-/* ================== ELEMENTOS ================== */
-const fecha = document.getElementById("fecha");
-const hora = document.getElementById("hora");
-const identificador = document.getElementById("identificador");
-const tipoDenuncia = document.getElementById("tipoDenuncia");
-const lugar = document.getElementById("lugar");
-const estado = document.getElementById("estado");
-const descripcion = document.getElementById("descripcion");
-const observaciones = document.getElementById("observaciones");
-const tablaBody = document.getElementById("tabla-denuncias");
-
-let denuncias = JSON.parse(localStorage.getItem(STORAGE_KEY_DEN) || "[]");
-
-/* ================== GOOGLE ================== */
-function enviarAGoogle(d) {
-  fetch(GOOGLE_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      ...d,
-      sistema: "DENUNCIAS 2026 PMT CHIMALTENANGO",
-      timestamp: new Date().toISOString()
-    })
-  }).catch(err => console.warn("Google error", err));
-}
-
-/* ================== RENDER ================== */
-function render() {
-  tablaBody.innerHTML = "";
-  denuncias.forEach(d => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
+function render(){
+  tabla.innerHTML="";
+  vacio.style.display=data.length?"none":"block";
+  data.forEach(d=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
       <td>${d.fecha}</td>
-      <td>${d.hora || ""}</td>
-      <td>${d.id}</td>
-      <td>${d.tipoDenuncia}</td>
+      <td>${d.tipo}</td>
+      <td>${d.nombre||"-"}</td>
       <td>${d.lugar}</td>
       <td>${d.estado}</td>
-      <td>${d.descripcion}</td>
-    `;
-    tablaBody.appendChild(tr);
+      <td>${d.detalle}</td>`;
+    tabla.appendChild(tr);
   });
 }
 
-/* ================== EVENTO ================== */
-document.getElementById("btn-agregar").addEventListener("click", () => {
-
-  if (!fecha.value || !descripcion.value) {
-    alert("Fecha y descripción son obligatorias");
-    return;
-  }
-
-  const denuncia = {
-    id: "DEN-" + Date.now(),
-    fecha: fecha.value,
-    hora: hora.value,
-    identificador: identificador.value,
-    tipoDenuncia: tipoDenuncia.value,
-    lugar: lugar.value,
-    estado: estado.value,
-    descripcion: descripcion.value,
-    observaciones: observaciones.value
-  };
-
-  denuncias.push(denuncia);
-  localStorage.setItem(STORAGE_KEY_DEN, JSON.stringify(denuncias));
-
-  enviarAGoogle(denuncia);
+function agregar(){
+  const det=document.getElementById("detalle").value.trim();
+  if(!det){alert("Describe la denuncia");return;}
+  data.push({
+    fecha:new Date().toLocaleDateString("es-GT"),
+    tipo:tipo.value,
+    nombre:nombre.value,
+    lugar:lugar.value,
+    estado:estado.value,
+    detalle:det
+  });
+  localStorage.setItem(KEY,JSON.stringify(data));
+  detalle.value="";
   render();
+}
 
-  // limpiar
-  document.querySelectorAll("input, textarea").forEach(e => e.value = "");
-});
+function borrarTodo(){
+  if(confirm("¿Borrar todas las denuncias?")){
+    data=[];
+    localStorage.removeItem(KEY);
+    render();
+  }
+}
+
+function exportar(){
+  if(!data.length){alert("No hay datos");return;}
+  const hoja=XLSX.utils.json_to_sheet(data);
+  const libro=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(libro,hoja,"Denuncias");
+  XLSX.writeFile(libro,"denuncias_2026.xlsx");
+}
 
 render();
 </script>
