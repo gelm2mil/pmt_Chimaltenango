@@ -1,9 +1,11 @@
-// ⚠️ USA EL MISMO SCRIPT QUE TU PANEL
-const SCRIPT_URL = "PEGA_AQUI_EL_SCRIPT_URL_DEL_PANEL";
+// ================================
+// SCRIPT CONECTADO AL PANEL PMT
+// ================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoBuC3yyjqRSQEC5DgLTvlbt2LZizWEsyLnnnXJSx6m3-g6dKlGe9QPuc_L4ml8K1-8A/exec";
 
-// ============================
-// ENVIAR DENUNCIA
-// ============================
+// ================================
+// ENVIAR DENUNCIA DESDE PÁGINA PÚBLICA
+// ================================
 async function enviarDenuncia() {
 
   const nombre = document.getElementById("nombre").value || "Anónimo";
@@ -11,43 +13,94 @@ async function enviarDenuncia() {
   const descripcion = document.getElementById("descripcion").value;
   const imagenInput = document.getElementById("imagen");
 
-  if (!descripcion) {
-    alert("Debes ingresar una descripción");
+  if (!descripcion.trim()) {
+    alert("Debe describir la denuncia.");
     return;
   }
 
-  const fecha = new Date().toLocaleString();
+  const fecha = new Date();
+  const fechaTexto = fecha.toLocaleDateString("es-GT");
+  const horaTexto = fecha.toLocaleTimeString("es-GT");
 
   let imagenBase64 = "";
 
   if (imagenInput.files.length > 0) {
-    const file = imagenInput.files[0];
-    imagenBase64 = await convertirBase64(file);
+    imagenBase64 = await convertirBase64(imagenInput.files[0]);
   }
 
-  const data = {
-    accion: "crear",
-    nombre,
-    tipo,
-    descripcion,
-    imagen: imagenBase64,
-    fecha
-  };
+  // USAMOS LOS MISMOS CAMPOS DEL PANEL
+  const fd = new FormData();
+  fd.append("placa", "NO APLICA");
+  fd.append("tipo", tipo);
+  fd.append("problema", descripcion);
+  fd.append("ubicacion", "Reporte ciudadano");
+  fd.append("contacto", nombre);
+  fd.append("fecha", fechaTexto);
+  fd.append("hora", horaTexto);
+  fd.append("imagen", imagenBase64);
 
-  await fetch(SCRIPT_URL, {
+  fetch(SCRIPT_URL, {
     method: "POST",
-    body: JSON.stringify(data)
+    body: fd
+  })
+  .then(r => r.text())
+  .then(() => {
+    alert("✅ Denuncia enviada correctamente");
+    limpiarFormulario();
+    cargarDenuncias();
+  })
+  .catch(err => {
+    console.error(err);
+    alert("❌ Error al enviar la denuncia");
   });
-
-  alert("Denuncia enviada correctamente");
-
-  document.querySelector(".form-box").reset?.();
-  cargarDenuncias();
 }
 
-// ============================
-// CONVERTIR IMAGEN
-// ============================
+// ================================
+// LIMPIAR FORMULARIO
+// ================================
+function limpiarFormulario() {
+  document.getElementById("nombre").value = "";
+  document.getElementById("descripcion").value = "";
+  document.getElementById("imagen").value = "";
+}
+
+// ================================
+// LEER DENUNCIAS (MISMO PANEL)
+// ================================
+function cargarDenuncias() {
+  fetch(SCRIPT_URL + "?accion=leer")
+    .then(r => r.json())
+    .then(datos => {
+      const contenedor = document.getElementById("listaDenuncias");
+      contenedor.innerHTML = "";
+
+      if (!datos.length) {
+        contenedor.innerHTML = "<p>No hay denuncias registradas.</p>";
+        return;
+      }
+
+      datos.reverse().forEach(d => {
+        const div = document.createElement("div");
+        div.className = "denuncia";
+
+        div.innerHTML = `
+          <strong>${d.tipo || "Denuncia"}</strong><br>
+          <small>${d.fecha || ""} ${d.hora || ""}</small>
+          <p>${d.problema || ""}</p>
+          ${d.imagen ? `<img src="${d.imagen}" style="max-width:100%;margin-top:8px;">` : ""}
+        `;
+
+        contenedor.appendChild(div);
+      });
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+
+// ================================
+// CONVERTIR IMAGEN A BASE64
+// ================================
 function convertirBase64(file) {
   return new Promise(resolve => {
     const reader = new FileReader();
@@ -56,31 +109,5 @@ function convertirBase64(file) {
   });
 }
 
-// ============================
-// CARGAR DENUNCIAS
-// ============================
-async function cargarDenuncias() {
-
-  const res = await fetch(SCRIPT_URL);
-  const denuncias = await res.json();
-
-  const contenedor = document.getElementById("listaDenuncias");
-  contenedor.innerHTML = "";
-
-  denuncias.reverse().forEach(d => {
-    const div = document.createElement("div");
-    div.className = "denuncia";
-
-    div.innerHTML = `
-      <strong>${d.tipo}</strong><br>
-      <small>${d.fecha} – ${d.nombre}</small>
-      <p>${d.descripcion}</p>
-      ${d.imagen ? `<img src="${d.imagen}">` : ""}
-    `;
-
-    contenedor.appendChild(div);
-  });
-}
-
 // AUTO CARGA
-cargarDenuncias();
+document.addEventListener("DOMContentLoaded", cargarDenuncias);
