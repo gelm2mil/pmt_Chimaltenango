@@ -2,29 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Denuncias Ciudadanas PMT</title>
+  <title>Denuncias Ciudadanas – PMT Chimaltenango</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Estilos básicos (podés integrarlo a tu styles.css luego) -->
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      background: #f4f6f8;
       margin: 0;
-      padding: 10px;
+      padding: 0;
     }
 
-    h2 {
+    header {
+      background: #0a3d62;
+      color: #fff;
+      padding: 15px;
       text-align: center;
-      color: #003366;
     }
 
-    .form-denuncia, .lista-denuncias {
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 15px;
+    }
+
+    .form-box {
       background: #fff;
       padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,.1);
+      margin-bottom: 25px;
     }
 
     label {
@@ -33,112 +40,102 @@
       margin-top: 10px;
     }
 
-    input, select, textarea, button {
+    input, textarea, select, button {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    textarea {
-      resize: vertical;
+      font-size: 14px;
     }
 
     button {
-      margin-top: 15px;
-      background: #003366;
+      background: #0a3d62;
       color: white;
-      font-weight: bold;
-      cursor: pointer;
       border: none;
+      margin-top: 15px;
+      cursor: pointer;
     }
 
     button:hover {
-      background: #0055aa;
+      background: #07406a;
+    }
+
+    .agenda {
+      margin-top: 30px;
     }
 
     .denuncia {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
+      background: white;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-left: 5px solid #0a3d62;
+      box-shadow: 0 1px 4px rgba(0,0,0,.1);
     }
 
     .denuncia img {
       max-width: 100%;
-      border-radius: 5px;
-      margin-top: 5px;
-    }
-
-    .fecha {
-      font-size: 0.85em;
-      color: #555;
+      margin-top: 10px;
+      border-radius: 4px;
     }
 
     footer {
       text-align: center;
-      font-size: 0.8em;
+      font-size: 12px;
       color: #555;
-      margin-top: 30px;
-    }
-
-    .aviso {
-      background: #fff3cd;
-      padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      font-size: 0.9em;
+      padding: 20px;
     }
   </style>
 </head>
 
 <body>
 
-  <h2>🚦 Denuncias Ciudadanas PMT</h2>
+<header>
+  <h2>🚨 Denuncias Ciudadanas</h2>
+  <p>Policía Municipal de Tránsito – PMT Chimaltenango</p>
+</header>
 
-  <div class="aviso">
-    ⚠️ Este sistema es un <strong>proyecto demostrativo</strong>.  
-    No representa aún un canal oficial de la Municipalidad.
-  </div>
+<main>
 
   <!-- FORMULARIO -->
-  <div class="form-denuncia">
-    <label for="tipo">Tipo de denuncia</label>
+  <div class="form-box">
+    <h3>📋 Generar denuncia</h3>
+
+    <label>Nombre (opcional)</label>
+    <input type="text" id="nombre">
+
+    <label>Tipo de denuncia</label>
     <select id="tipo">
-      <option value="">Seleccione una opción</option>
-      <option>Transporte colectivo</option>
       <option>Vehículo mal estacionado</option>
-      <option>Conducción peligrosa</option>
-      <option>Obstrucción de vía</option>
+      <option>Accidente de tránsito</option>
+      <option>Transporte ilegal</option>
+      <option>Señalización dañada</option>
       <option>Otro</option>
     </select>
 
-    <label for="lugar">Lugar del hecho</label>
-    <input type="text" id="lugar" placeholder="Ej. Zona, calle, avenida">
+    <label>Descripción</label>
+    <textarea id="descripcion" rows="4"></textarea>
 
-    <label for="descripcion">Descripción</label>
-    <textarea id="descripcion" rows="4" placeholder="Describa el hecho..."></textarea>
-
-    <label for="imagen">Adjuntar imagen (opcional)</label>
+    <label>Imagen (opcional)</label>
     <input type="file" id="imagen" accept="image/*">
 
-    <button onclick="agregarDenuncia()">Generar denuncia</button>
+    <button onclick="enviarDenuncia()">🚨 Generar denuncia</button>
   </div>
 
-  <!-- LISTA -->
-  <div class="lista-denuncias">
-    <h3>📋 Denuncias registradas</h3>
-    <div id="contenedorDenuncias"></div>
+  <!-- AGENDA -->
+  <div class="agenda">
+    <h3>📌 Denuncias registradas</h3>
+    <div id="listaDenuncias"></div>
   </div>
 
-  <footer>
-    © <span id="year"></span> Policía Municipal de Tránsito – PMT Chimaltenango<br>
-    Sistema de denuncias ciudadanas.<br>
-    Uso exclusivo para fines institucionales y de seguridad vial.<br>
-    Prohibida su reproducción, modificación o uso no autorizado.<br>
-    Desarrollado por GELM.
-  </footer>
+</main>
 
-  <!-- JS -->
-  <script src="denuncias_pmt.js"></script>
+<footer>
+  © 2026 Policía Municipal de Tránsito – PMT Chimaltenango<br>
+  Sistema de denuncias ciudadanas.<br>
+  Uso exclusivo para fines institucionales y de seguridad vial.<br>
+  Prohibida su reproducción o uso no autorizado. BY GELM
+</footer>
+
+<script src="denuncias_pmt.js"></script>
+
 </body>
 </html>
