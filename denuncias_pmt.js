@@ -1,120 +1,86 @@
-// ===============================
-// DENUNCIAS PMT - JS PRINCIPAL
-// Desarrollado por GELM
-// ===============================
+// ⚠️ USA EL MISMO SCRIPT QUE TU PANEL
+const SCRIPT_URL = "PEGA_AQUI_EL_SCRIPT_URL_DEL_PANEL";
 
-const STORAGE_KEY = "denuncias_pmt_ciudadanas";
+// ============================
+// ENVIAR DENUNCIA
+// ============================
+async function enviarDenuncia() {
 
-const contenedor = document.getElementById("contenedorDenuncias");
-const yearSpan = document.getElementById("year");
-
-// Año automático
-yearSpan.textContent = new Date().getFullYear();
-
-// Cargar denuncias guardadas
-let denuncias = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-// ===============================
-// FUNCIONES
-// ===============================
-
-// Generar fecha y hora actual
-function obtenerFechaHora() {
-  const ahora = new Date();
-
-  const fecha = ahora.toLocaleDateString("es-GT", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  });
-
-  const hora = ahora.toLocaleTimeString("es-GT", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  });
-
-  return `${fecha} ${hora}`;
-}
-
-// Agregar denuncia
-function agregarDenuncia() {
+  const nombre = document.getElementById("nombre").value || "Anónimo";
   const tipo = document.getElementById("tipo").value;
-  const lugar = document.getElementById("lugar").value.trim();
-  const descripcion = document.getElementById("descripcion").value.trim();
+  const descripcion = document.getElementById("descripcion").value;
   const imagenInput = document.getElementById("imagen");
 
-  if (!tipo || !descripcion) {
-    alert("Por favor complete al menos el tipo de denuncia y la descripción.");
+  if (!descripcion) {
+    alert("Debes ingresar una descripción");
     return;
   }
 
-  const denuncia = {
+  const fecha = new Date().toLocaleString();
+
+  let imagenBase64 = "";
+
+  if (imagenInput.files.length > 0) {
+    const file = imagenInput.files[0];
+    imagenBase64 = await convertirBase64(file);
+  }
+
+  const data = {
+    accion: "crear",
+    nombre,
     tipo,
-    lugar,
     descripcion,
-    fechaHora: obtenerFechaHora(),
-    imagen: null
+    imagen: imagenBase64,
+    fecha
   };
 
-  // Si hay imagen
-  if (imagenInput.files.length > 0) {
+  await fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+
+  alert("Denuncia enviada correctamente");
+
+  document.querySelector(".form-box").reset?.();
+  cargarDenuncias();
+}
+
+// ============================
+// CONVERTIR IMAGEN
+// ============================
+function convertirBase64(file) {
+  return new Promise(resolve => {
     const reader = new FileReader();
-    reader.onload = function () {
-      denuncia.imagen = reader.result;
-      guardarDenuncia(denuncia);
-    };
-    reader.readAsDataURL(imagenInput.files[0]);
-  } else {
-    guardarDenuncia(denuncia);
-  }
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
 }
 
-// Guardar denuncia
-function guardarDenuncia(denuncia) {
-  denuncias.unshift(denuncia); // nueva arriba
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(denuncias));
-  renderDenuncias();
-  limpiarFormulario();
-}
+// ============================
+// CARGAR DENUNCIAS
+// ============================
+async function cargarDenuncias() {
 
-// Mostrar denuncias
-function renderDenuncias() {
+  const res = await fetch(SCRIPT_URL);
+  const denuncias = await res.json();
+
+  const contenedor = document.getElementById("listaDenuncias");
   contenedor.innerHTML = "";
 
-  if (denuncias.length === 0) {
-    contenedor.innerHTML = "<p>No hay denuncias registradas.</p>";
-    return;
-  }
-
-  denuncias.forEach(d => {
+  denuncias.reverse().forEach(d => {
     const div = document.createElement("div");
     div.className = "denuncia";
 
     div.innerHTML = `
-      <strong>Tipo:</strong> ${d.tipo}<br>
-      ${d.lugar ? `<strong>Lugar:</strong> ${d.lugar}<br>` : ""}
-      <strong>Descripción:</strong> ${d.descripcion}<br>
-      <span class="fecha">🕒 ${d.fechaHora}</span>
+      <strong>${d.tipo}</strong><br>
+      <small>${d.fecha} – ${d.nombre}</small>
+      <p>${d.descripcion}</p>
+      ${d.imagen ? `<img src="${d.imagen}">` : ""}
     `;
-
-    if (d.imagen) {
-      const img = document.createElement("img");
-      img.src = d.imagen;
-      div.appendChild(img);
-    }
 
     contenedor.appendChild(div);
   });
 }
 
-// Limpiar formulario
-function limpiarFormulario() {
-  document.getElementById("tipo").value = "";
-  document.getElementById("lugar").value = "";
-  document.getElementById("descripcion").value = "";
-  document.getElementById("imagen").value = "";
-}
-
-// Inicializar
-renderDenuncias();
+// AUTO CARGA
+cargarDenuncias();
