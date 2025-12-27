@@ -17,67 +17,61 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    /* === estilos intactos (NO tocados) === */
     body{
       margin:0;
       font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:radial-gradient(circle at 0 0,#28d7ff 0,#150027 45%,#050109 100%);
       color:#e8f9ff;
     }
-    .app-shell{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 10px 40px;}
-    .panel{width:100%;max-width:1300px;background:radial-gradient(circle at 10% 0,#072833 0,#050812 45%,#05010f 100%);border-radius:28px;box-shadow:0 0 40px rgba(255,0,255,0.35);border:2px solid rgba(255,0,255,0.25);padding:22px;}
-    .panel-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px;}
-    .logo-box{width:110px;height:110px;border-radius:26px;background:radial-gradient(circle at 30% 0,#ff54ff 0,#1b0016 45%,#000 100%);box-shadow:0 0 25px rgba(255,0,255,.7);display:flex;align-items:center;justify-content:center;}
-    .logo-box img{width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 0 10px #ff7bff);}
-    .title-block{text-align:center;flex:1;}
-    .title-block h1{margin:0;font-size:26px;letter-spacing:.15em;color:#ffb0ff;text-shadow:0 0 12px #ff5cff;}
-    .tabs{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;}
-    .tab-btn{border:none;border-radius:999px;padding:10px 22px;font-size:14px;cursor:pointer;color:#e9f9ff;background:#2c1941;border:1px solid rgba(255,0,255,.4);}
-    .section-box{margin-top:16px;background:#14091f;border-radius:22px;padding:18px;}
+    .app-shell{min-height:100vh;display:flex;justify-content:center;padding:20px;}
+    .panel{width:100%;max-width:1300px;background:#14091f;border-radius:28px;
+      box-shadow:0 0 40px rgba(255,0,255,0.35);border:2px solid rgba(255,0,255,0.25);padding:22px;}
+    .section-box{margin-top:16px;background:#120116;border-radius:22px;padding:18px;}
     .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 20px;}
-    .field input,.field select,.field textarea{background:#120116;border-radius:999px;border:1px solid #ff7bff66;padding:8px 12px;color:#ffeaff;}
+    input,textarea{
+      background:#120116;border-radius:999px;border:1px solid #ff7bff66;
+      padding:8px 12px;color:#ffeaff;
+    }
+    textarea{border-radius:16px;resize:vertical;}
     .btn{border:none;border-radius:999px;padding:10px 20px;font-weight:600;cursor:pointer;}
-    .btn-primary{background:linear-gradient(135deg,#ff5cff,#8b2bff);}
-    .btn-secondary{background:linear-gradient(135deg,#ffdf7b,#ff7b7b);}
-    .btn-danger{background:linear-gradient(135deg,#ff4b4b,#ff0044);}
-    table{width:100%;border-collapse:collapse;}
-    th,td{padding:8px 10px;}
+    .btn-primary{background:linear-gradient(135deg,#ff5cff,#8b2bff);color:white;}
+    table{width:100%;border-collapse:collapse;margin-top:12px;}
+    th,td{padding:8px 10px;border-bottom:1px solid #ffffff22;}
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
-<body>
 
+<body>
 <div class="app-shell">
   <div class="panel">
+
     <h1>DENUNCIAS 2026 — PMT CHIMALTENANGO</h1>
 
+    <!-- NUEVA DENUNCIA -->
     <section class="section-box">
       <h2>Nueva denuncia</h2>
 
       <div class="form-grid">
         <input id="fecha" type="date">
         <input id="hora" type="time">
-        <input id="identificador" placeholder="Placa / DPI">
-        <select id="tipoDenuncia">
-          <option>Transporte ilegal</option>
-          <option>Cobros ilegales</option>
-          <option>Agresiones</option>
-        </select>
-        <input id="lugar" placeholder="Lugar">
-        <select id="estado">
-          <option>Pendiente</option>
-          <option>En investigación</option>
-          <option>Resuelto</option>
-        </select>
-        <textarea id="descripcion" placeholder="Descripción"></textarea>
-        <textarea id="observaciones" placeholder="Observaciones"></textarea>
+
+        <input id="identificador" placeholder="Placa / DPI / Nombre">
+        <input id="tipoDenuncia" placeholder="Tipo de denuncia (vía pública, agresión, abuso, corrupción...)">
+
+        <input id="lugar" placeholder="Lugar del hecho">
+        <input id="estado" placeholder="Estado (pendiente, urgente, grave...)">
+
+        <textarea id="descripcion" placeholder="Descripción de la denuncia"></textarea>
+        <textarea id="observaciones" placeholder="Observaciones adicionales"></textarea>
+
         <input id="imagen" type="file" accept="image/*">
       </div>
 
       <button class="btn btn-primary" id="btn-agregar">Agregar denuncia</button>
     </section>
 
+    <!-- TABLA -->
     <section class="section-box">
       <table>
         <thead>
@@ -94,48 +88,46 @@
         <tbody id="tabla-denuncias"></tbody>
       </table>
     </section>
+
   </div>
 </div>
 
 <script>
-/* ================== CONFIGURACIÓN ================== */
-
 console.log("✔ Denuncias 2026 cargado");
 
+/* ================== CONFIG ================== */
 const STORAGE_KEY_DEN = "denuncias2026";
-
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxEaxAeBVeS4Pk8VO-2HNaM4AA5YdhwTYK8KK5QQK4taFV35JCa8Cs-JHwwQbuRRMYHVw/exec";
 
-let denuncias = JSON.parse(localStorage.getItem(STORAGE_KEY_DEN) || "[]");
-
+/* ================== ELEMENTOS ================== */
+const fecha = document.getElementById("fecha");
+const hora = document.getElementById("hora");
+const identificador = document.getElementById("identificador");
+const tipoDenuncia = document.getElementById("tipoDenuncia");
+const lugar = document.getElementById("lugar");
+const estado = document.getElementById("estado");
+const descripcion = document.getElementById("descripcion");
+const observaciones = document.getElementById("observaciones");
 const tablaBody = document.getElementById("tabla-denuncias");
 
-/* ================== GOOGLE ================== */
+let denuncias = JSON.parse(localStorage.getItem(STORAGE_KEY_DEN) || "[]");
 
+/* ================== GOOGLE ================== */
 function enviarAGoogle(d) {
   fetch(GOOGLE_SCRIPT_URL, {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      fecha: d.fecha,
-      hora: d.hora,
-      identificador: d.identificador,
-      tipo: d.tipoDenuncia,
-      lugar: d.lugar,
-      estado: d.estado,
-      descripcion: d.descripcion,
-      observaciones: d.observaciones,
-      imagen: d.imagen ? "SI" : "NO",
+      ...d,
       sistema: "DENUNCIAS 2026 PMT CHIMALTENANGO",
       timestamp: new Date().toISOString()
     })
-  }).catch(e => console.warn("Google error", e));
+  }).catch(err => console.warn("Google error", err));
 }
 
 /* ================== RENDER ================== */
-
 function render() {
   tablaBody.innerHTML = "";
   denuncias.forEach(d => {
@@ -143,9 +135,9 @@ function render() {
     tr.innerHTML = `
       <td>${d.fecha}</td>
       <td>${d.hora || ""}</td>
-      <td>${d.identificador || ""}</td>
+      <td>${d.id}</td>
       <td>${d.tipoDenuncia}</td>
-      <td>${d.lugar || ""}</td>
+      <td>${d.lugar}</td>
       <td>${d.estado}</td>
       <td>${d.descripcion}</td>
     `;
@@ -154,9 +146,15 @@ function render() {
 }
 
 /* ================== EVENTO ================== */
+document.getElementById("btn-agregar").addEventListener("click", () => {
 
-document.getElementById("btn-agregar").onclick = () => {
+  if (!fecha.value || !descripcion.value) {
+    alert("Fecha y descripción son obligatorias");
+    return;
+  }
+
   const denuncia = {
+    id: "DEN-" + Date.now(),
     fecha: fecha.value,
     hora: hora.value,
     identificador: identificador.value,
@@ -164,8 +162,7 @@ document.getElementById("btn-agregar").onclick = () => {
     lugar: lugar.value,
     estado: estado.value,
     descripcion: descripcion.value,
-    observaciones: observaciones.value,
-    imagen: null
+    observaciones: observaciones.value
   };
 
   denuncias.push(denuncia);
@@ -173,7 +170,10 @@ document.getElementById("btn-agregar").onclick = () => {
 
   enviarAGoogle(denuncia);
   render();
-};
+
+  // limpiar
+  document.querySelectorAll("input, textarea").forEach(e => e.value = "");
+});
 
 render();
 </script>
