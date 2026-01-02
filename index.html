@@ -6,132 +6,148 @@
 <title>PMT Chimaltenango — GELM 2026</title>
 
 <style>
+/* ===================== VARIABLES NEÓN ===================== */
 :root{
-  --c1:#00eaff;
-  --c2:#00ffc8;
-  --bg1:#020510;
-  --bg2:#050b22;
-  --card:rgba(5,25,45,.92);
-  --txt:#e9f9ff;
-  --glow:0 0 18px rgba(0,234,255,.35);
+    --neon:#00ffc3;
+    --bg1:#020b18;
+    --bg2:#061a2e;
+    --card:rgba(5,25,45,.92);
+    --txt:#e9f9ff;
+    --glow:0 0 18px rgba(0,255,200,.35);
 }
 
+/* ===================== RESET ===================== */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:"Segoe UI",system-ui;
-  background:
-    radial-gradient(circle at 20% 20%, #0d5b7a 0%, transparent 55%),
-    radial-gradient(circle at 80% 80%, #3a003a 0%, transparent 60%),
-    linear-gradient(180deg,var(--bg1),var(--bg2));
-  color:var(--txt);
-  height:100vh;
-  overflow:hidden;
+    font-family:"Segoe UI",system-ui;
+    background:
+        radial-gradient(circle at 20% 20%, #0d5b7a 0%, transparent 55%),
+        radial-gradient(circle at 80% 80%, #3a003a 0%, transparent 60%),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:var(--txt);
+    height:100vh;
+    overflow:hidden;
 }
 
-/* LAYOUT */
+/* ===================== LAYOUT ===================== */
 .layout{
-  display:flex;
-  gap:14px;
-  padding:14px;
-  height:100%;
+    display:flex;
+    height:100vh;
+    gap:12px;
+    padding:14px;
 }
 
-/* MENU IZQUIERDO */
+/* ===================== MENÚ ===================== */
 .menu{
-  width:260px;
-  background:var(--card);
-  border-radius:20px;
-  border:1px solid rgba(0,234,255,.35);
-  box-shadow:var(--glow);
-  padding:18px;
-  display:flex;
-  flex-direction:column;
+    width:260px;
+    background:var(--card);
+    border:2px solid rgba(0,255,200,.35);
+    border-radius:18px;
+    box-shadow:var(--glow);
+    padding:18px;
+    display:flex;
+    flex-direction:column;
 }
+
 .menu h2{
-  text-align:center;
-  color:var(--c2);
-  margin-bottom:16px;
-  text-shadow:0 0 10px rgba(0,255,200,.6);
+    text-align:center;
+    color:var(--neon);
+    margin-bottom:16px;
+    letter-spacing:2px;
+    text-shadow:0 0 10px rgba(0,255,200,.6);
 }
+
 .btn-menu{
-  background:#000;
-  border:1px solid rgba(0,234,255,.6);
-  color:var(--c1);
-  padding:12px;
-  margin-bottom:10px;
-  border-radius:14px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow:inset 0 0 10px rgba(0,234,255,.35);
-  transition:.25s;
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:12px;
+    background:#000;
+    border:1px solid rgba(0,255,200,.45);
+    color:var(--neon);
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+    text-align:left;
 }
+
 .btn-menu:hover{
-  background:linear-gradient(90deg,var(--c1),var(--c2));
-  color:#000;
-  transform:scale(1.04);
+    background:var(--neon);
+    color:#001616;
+    box-shadow:0 0 12px rgba(0,255,200,.6);
 }
 
-/* PANEL CENTRAL */
-.centro{
-  flex:1;
-  background:var(--card);
-  border-radius:26px;
-  border:1px solid rgba(0,234,255,.4);
-  box-shadow:var(--glow);
-  padding:28px;
-  overflow-y:auto;
+/* ===================== PANEL CENTRAL ===================== */
+.panel-central{
+    flex:1;
+    background:var(--card);
+    border-radius:22px;
+    border:2px solid rgba(0,255,200,.35);
+    box-shadow:var(--glow);
+    padding:26px;
+    overflow-y:auto;
 }
-.titulo{
-  text-align:center;
-  font-size:26px;
-  letter-spacing:4px;
-  color:var(--c2);
-  margin-bottom:20px;
-  text-shadow:0 0 14px rgba(0,255,200,.7);
+
+/* ANIMACIÓN */
+.fade-in{animation:fade .5s ease}
+@keyframes fade{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:translateY(0)}
 }
+
+/* ===================== CABECERA ===================== */
+.cabecera{
+    text-align:center;
+    margin-bottom:22px;
+}
+.cabecera h1{
+    color:var(--neon);
+    letter-spacing:3px;
+    text-shadow:0 0 14px rgba(0,255,200,.6);
+}
+.reloj{
+    margin-top:6px;
+    font-size:13px;
+    opacity:.85;
+}
+
+/* ===================== TARJETAS ===================== */
 .card{
-  background:rgba(0,0,0,.55);
-  border-radius:22px;
-  border:1px solid rgba(0,234,255,.35);
-  box-shadow:0 0 18px rgba(0,234,255,.25);
-  padding:22px;
-  margin-bottom:18px;
-}
-.card p{
-  text-align:center;
-  font-size:18px;
-  line-height:1.6;
-}
-.logo{
-  display:block;
-  margin:26px auto;
-  width:180px;
-  border-radius:20px;
-  box-shadow:var(--glow);
+    background:rgba(0,0,0,.35);
+    border:1px solid rgba(0,255,200,.25);
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:18px;
 }
 
-/* PANEL DERECHO */
+/* ===================== FOOTER ===================== */
+.footer-gelm{
+    margin-top:30px;
+    padding-top:15px;
+    border-top:1px solid rgba(0,255,200,.25);
+    text-align:center;
+    font-size:11px;
+    opacity:.7;
+}
+
+/* ===================== PANEL DERECHO ===================== */
 .reproductor{
-  width:360px;
-  background:var(--card);
-  border-radius:20px;
-  border:1px solid rgba(0,234,255,.35);
-  box-shadow:var(--glow);
-  padding:14px;
+    width:340px;
+    background:var(--card);
+    border-radius:18px;
+    border:2px solid rgba(0,255,200,.35);
+    box-shadow:var(--glow);
+    padding:12px;
 }
 .reproductor h3{
-  text-align:center;
-  color:#ffdf40;
-  margin-bottom:10px;
-  text-shadow:0 0 10px #ffdf40;
+    text-align:center;
+    color:#ffd966;
+    margin-bottom:10px;
 }
 .reproductor iframe{
-  width:100%;
-  height:100%;
-  min-height:720px;
-  border-radius:16px;
-  border:none;
-  box-shadow:0 0 16px rgba(0,170,255,.6);
+    width:100%;
+    height:82vh;
+    border:none;
+    border-radius:14px;
 }
 </style>
 </head>
@@ -140,71 +156,91 @@ body{
 
 <div class="layout">
 
-  <!-- MENU -->
-  <aside class="menu">
-    <h2>Módulos</h2>
-  <button class="btn-menu" onclick="cargarModulo('inicio.html')">📢 Anuncios</button>
-<button class="btn-menu" onclick="cargarModulo('valores.html')">📜 Misión y Visión</button>
-<button class="btn-menu" onclick="cargarModulo('transportes.html')">🚐 Transportes</button>
-<button class="btn-menu" onclick="cargarModulo('operativos.html')">🚓 Operativos</button>
-<button class="btn-menu" onclick="cargarModulo('publica.html')">🛣️ Vía Pública</button>
-<button class="btn-menu" onclick="cargarModulo('educacion.html')">🎓 Educación Vial</button>
-<button class="btn-menu" onclick="cargarModulo('contacto.html')">📞 Contacto</button>
-<button class="btn-menu" onclick="cargarModulo('denuncias_pmt.html')">🚨 Denuncias PMT</button>
+    <!-- ===== MENÚ ===== -->
+    <div class="menu">
+        <h2>MÓDULOS</h2>
 
-  </aside>
-
-  <!-- CENTRO -->
-  <main class="centro">
-    <div class="titulo">POLICÍA MUNICIPAL DE TRÁNSITO — GELM 2026</div>
-
-    <div class="card">
-      <p>
-        Bienvenido al portal institucional de la<br>
-        <b>Policía Municipal de Tránsito de Chimaltenango</b><br><br>
-        Plataforma visual con diseño profesional GELM 2026,
-        orientada a control, registro y consulta de información.
-      </p>
+        <div class="btn-menu" onclick="cargarModulo('inicio.html')">📢 Anuncios</div>
+        <div class="btn-menu" onclick="cargarModulo('valores.html')">📘 Misión y Visión</div>
+        <div class="btn-menu" onclick="cargarModulo('transportes.html')">🚍 Transportes</div>
+        <div class="btn-menu" onclick="cargarModulo('operativos.html')">🚨 Operativos</div>
+        <div class="btn-menu" onclick="cargarModulo('publica.html')">🚧 Vía Pública</div>
+        <div class="btn-menu" onclick="cargarModulo('educacion.html')">🎓 Educación Vial</div>
+        <div class="btn-menu" onclick="cargarModulo('contacto.html')">📞 Contacto</div>
+        <div class="btn-menu" onclick="cargarModulo('denuncias_pmt.html')">🚔 Denuncias PMT</div>
     </div>
 
-    <div class="card">
-      <p>
-        Seleccione un módulo del panel izquierdo para navegar.<br>
-        Este diseño replica la estética del sistema<br>
-        <b>HECHOS DE TRÁNSITO — GELM 2026</b>.
-      </p>
+    <!-- ===== CONTENIDO ===== -->
+    <div id="panel-central" class="panel-central fade-in">
+
+        <div class="cabecera">
+            <h1>POLICÍA MUNICIPAL DE TRÁNSITO — GELM 2026</h1>
+            <div id="reloj" class="reloj"></div>
+        </div>
+
+        <div class="card">
+            <p style="text-align:center;font-size:17px;">
+                Bienvenido al portal institucional de la <b>Policía Municipal de Tránsito de Chimaltenango</b>.
+            </p>
+        </div>
+
+        <div class="card">
+            <p style="text-align:center;">
+                Plataforma desarrollada bajo el sistema <b>GELM 2026</b>, orientada al control,
+                registro y consulta de información operativa.
+            </p>
+        </div>
+
+        <div class="card" style="text-align:center;">
+            <img src="icons/pmt.png" style="max-width:220px;border-radius:16px;box-shadow:0 0 18px rgba(0,255,200,.5)">
+        </div>
+
+        <footer class="footer-gelm">
+            © 2025–2026 — Sistema GELM<br>
+            Desarrollo, diseño y propiedad intelectual reservada — BY GELM<br>
+            Uso interno autorizado
+        </footer>
+
     </div>
 
-    <img src="icons/pmt.png" class="logo" alt="PMT Chimaltenango">
-  </main>
-
-  <!-- DERECHO -->
-  <aside class="reproductor">
-    <h3>Reproductor NEROX</h3>
-    <iframe src="https://gelm2mil.github.io/music/index.html"></iframe>
-  </aside>
+    <!-- ===== PANEL DERECHO ===== -->
+    <div class="reproductor">
+        <h3>Reproductor NEROX</h3>
+        <iframe src="https://gelm2mil.github.io/music/index.html"></iframe>
+    </div>
 
 </div>
 
-</body>
-</html>
 <script>
-function cargarModulo(archivo) {
-    fetch(archivo)
-        .then(resp => {
-            if (!resp.ok) throw new Error("No encontrado");
-            return resp.text();
+/* ===== CARGA SEGURA DE MÓDULOS ===== */
+function cargarModulo(archivo){
+    const panel = document.getElementById("panel-central");
+    fetch(archivo,{cache:"no-store"})
+        .then(r=>{
+            if(!r.ok) throw new Error("No se pudo cargar "+archivo);
+            return r.text();
         })
-        .then(html => {
-            const panel = document.getElementById("panel-central");
+        .then(html=>{
             panel.innerHTML = html;
-            panel.classList.remove("fade");
+            panel.classList.remove("fade-in");
             void panel.offsetWidth;
-            panel.classList.add("fade");
+            panel.classList.add("fade-in");
         })
-        .catch(() => {
-            document.getElementById("panel-central").innerHTML =
-                "<h2 style='color:#ff4b4b;text-align:center;'>Error cargando módulo</h2>";
+        .catch(e=>{
+            panel.innerHTML = "<div style='color:#ff5c5c;text-align:center'><h3>Error</h3><p>"+e.message+"</p></div>";
         });
 }
+
+/* ===== RELOJ ===== */
+function relojSistema(){
+    const r=document.getElementById("reloj");
+    const f=new Date();
+    r.textContent=f.toLocaleDateString("es-GT",{weekday:"long",day:"numeric",month:"long",year:"numeric"})+
+        " — "+f.toLocaleTimeString("es-GT");
+}
+setInterval(relojSistema,1000);
+relojSistema();
 </script>
+
+</body>
+</html>
