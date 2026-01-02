@@ -146,3 +146,41 @@ body {
     text-shadow: 0 0 12px #00ff66;
     margin-bottom: 10px;
 }
+.centro {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.centro-header {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0,255,200,0.25);
+}
+
+.centro-header h1 {
+    color: #00ffd5;
+    text-shadow: 0 0 12px rgba(0,255,200,0.7);
+    margin-bottom: 6px;
+}
+
+.fecha-hora {
+    font-size: 14px;
+    color: #bff;
+    opacity: 0.85;
+}
+
+.contenido {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.centro-footer {
+    text-align: center;
+    font-size: 12px;
+    padding: 10px;
+    border-top: 1px solid rgba(0,255,200,0.25);
+    color: #9ff;
+    opacity: 0.8;
+}
