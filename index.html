@@ -6,14 +6,15 @@
 <title>PMT Chimaltenango — GELM 2026</title>
 
 <style>
-/* ===================== VARIABLES NEÓN ===================== */
+
+/* ===================== VARIABLES ===================== */
 :root{
-    --neon:#00ffc3;
+    --neon:#00ffd5;
     --bg1:#020b18;
-    --bg2:#061a2e;
-    --card:rgba(5,25,45,.92);
-    --txt:#e9f9ff;
-    --glow:0 0 18px rgba(0,255,200,.35);
+    --bg2:#041d33;
+    --card:rgba(4,18,34,.92);
+    --txt:#e9ffff;
+    --glow:0 0 18px rgba(0,255,213,.35);
 }
 
 /* ===================== RESET ===================== */
@@ -21,8 +22,8 @@
 body{
     font-family:"Segoe UI",system-ui;
     background:
-        radial-gradient(circle at 20% 20%, #0d5b7a 0%, transparent 55%),
-        radial-gradient(circle at 80% 80%, #3a003a 0%, transparent 60%),
+        radial-gradient(circle at 20% 20%, #063b7a 0%, transparent 55%),
+        radial-gradient(circle at 80% 80%, #0a0033 0%, transparent 60%),
         linear-gradient(180deg,var(--bg1),var(--bg2));
     color:var(--txt);
     height:100vh;
@@ -32,19 +33,19 @@ body{
 /* ===================== LAYOUT ===================== */
 .layout{
     display:flex;
-    height:100vh;
+    height:100%;
     gap:12px;
-    padding:14px;
+    padding:12px;
 }
 
-/* ===================== MENÚ ===================== */
+/* ===================== MENU ===================== */
 .menu{
     width:260px;
-    background:var(--card);
-    border:2px solid rgba(0,255,200,.35);
+    background:rgba(0,0,0,.45);
+    border:1px solid rgba(0,255,213,.35);
     border-radius:18px;
     box-shadow:var(--glow);
-    padding:18px;
+    padding:16px;
     display:flex;
     flex-direction:column;
 }
@@ -52,103 +53,99 @@ body{
 .menu h2{
     text-align:center;
     color:var(--neon);
-    margin-bottom:16px;
-    letter-spacing:2px;
-    text-shadow:0 0 10px rgba(0,255,200,.6);
+    margin-bottom:15px;
+    text-shadow:var(--glow);
 }
 
 .btn-menu{
-    padding:12px;
-    margin-bottom:12px;
+    margin-bottom:10px;
+    padding:11px;
     border-radius:12px;
     background:#000;
-    border:1px solid rgba(0,255,200,.45);
+    border:1px solid rgba(0,255,213,.45);
     color:var(--neon);
-    font-weight:600;
     cursor:pointer;
+    font-weight:600;
     transition:.25s;
-    text-align:left;
 }
-
 .btn-menu:hover{
     background:var(--neon);
-    color:#001616;
-    box-shadow:0 0 12px rgba(0,255,200,.6);
+    color:#000;
 }
 
-/* ===================== PANEL CENTRAL ===================== */
-.panel-central{
+/* ===================== CENTRO ===================== */
+.centro{
     flex:1;
-    background:var(--card);
-    border-radius:22px;
-    border:2px solid rgba(0,255,200,.35);
+    background:rgba(0,0,0,.45);
+    border:1px solid rgba(0,255,213,.35);
+    border-radius:20px;
     box-shadow:var(--glow);
-    padding:26px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+/* ---------- HEADER FIJO ---------- */
+.centro-header{
+    padding:16px;
+    text-align:center;
+    border-bottom:1px solid rgba(0,255,213,.25);
+}
+.centro-header h1{
+    color:var(--neon);
+    text-shadow:var(--glow);
+    margin-bottom:4px;
+}
+.fecha-hora{
+    font-size:13px;
+    opacity:.85;
+}
+
+/* ---------- CONTENIDO DINÁMICO ---------- */
+#contenido{
+    flex:1;
+    padding:25px;
     overflow-y:auto;
 }
-
-/* ANIMACIÓN */
-.fade-in{animation:fade .5s ease}
+.fade{
+    animation:fade .5s ease;
+}
 @keyframes fade{
     from{opacity:0;transform:translateY(10px)}
     to{opacity:1;transform:translateY(0)}
 }
 
-/* ===================== CABECERA ===================== */
-.cabecera{
+/* ---------- FOOTER FIJO ---------- */
+.centro-footer{
     text-align:center;
-    margin-bottom:22px;
-}
-.cabecera h1{
-    color:var(--neon);
-    letter-spacing:3px;
-    text-shadow:0 0 14px rgba(0,255,200,.6);
-}
-.reloj{
-    margin-top:6px;
-    font-size:13px;
-    opacity:.85;
+    font-size:12px;
+    padding:10px;
+    border-top:1px solid rgba(0,255,213,.25);
+    opacity:.8;
 }
 
-/* ===================== TARJETAS ===================== */
-.card{
-    background:rgba(0,0,0,.35);
-    border:1px solid rgba(0,255,200,.25);
-    border-radius:18px;
-    padding:22px;
-    margin-bottom:18px;
-}
-
-/* ===================== FOOTER ===================== */
-.footer-gelm{
-    margin-top:30px;
-    padding-top:15px;
-    border-top:1px solid rgba(0,255,200,.25);
-    text-align:center;
-    font-size:11px;
-    opacity:.7;
-}
-
-/* ===================== PANEL DERECHO ===================== */
+/* ===================== REPRODUCTOR ===================== */
 .reproductor{
-    width:340px;
-    background:var(--card);
+    width:360px;
+    background:rgba(0,0,0,.45);
+    border:1px solid rgba(0,255,213,.35);
     border-radius:18px;
-    border:2px solid rgba(0,255,200,.35);
     box-shadow:var(--glow);
     padding:12px;
+    overflow:hidden;
 }
 .reproductor h3{
     text-align:center;
-    color:#ffd966;
+    color:#ffd24d;
     margin-bottom:10px;
 }
 .reproductor iframe{
     width:100%;
-    height:82vh;
+    height:100%;
     border:none;
     border-radius:14px;
 }
+
 </style>
 </head>
 
@@ -156,54 +153,45 @@ body{
 
 <div class="layout">
 
-    <!-- ===== MENÚ ===== -->
+    <!-- ===================== MENU ===================== -->
     <div class="menu">
         <h2>MÓDULOS</h2>
-
-        <div class="btn-menu" onclick="cargarModulo('inicio.html')">📢 Anuncios</div>
-        <div class="btn-menu" onclick="cargarModulo('valores.html')">📘 Misión y Visión</div>
-        <div class="btn-menu" onclick="cargarModulo('transportes.html')">🚍 Transportes</div>
-        <div class="btn-menu" onclick="cargarModulo('operativos.html')">🚨 Operativos</div>
-        <div class="btn-menu" onclick="cargarModulo('publica.html')">🚧 Vía Pública</div>
-        <div class="btn-menu" onclick="cargarModulo('educacion.html')">🎓 Educación Vial</div>
-        <div class="btn-menu" onclick="cargarModulo('contacto.html')">📞 Contacto</div>
-        <div class="btn-menu" onclick="cargarModulo('denuncias_pmt.html')">🚔 Denuncias PMT</div>
+        <div class="btn-menu" onclick="cargar('inicio.html')">📢 Anuncios</div>
+        <div class="btn-menu" onclick="cargar('valores.html')">📘 Misión y Visión</div>
+        <div class="btn-menu" onclick="cargar('transportes.html')">🚍 Transportes</div>
+        <div class="btn-menu" onclick="cargar('operativos.html')">🚔 Operativos</div>
+        <div class="btn-menu" onclick="cargar('publica.html')">🛣️ Vía Pública</div>
+        <div class="btn-menu" onclick="cargar('educacion.html')">🎓 Educación Vial</div>
+        <div class="btn-menu" onclick="cargar('contacto.html')">☎️ Contacto</div>
+        <div class="btn-menu" onclick="cargar('denuncias_pmt.html')">🚨 Denuncias PMT</div>
     </div>
 
-    <!-- ===== CONTENIDO ===== -->
-    <div id="panel-central" class="panel-central fade-in">
+    <!-- ===================== CENTRO ===================== -->
+    <div class="centro">
 
-        <div class="cabecera">
+        <!-- HEADER FIJO -->
+        <div class="centro-header">
             <h1>POLICÍA MUNICIPAL DE TRÁNSITO — GELM 2026</h1>
-            <div id="reloj" class="reloj"></div>
+            <div id="fechaHora" class="fecha-hora"></div>
         </div>
 
-        <div class="card">
-            <p style="text-align:center;font-size:17px;">
-                Bienvenido al portal institucional de la <b>Policía Municipal de Tránsito de Chimaltenango</b>.
+        <!-- CONTENIDO DINÁMICO -->
+        <div id="contenido" class="fade">
+            <p style="text-align:center;color:var(--neon);font-size:20px">
+                Seleccione un módulo del panel izquierdo para navegar.
             </p>
         </div>
 
-        <div class="card">
-            <p style="text-align:center;">
-                Plataforma desarrollada bajo el sistema <b>GELM 2026</b>, orientada al control,
-                registro y consulta de información operativa.
-            </p>
-        </div>
-
-        <div class="card" style="text-align:center;">
-            <img src="icons/pmt.png" style="max-width:220px;border-radius:16px;box-shadow:0 0 18px rgba(0,255,200,.5)">
-        </div>
-
-        <footer class="footer-gelm">
+        <!-- FOOTER FIJO -->
+        <div class="centro-footer">
             © 2025–2026 — Sistema GELM<br>
             Desarrollo, diseño y propiedad intelectual reservada — BY GELM<br>
             Uso interno autorizado
-        </footer>
+        </div>
 
     </div>
 
-    <!-- ===== PANEL DERECHO ===== -->
+    <!-- ===================== REPRODUCTOR ===================== -->
     <div class="reproductor">
         <h3>Reproductor NEROX</h3>
         <iframe src="https://gelm2mil.github.io/music/index.html"></iframe>
@@ -212,34 +200,30 @@ body{
 </div>
 
 <script>
-/* ===== CARGA SEGURA DE MÓDULOS ===== */
-function cargarModulo(archivo){
-    const panel = document.getElementById("panel-central");
-    fetch(archivo,{cache:"no-store"})
-        .then(r=>{
-            if(!r.ok) throw new Error("No se pudo cargar "+archivo);
-            return r.text();
-        })
+function cargar(archivo){
+    fetch(archivo)
+        .then(r=>r.text())
         .then(html=>{
-            panel.innerHTML = html;
-            panel.classList.remove("fade-in");
-            void panel.offsetWidth;
-            panel.classList.add("fade-in");
+            const c=document.getElementById("contenido");
+            c.innerHTML=html;
+            c.classList.remove("fade");
+            void c.offsetWidth;
+            c.classList.add("fade");
         })
-        .catch(e=>{
-            panel.innerHTML = "<div style='color:#ff5c5c;text-align:center'><h3>Error</h3><p>"+e.message+"</p></div>";
+        .catch(()=>{
+            document.getElementById("contenido").innerHTML=
+            "<h3 style='color:red;text-align:center'>Error cargando módulo</h3>";
         });
 }
 
-/* ===== RELOJ ===== */
-function relojSistema(){
-    const r=document.getElementById("reloj");
+function actualizarHora(){
     const f=new Date();
-    r.textContent=f.toLocaleDateString("es-GT",{weekday:"long",day:"numeric",month:"long",year:"numeric"})+
+    document.getElementById("fechaHora").textContent=
+        f.toLocaleDateString("es-GT",{weekday:"long",year:"numeric",month:"long",day:"numeric"})+
         " — "+f.toLocaleTimeString("es-GT");
 }
-setInterval(relojSistema,1000);
-relojSistema();
+setInterval(actualizarHora,1000);
+actualizarHora();
 </script>
 
 </body>
