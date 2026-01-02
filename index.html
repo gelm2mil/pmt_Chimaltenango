@@ -143,14 +143,15 @@ body{
   <!-- MENU -->
   <aside class="menu">
     <h2>Módulos</h2>
-    <div class="btn-menu">📢 Anuncios</div>
-    <div class="btn-menu">📄 Misión y Visión</div>
-    <div class="btn-menu">🚦 Transportes</div>
-    <div class="btn-menu">🛑 Operativos</div>
-    <div class="btn-menu">🛣️ Vía Pública</div>
-    <div class="btn-menu">🎓 Educación Vial</div>
-    <div class="btn-menu">📞 Contacto</div>
-    <div class="btn-menu">🚨 Denuncias PMT</div>
+  <button class="btn-menu" onclick="cargarModulo('inicio.html')">📢 Anuncios</button>
+<button class="btn-menu" onclick="cargarModulo('valores.html')">📜 Misión y Visión</button>
+<button class="btn-menu" onclick="cargarModulo('transportes.html')">🚐 Transportes</button>
+<button class="btn-menu" onclick="cargarModulo('operativos.html')">🚓 Operativos</button>
+<button class="btn-menu" onclick="cargarModulo('publica.html')">🛣️ Vía Pública</button>
+<button class="btn-menu" onclick="cargarModulo('educacion.html')">🎓 Educación Vial</button>
+<button class="btn-menu" onclick="cargarModulo('contacto.html')">📞 Contacto</button>
+<button class="btn-menu" onclick="cargarModulo('denuncias_pmt.html')">🚨 Denuncias PMT</button>
+
   </aside>
 
   <!-- CENTRO -->
@@ -187,3 +188,23 @@ body{
 
 </body>
 </html>
+<script>
+function cargarModulo(archivo) {
+    fetch(archivo)
+        .then(resp => {
+            if (!resp.ok) throw new Error("No encontrado");
+            return resp.text();
+        })
+        .then(html => {
+            const panel = document.getElementById("panel-central");
+            panel.innerHTML = html;
+            panel.classList.remove("fade");
+            void panel.offsetWidth;
+            panel.classList.add("fade");
+        })
+        .catch(() => {
+            document.getElementById("panel-central").innerHTML =
+                "<h2 style='color:#ff4b4b;text-align:center;'>Error cargando módulo</h2>";
+        });
+}
+</script>
